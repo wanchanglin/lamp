@@ -1,0 +1,18 @@
+# 16-07-2022, Sat: ignore results: gml, csv, tsv, db and pdf 
+
+# **.gml
+# **.csv
+# **.xlsx
+# **.tsv
+# **.pdf
+# **.db
+# **.gz
+# **.txt
+
+# 14-06-2023, Wed: Ignore everything in this directory (all files and
+# directories)
+*
+*/
+
+# Except this file
+!.gitignore

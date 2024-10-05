@@ -1,0 +1,8 @@
+# Create .gitignore inside the target folder and add the content below
+
+# Ignore everything in this directory (all files and directories)
+*
+*/
+
+# Except this file
+!.gitignore
