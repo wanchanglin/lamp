@@ -1,0 +1,11 @@
+name: lamp
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - numpy
+  - scipy
+  - pandas
+  - sqlite3
+  - pyside6
+  - pyteomics
