@@ -3,3 +3,4 @@ include LICENSE
 include requirements.txt
 include lamp/lib/*.txt
 include examples/*.py
+include examples/*.sh

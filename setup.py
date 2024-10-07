@@ -24,7 +24,7 @@ def main():
                   "Metabolite Annotation"],
         packages=setuptools.find_packages(),
         python_requires=">=3.10",
-        test_suite="tests.suite",
+        # test_suite="tests.suite",
         install_requires=install_requires,
         include_package_data=True,
         classifiers=[
