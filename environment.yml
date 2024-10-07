@@ -6,6 +6,5 @@ dependencies:
   - numpy
   - scipy
   - pandas
-  - sqlite3
   - pyside6
   - pyteomics

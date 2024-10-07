@@ -5,7 +5,7 @@
 # '--cal-mass',
 # '--add-mass',
  
-python lamp_main.py cmd \
+lamp cmd \
   --sep 'tab' \
   --input-data './data/df_pos_2.tsv' \
   --col-idx '1, 3, 6, 11' \
