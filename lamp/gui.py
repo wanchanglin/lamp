@@ -9,7 +9,9 @@ from functools import partial
 from PySide6 import QtCore, QtWidgets
 import lamp
 from lamp import qt
-from lamp import lamp
+from lamp import anno
+from lamp import stats
+from lamp import utils
 
 
 # -------------------------------------------------------------------------
@@ -164,26 +166,26 @@ class lamp_app(QtWidgets.QMainWindow, qt.lamp_form.Ui_MainWindow):
             self.spinBox_data_col.value(),
         ]
 
-        df = lamp.read_peak(self.lineEdit_data.text(), cols=cols,
+        df = anno.read_peak(self.lineEdit_data.text(), cols=cols,
                             sep=sepa[self.comboBox_data_sep.currentText()])
 
         # -----------------------------------------------------------------
         # calculate exact mass
-        ref = lamp.read_ref(ref_path, calc=self.checkBox_mass_cal.isChecked())
+        ref = anno.read_ref(ref_path, calc=self.checkBox_mass_cal.isChecked())
 
         # -----------------------------------------------------------------
         # match compound based on exact mass
         if self.checkBox_mass_adj.isChecked():
             # match compounds with adduct library mass adjustment
-            lib_add = lamp.read_lib(add_path,
+            lib_add = anno.read_lib(add_path,
                                     mode[self.comboBox_ion_mode.currentText()])
 
-            match = lamp.comp_match_mass_add(df,
+            match = anno.comp_match_mass_add(df,
                                              self.doubleSpinBox_ppm.value(),
                                              ref, lib_add)
         else:
             # match compounds without adduct library mass adjustment
-            match = lamp.comp_match_mass(df,
+            match = anno.comp_match_mass(df,
                                          self.doubleSpinBox_ppm.value(),
                                          ref)
 
@@ -196,8 +198,8 @@ class lamp_app(QtWidgets.QMainWindow, qt.lamp_form.Ui_MainWindow):
         else:
             method = "spearman"
 
-        lamp._tic()
-        corr = lamp.comp_corr_rt(
+        utils._tic()
+        corr = stats.comp_corr_rt(
             df,
             thres_rt=self.doubleSpinBox_thres_rt.value(),
             thres_corr=self.doubleSpinBox_thres_corr.value(),
@@ -205,18 +207,18 @@ class lamp_app(QtWidgets.QMainWindow, qt.lamp_form.Ui_MainWindow):
             method=method,
             positive=self.checkBox_pos.isChecked()
         )
-        lamp._toc()
+        utils._toc()
 
         # get correlation group and size
-        lamp._tic()
-        corr_df = lamp.corr_grp_size(corr)
-        lamp._toc()
+        utils._tic()
+        corr_df = stats.corr_grp_size(corr)
+        utils._toc()
 
         print("\n***Correlation analysis done***")
 
         # -----------------------------------------------------------------
         # get summary of metabolite annotation
-        sr, mr = lamp.comp_summ(df, match)
+        sr, mr = anno.comp_summ(df, match)
 
         # merge summery table with correlation analysis
         res = (

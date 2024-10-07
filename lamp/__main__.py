@@ -3,15 +3,17 @@
 
 # wl-07-10-2024, Mon: commence
 
-# from lamp import __version__
+from lamp import __version__
 import argparse
 import sys
 import os
 import sqlite3
 import pandas as pd
 from PySide6.QtWidgets import QApplication
-import lamp.lamp_gui as gui
-import lamp.lamp as lamp
+# import lamp
+from lamp import gui
+from lamp import anno
+from lamp import stats
 
 
 # --------------------------------------------------------------------------
@@ -105,38 +107,38 @@ def main():
         # -----------------------------------------------------------------
         # get data with peak list and intensity matrix
         idx_list = [int(item.strip()) for item in args.col_idx.split(',')]
-        df = lamp.read_peak(fn=args.input_data, cols=idx_list,
-                        sep=separators[args.sep])
+        df = anno.read_peak(fn=args.input_data, cols=idx_list,
+                            sep=separators[args.sep])
 
         # -----------------------------------------------------------------
         # calculate exact mass
-        ref = lamp.read_ref(args.ref_path, calc=args.cal_mass)
+        ref = anno.read_ref(args.ref_path, calc=args.cal_mass)
 
         # -----------------------------------------------------------------
         # match compound based on exact mass
         if args.add_mass:
             # match compounds with adduct library mass adjustment
-            lib_add = lamp.read_lib(args.add_path, args.ion_mode)
-            match = lamp.comp_match_mass_add(df, args.ppm, ref, lib_add)
+            lib_add = anno.read_lib(args.add_path, args.ion_mode)
+            match = anno.comp_match_mass_add(df, args.ppm, ref, lib_add)
         else:
             # match compounds without adduct library mass adjustment
-            match = lamp.comp_match_mass(df, args.ppm, ref)
+            match = anno.comp_match_mass(df, args.ppm, ref)
 
         # -----------------------------------------------------------------
         # correlation analysis with corr, pval and rt_diff
-        corr = lamp.comp_corr_rt(df,
-                            thres_rt=args.thres_rt,
-                            thres_corr=args.thres_corr,
-                            thres_pval=args.thres_pval,
-                            method=args.method,
-                            positive=args.positive)
+        corr = stats.comp_corr_rt(df,
+                                  thres_rt=args.thres_rt,
+                                  thres_corr=args.thres_corr,
+                                  thres_pval=args.thres_pval,
+                                  method=args.method,
+                                  positive=args.positive)
 
         # get correlation group and size
-        corr_df = lamp.corr_grp_size(corr)
+        corr_df = stats.corr_grp_size(corr)
 
         # -----------------------------------------------------------------
         # get summary of metabolite annotation
-        sr, mr = lamp.comp_summ(df, match)
+        sr, mr = anno.comp_summ(df, match)
 
         # merge summery table with correlation analysis
         res = (

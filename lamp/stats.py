@@ -1,0 +1,322 @@
+import scipy
+import numpy as np
+import pandas as pd
+
+
+# -------------------------------------------------------------------------
+# wl-20-05-2024, Mon: get correlation group and size
+def corr_grp_size(corr):
+    """
+    Get correlation group and size.
+
+    Parameters
+    ----------
+    corr : DataFrame
+        A long-format correlation table. The front two columns
+        names must be 'name_a' and 'name_b'. Other columns could be
+        correlation coefficient, p-values and any other values.
+
+    Returns
+    -------
+    DataFrame
+        a data frame with three columns, "name", "cor_grp_size" and
+        "cor_grp".
+    """
+    # get correlated groups/clusters
+    cor_nam = corr['name_a'].to_list()
+    cor_nam.extend(corr['name_b'].to_list())
+    cor_nam = list(set(cor_nam))
+    cor_grp = [corr_grp(x, corr) for x in cor_nam]
+    # cor_grp_dict = {x: mt.corr_grp(x, corr) for x in cor_nam}
+    cor_len = [len(x) for x in cor_grp]
+    cor_str = ['::'.join(x) for x in cor_grp]
+    # merge into a data frame
+    cor_df = pd.DataFrame(list(zip(cor_nam, cor_len, cor_str)),
+                          columns=['name', 'cor_grp_size', 'cor_grp'])
+    cor_df = cor_df.sort_values('cor_grp_size', ignore_index=True,
+                                ascending=False)
+    return cor_df
+
+
+# -----------------------------------------------------------------------
+# wl-01-05-2024, Wed: get correlation group
+def corr_grp(x, corr):
+    """
+    Get correlated group.
+
+    'x' will mtched in the first two columns of 'corr'.
+
+    Parameters
+    ----------
+    x : str
+        A string for match
+    corr : DataFrame
+        A long-format correlation table. The front two columns
+        names must be 'name_a' and 'name_b'. Other columns could be
+        correlation coefficient, p-values and any other values.
+
+    Returns
+    -------
+    list
+        a list consisting matched strings
+    """
+
+    ida = corr['name_a'] == x
+    a = corr['name_b'][ida].to_list()
+
+    idb = corr['name_b'] == x
+    b = corr['name_a'][idb].to_list()
+
+    a.extend(b)
+
+    return a
+
+
+# -------------------------------------------------------------------------
+# wl-04-12-2023, Mon: get correlation coefficients, p-values and rt
+# differences for compound annotation.
+# Note:
+#  - not feasible to return un-filtered results for large data set (>2000)
+def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
+                 method="pearson", positive=True):
+    """
+    Get correlation coefficients, p-values and rt differences for compound
+    annotation.
+
+    Parameters
+    ----------
+    df : DataFrame
+        A pandas data frame of peak table. It must have "name", "mz" and
+        "rt" columns.
+    thres_rt : float
+        Threshold for retension time.
+    thres_corr : float
+        Threshold for correlation coefficients
+    thres_pval : float
+        Threshold for correlation p-values.
+    method : str
+        Correlation methods, either "pearson" or "spearman".
+    positive : bool
+        Use positive correlation or not.
+
+    Returns
+    -------
+    DataFrame
+        A table with differences of retension time, correlation
+        coeffocients, correlation p-values.
+    """
+    # get data for correlation analysis
+    mat = df.drop(['name', 'mz', 'rt', 'intensity'], axis=1)
+
+    mat = mat.T                      # transpose
+    mat.columns = df["name"]         # change columns' names
+
+    # calculate correlation coefficient and p-values
+    corr, pval = df_corr_pval(mat, method=method)
+    # corr.isnull().sum()    # check nan
+    # pval.isnull().sum()    # check nan
+
+    # filter corr and pval
+    if positive:
+        corr[corr <= thres_corr] = np.nan
+    else:
+        corr[abs(corr) <= thres_corr] = np.nan
+
+    pval[pval >= thres_pval] = np.nan
+
+    # convert short format to long format and remove NaNs
+    corr = df_short2long(corr)
+    corr.rename(columns={'var': 'r_value'}, inplace=True)
+    pval = df_short2long(pval)
+    pval.rename(columns={'var': 'p_value'}, inplace=True)
+
+    # merge (corr and pval's row number may be different so cannot use
+    # pd.concat)
+    tab = corr.merge(pval, on=['com1', 'com2'], how='inner')
+    del corr, pval     # release memory
+
+    if thres_rt is not None:               # get rt diff
+        tmp = df[['name', 'rt']]
+        diff = abs(df_diff(tmp))
+        diff[diff > thres_rt] = np.nan     # filter rt
+        diff = df_short2long(diff)
+        diff = diff.rename(columns={'var': 'rt_diff'}).round({'rt_diff': 2})
+        # merge corr and pval
+        tab = tab.merge(diff, on=['com1', 'com2'], how='inner')
+        del tmp, diff     # release memory
+
+    tab = (
+        tab
+        .rename(columns={"com1": "name_a", "com2": "name_b"})
+        .round({'r_value': 2})
+    )
+
+    return tab
+
+
+# -------------------------------------------------------------------------
+# wl-28-07-2022, Thu: calculate matrix's correlation and p-values
+#   This method calls pandas.DataFrame.corr() twice.
+# wl-27-09-2022, Tue: get p-values from https://bit.ly/3frFFUV
+# wl-05-12-2023, Tue: fix a mis-understanding of sample size (nData)
+# wl-06-12-2023, Wed: 'spearman' is extremely slow. Use rank's 'pearson' as
+#  the alternative (ultimately doing the same calculation). For details, see
+#  https://bit.ly/4a9y1X2
+def df_corr_pval(df, method="pearson", min_periods=4):
+    """
+    Calculate matrix's correlation and p-values.
+
+    This function calls pandas.DataFrame.corr().
+
+    Parameters
+    ----------
+    df : DataFRame
+        a symmetric data frame.
+    method : {'pearson', 'spearman'}
+        Method of correlation:
+        * pearson : standard correlation coefficient
+        * spearman : Spearman rank correlation
+    min_periods : int
+        Minimum number of observations required per pair of columns
+        to have a valid result.
+
+    Returns
+    -------
+    corr : DataFrame
+        correlation matrix
+    pval : DataFrame
+        p-value matrix
+
+    Examples
+    --------
+    >>> n = 10        # sample size
+    >>> m = 20        # feature size
+    >>> df = pd.DataFrame(np.random.random((n, m)))
+    >>> df.columns = ['col{}'.format(x) for x in range(m)]
+    >>> co, pv = df_corr_pval(df)
+    """
+    def corr_pval_two_side(cc, nData):
+        # We will divide by 0 if correlation is exactly 1, but that is no
+        # problem. We would simply set the test statistic to be infinity if
+        # it evaluates to NAN
+        with np.errstate(divide='ignore'):
+            t = -np.abs(cc) * np.sqrt((nData - 2) / (1 - cc**2))
+            t[t == np.nan] = np.inf
+            # multiply by two to get two-sided p-value
+            return scipy.stats.t.cdf(t, nData - 2) * 2
+
+    # get correlation. Very fast for 'pearson'.
+    if False:
+        corr = df.corr(method=method, min_periods=min_periods)
+    else:
+        if method == "pearson":
+            corr = df.corr(method="pearson", min_periods=min_periods)
+        elif method == "spearman":  # 06-12-2023, Wed: fast than 'spearman'
+            corr = df.rank().corr(method="pearson", min_periods=min_periods)
+        else:
+            raise ValueError("Method must be either 'pearson' or 'spearman'.")
+
+    flag = False
+    if flag:    # call df.corr again
+        if method == "pearson":
+            meth_corr = scipy.stats.pearsonr
+        elif method == "spearman":
+            meth_corr = scipy.stats.spearmanr
+        else:
+            raise ValueError("Method must be either 'pearson' or 'spearman'.")
+        # get p-values
+        pval = df.corr(method=lambda x, y: meth_corr(x, y)[1],
+                       min_periods=min_periods) - np.eye(len(df.columns))
+    else:       # use local function
+        # sample size is row of df, not col of df
+        pval = corr_pval_two_side(corr, df.shape[0])
+        # pval = corr_to_pval(corr, df.shape[0])
+        pval = pd.DataFrame(pval)
+        # set dimension names as 'corr'
+        pval.index = corr.index
+        pval.columns = corr.columns
+
+    return corr, pval
+
+
+# -------------------------------------------------------------------------
+# wl-04-12-2023, Mon: Convert short to long format and remove NAs
+# Note that this function will remove NAs.
+def df_short2long(df):
+    """
+    Convert a symmetric matrix to a pair-wise matrix.
+
+    This function convert so-called short format matrix to long format
+    matrix. Also the missing values will be removed.
+
+    Parameters
+    ----------
+    df : DataFRame
+        a symmetric data frame.
+
+    Returns
+    -------
+    DataFrame
+        a data frame.
+    """
+
+    # reset columns and index names
+    df = df.rename_axis(None).rename_axis(None, axis=1)
+    # df.index.name = None
+
+    # reshape data frame
+    long_df = df.stack().reset_index()
+    long_df.columns = ['com1', 'com2', 'var']
+
+    # Exclude the diagonal and duplicate entries
+    if True:
+        long_df = long_df[long_df['com1'] < long_df['com2']]
+    else:
+        # create a mask to identify rows with duplicate features
+        # See https://bit.ly/3Ooei9W for details.
+        idx = (
+            (long_df[['com1', 'com2']].apply(frozenset, axis=1).duplicated()) | \
+            (long_df['com1'] == long_df['com2'])
+        )
+        # update
+        long_df = long_df[~idx]
+
+    # reset row names
+    long_df.reset_index(drop=True, inplace=True)
+
+    return long_df
+
+
+# -------------------------------------------------------------------------
+# wl-25-07-2022, Mon: calculate pairwise difference
+# See https://bit.ly/3outZSs for details.
+def df_diff(df):
+    """
+    Calculate pairwise difference of a data frame.
+
+    Parameters
+    ----------
+    df : DataFrame
+        a data frame.
+
+    Returns
+    -------
+    DataFrame
+        a data frome with pair-wise differences.
+
+    Examples
+    --------
+    >>> tmp = {'Country':['GB','JP','US'],'Values':[20.2,-10.5,5.7]}
+    >>> tmp = pd.DataFrame(tmp)
+    >>> df_diff(tmp)
+    """
+
+    # use apply to get symmetric difference matrix
+    arr = df.iloc[:, 1].apply(lambda x: df.iloc[:, 1] - x)
+    # arr = abs(arr)
+
+    # change row ad column names
+    arr.index = list(df.iloc[:, 0])
+    arr.columns = list(df.iloc[:, 0])
+
+    return arr
