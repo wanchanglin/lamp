@@ -10,7 +10,6 @@ import os
 import sqlite3
 import pandas as pd
 from PySide6.QtWidgets import QApplication
-# import lamp
 from lamp import gui
 from lamp import anno
 from lamp import stats

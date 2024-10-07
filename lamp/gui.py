@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 # wl-19-09-2024, Thu: commence
 
 import os
@@ -8,7 +9,8 @@ import sqlite3
 from functools import partial
 from PySide6 import QtCore, QtWidgets
 import lamp
-from lamp import qt
+from lamp.qt import lamp_form
+# from lamp import qt       # wl-07-10-2024, Mon: not work
 from lamp import anno
 from lamp import stats
 from lamp import utils
@@ -16,7 +18,7 @@ from lamp import utils
 
 # -------------------------------------------------------------------------
 # wl-19-09-2024, Thu: commence
-class lamp_app(QtWidgets.QMainWindow, qt.lamp_form.Ui_MainWindow):
+class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         super(lamp_app, self).__init__(*args, **kwargs)
         self.setupUi(self)

@@ -15,7 +15,7 @@ import os
 import sys
 # wl-26-08-2024, Mon: Source code dir relative to this file. You need to
 # change the path if needed.
-sys.path.insert(0, os.path.abspath('../lamp/'))
+sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information ------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.abspath('../lamp/'))
 project = 'LAMP'
 copyright = '2024, Wanchang Lin'
 author = 'Wanchang Lin'
-release = '0.1.0'
+release = '1.0.0'
 
 # -- General configuration ---------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
