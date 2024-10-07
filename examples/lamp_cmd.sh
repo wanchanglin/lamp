@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
-
 # wl-07-10-2024, Mon: command-line test script
-
-# '--cal-mass',
-# '--add-mass',
+# --add-mass
  
 lamp cmd \
   --sep 'tab' \
-  --input-data './data/df_pos_2.tsv' \
-  --col-idx '1, 3, 6, 11' \
+  --input-data './data/df_pos_3.tsv' \
+  --col-idx '1, 2, 3, 4' \
   --add-path '' \
-  --ref-path './ref/ref_all_v7_pos.tsv' \
+  --ref-path '' \
   --ion-mode 'pos' \
+  --cal-mass \
   --thres-rt '1.0' \
   --thres-corr '0.5' \
   --thres-pval '0.05' \
