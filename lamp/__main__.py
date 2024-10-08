@@ -8,7 +8,6 @@ import argparse
 import sys
 import os
 import sqlite3
-import pandas as pd
 from PySide6.QtWidgets import QApplication
 from lamp import gui
 from lamp import anno
@@ -138,21 +137,8 @@ def main():
         # -----------------------------------------------------------------
         # get summary of metabolite annotation
         sr, mr = anno.comp_summ(df, match)
-
         # merge summery table with correlation analysis
-        res = (
-            sr.merge(corr_df, left_on="name", right_on='name', how="left")
-            .sort_values(["cor_grp_size"], ignore_index=True, ascending=False)
-        )
-
-        # sort out based on correlation group and compound matches
-        idx = res.ppm_error.notnull() & res.cor_grp_size.notnull()
-        # split into two groups
-        res_1 = res[idx]
-        res_2 = res[~idx].sort_values(["ppm_error"])
-
-        # combine again
-        res = pd.concat([res_1, res_2], ignore_index=False)
+        res = anno.comp_summ_corr(sr, corr_df)
 
         # -----------------------------------------------------------------
         # save all results to a sqlite database or not

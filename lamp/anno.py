@@ -10,6 +10,43 @@ from lamp.utils import (df2dict, flatten_cols, flatten_list, _remove_empty)
 
 
 # ------------------------------------------------------------------------
+# wl-08-10-2024, Tue: merge single row summary with correlation analysis
+def comp_summ_corr(sr, corr_df):
+    """
+    Merge annotation table with correlation analysis
+
+    Parameters
+    ----------
+    sr : DataFrame
+        A pandas data frame of annotation summary with single row and
+        mutiple column format.
+    corr_df : DataFrame
+        A pandas data frame of correlation group and its count.
+
+    Returns
+    -------
+    DataFrame
+        A data frame of conbined annotation summary table.
+    """
+
+    # merge summery table with correlation analysis
+    res = (
+        sr.merge(corr_df, left_on="name", right_on='name', how="left")
+        .sort_values(["cor_grp_size"], ignore_index=True, ascending=False)
+    )
+
+    # sort out based on correlation group and compound matches
+    idx = res.ppm_error.notnull() & res.cor_grp_size.notnull()
+    # split into two groups
+    res_1 = res[idx]
+    res_2 = res[~idx].sort_values(["ppm_error"])
+
+    res = pd.concat([res_1, res_2], ignore_index=False)
+
+    return res
+
+
+# ------------------------------------------------------------------------
 # wl-14-05-2024, Tue: get summary table of compound annotation
 def comp_summ(pk, comp, unique=False):
     """
@@ -437,7 +474,6 @@ def _comp_sel(lib, tab_name, col_names, cur, peak_id, mz, ppm):
         )
 
     return rec
-
 
 # -----------------------------------------------------------------------
 # wl-22-04-2024, Mon: calculate molecular formula' exact mass

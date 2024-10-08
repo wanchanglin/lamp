@@ -4,7 +4,6 @@
 # wl-19-09-2024, Thu: commence
 
 import os
-import pandas as pd
 import sqlite3
 from functools import partial
 from PySide6 import QtCore, QtWidgets
@@ -44,14 +43,14 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
 
         # ---- Save results ----
         self.pushButton_summ.clicked.connect(
-            partial(self.save_file, self.lineEdit_summ, "summary.tsv")
+            partial(self.save_file, self.lineEdit_summ, "anno_summ.tsv")
         )
         self.pushButton_summ_m.clicked.connect(
-            partial(self.save_file, self.lineEdit_summ_m, "summary_m.tsv")
+            partial(self.save_file, self.lineEdit_summ_m, "anno_summ_m.tsv")
         )
         self.pushButton_sql.clicked.connect(
             partial(self.save_file,
-                    self.lineEdit_sql, "database.db")
+                    self.lineEdit_sql, "anno_comp.db")
         )
 
         # ---- Others ----
@@ -145,16 +144,16 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
         # --------------------------------------------------------------
         if self.lineEdit_add.text() == "Use default":
             path = "lib/adducts.txt"
-            p = os.path.join(os.path.dirname(os.path.abspath(lamp.__file__)), path)
-            # p = os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
+            p = os.path.join(os.path.dirname(os.path.abspath(lamp.__file__)),
+                             path)
             add_path = p
         else:
             add_path = self.lineEdit_add.text()
 
         if self.lineEdit_ref.text() == "Use default":
             path = "lib/db_compounds.txt"
-            p = os.path.join(os.path.dirname(os.path.abspath(lamp.__file__)), path)
-            # p = os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
+            p = os.path.join(os.path.dirname(os.path.abspath(lamp.__file__)),
+                             path)
             ref_path = p
         else:
             ref_path = self.lineEdit_ref.text()
@@ -221,22 +220,8 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
         # -----------------------------------------------------------------
         # get summary of metabolite annotation
         sr, mr = anno.comp_summ(df, match)
-
         # merge summery table with correlation analysis
-        res = (
-            sr.merge(corr_df, left_on="name", right_on='name', how="left")
-            .sort_values(["cor_grp_size"], ignore_index=True, ascending=False)
-        )
-
-        # sort out based on correlation group and compound matches
-        idx = res.ppm_error.notnull() & res.cor_grp_size.notnull()
-        # split into two groups
-        res_1 = res[idx]
-        res_2 = res[~idx].sort_values(["ppm_error"])
-
-        # combine again
-        res = pd.concat([res_1, res_2], ignore_index=False)
-
+        res = anno.comp_summ_corr(sr, corr_df)
         print("\n***Summary done***")
 
         # -----------------------------------------------------------------

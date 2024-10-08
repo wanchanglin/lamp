@@ -22,3 +22,95 @@ in reference files though any source of metabolites can be used (e.g. HMDB
 or LIPID MAPS). The m/z differences related to in-source fragments, adducts,
 isotopes, oligomers and charge states can be user-defined in the reference
 file. 
+
+
+Installation
+------------
+
+Source
+~~~~~~
+
+You can install ``lamp`` from source. Download zip file and unzip somewhere
+in your PC (Windows, Linux and MacOS) or git-clone this site. Go to ``lamp``
+directory and do ::
+
+  $ cd lamp                               # go to 'lamp' folder
+  $ python setup sdist                    # create 'lamp' package
+  $ cd dist                               # go to 'lamp' package folder
+  $ sudo pip install lamp-x.x.x.tar.gz    # install 'lamp'. Need to change
+                                          # 'x.x.x' to right version such as
+                                          # '1.0.0'.
+
+
+Conda
+~~~~~
+(come soon)
+
+PyPI
+~~~~
+(come soon)
+
+Usage
+-----
+
+For end users, ``lamp`` provides command line and graphical interfaces.
+
+::
+
+  $ lamp --help
+  Executing lamp version 1.0.0.
+  usage: lamp [-h] {cmd,gui} ...
+
+  Compounds Annotation of LC-MS data
+
+  positional arguments:
+    {cmd,gui}
+      cmd       Annotate metabolites in CMD.
+      gui       Annotate metabolites in GUI.
+
+  options:
+    -h, --help  show this help message and exit
+
+Command line interface (CLI)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the follow command line to launch CLI mode:
+::
+
+  $ lamp cmd <arg_lists>
+
+Here is an example: ::
+
+  lamp cmd \
+    --sep 'tab' \
+    --input-data './data/df_pos_3.tsv' \
+    --col-idx '1, 2, 3, 4' \
+    --add-path '' \
+    --ref-path '' \
+    --ion-mode 'pos' \
+    --cal-mass \
+    --thres-rt '1.0' \
+    --thres-corr '0.5' \
+    --thres-pval '0.05' \
+    --method "pearson" \
+    --positive \
+    --ppm '5.0' \
+    --save-db \
+    --save-mr \
+    --db-out './res/test.db' \
+    --sr-out './res/test_s.tsv' \
+    --mr-out './res/test_m.tsv'
+
+Graphical user interface (GUI)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  $ lamp gui
+
+
+Authors
+-------
+
+- Wanchang Lin (Wanchang.Lin@liverpool.ac.uk)
+- Warwick Dunn (Warwick.Dunn@liverpool.ac.uk)

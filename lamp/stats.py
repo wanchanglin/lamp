@@ -4,75 +4,6 @@ import pandas as pd
 
 
 # -------------------------------------------------------------------------
-# wl-20-05-2024, Mon: get correlation group and size
-def corr_grp_size(corr):
-    """
-    Get correlation group and size.
-
-    Parameters
-    ----------
-    corr : DataFrame
-        A long-format correlation table. The front two columns
-        names must be 'name_a' and 'name_b'. Other columns could be
-        correlation coefficient, p-values and any other values.
-
-    Returns
-    -------
-    DataFrame
-        a data frame with three columns, "name", "cor_grp_size" and
-        "cor_grp".
-    """
-    # get correlated groups/clusters
-    cor_nam = corr['name_a'].to_list()
-    cor_nam.extend(corr['name_b'].to_list())
-    cor_nam = list(set(cor_nam))
-    cor_grp = [corr_grp(x, corr) for x in cor_nam]
-    # cor_grp_dict = {x: mt.corr_grp(x, corr) for x in cor_nam}
-    cor_len = [len(x) for x in cor_grp]
-    cor_str = ['::'.join(x) for x in cor_grp]
-    # merge into a data frame
-    cor_df = pd.DataFrame(list(zip(cor_nam, cor_len, cor_str)),
-                          columns=['name', 'cor_grp_size', 'cor_grp'])
-    cor_df = cor_df.sort_values('cor_grp_size', ignore_index=True,
-                                ascending=False)
-    return cor_df
-
-
-# -----------------------------------------------------------------------
-# wl-01-05-2024, Wed: get correlation group
-def corr_grp(x, corr):
-    """
-    Get correlated group.
-
-    'x' will mtched in the first two columns of 'corr'.
-
-    Parameters
-    ----------
-    x : str
-        A string for match
-    corr : DataFrame
-        A long-format correlation table. The front two columns
-        names must be 'name_a' and 'name_b'. Other columns could be
-        correlation coefficient, p-values and any other values.
-
-    Returns
-    -------
-    list
-        a list consisting matched strings
-    """
-
-    ida = corr['name_a'] == x
-    a = corr['name_b'][ida].to_list()
-
-    idb = corr['name_b'] == x
-    b = corr['name_a'][idb].to_list()
-
-    a.extend(b)
-
-    return a
-
-
-# -------------------------------------------------------------------------
 # wl-04-12-2023, Mon: get correlation coefficients, p-values and rt
 # differences for compound annotation.
 # Note:
@@ -152,6 +83,75 @@ def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
     )
 
     return tab
+
+
+# -------------------------------------------------------------------------
+# wl-20-05-2024, Mon: get correlation group and size
+def corr_grp_size(corr):
+    """
+    Get correlation group and size.
+
+    Parameters
+    ----------
+    corr : DataFrame
+        A long-format correlation table. The front two columns
+        names must be 'name_a' and 'name_b'. Other columns could be
+        correlation coefficient, p-values and any other values.
+
+    Returns
+    -------
+    DataFrame
+        a data frame with three columns, "name", "cor_grp_size" and
+        "cor_grp".
+    """
+    # get correlated groups/clusters
+    cor_nam = corr['name_a'].to_list()
+    cor_nam.extend(corr['name_b'].to_list())
+    cor_nam = list(set(cor_nam))
+    cor_grp = [corr_grp(x, corr) for x in cor_nam]
+    # cor_grp_dict = {x: mt.corr_grp(x, corr) for x in cor_nam}
+    cor_len = [len(x) for x in cor_grp]
+    cor_str = ['::'.join(x) for x in cor_grp]
+    # merge into a data frame
+    cor_df = pd.DataFrame(list(zip(cor_nam, cor_len, cor_str)),
+                          columns=['name', 'cor_grp_size', 'cor_grp'])
+    cor_df = cor_df.sort_values('cor_grp_size', ignore_index=True,
+                                ascending=False)
+    return cor_df
+
+
+# -----------------------------------------------------------------------
+# wl-01-05-2024, Wed: get correlation group
+def corr_grp(x, corr):
+    """
+    Get correlated group.
+
+    'x' will mtched in the first two columns of 'corr'.
+
+    Parameters
+    ----------
+    x : str
+        A string for match
+    corr : DataFrame
+        A long-format correlation table. The front two columns
+        names must be 'name_a' and 'name_b'. Other columns could be
+        correlation coefficient, p-values and any other values.
+
+    Returns
+    -------
+    list
+        a list consisting matched strings
+    """
+
+    ida = corr['name_a'] == x
+    a = corr['name_b'][ida].to_list()
+
+    idb = corr['name_b'] == x
+    b = corr['name_a'][idb].to_list()
+
+    a.extend(b)
+
+    return a
 
 
 # -------------------------------------------------------------------------
