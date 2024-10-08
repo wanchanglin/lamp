@@ -1,0 +1,26 @@
+label	exact_mass	charge	ion_mode
+[M+H]+	1.007276432	1	pos
+[M+NH4]+	18.03382553	1	pos
+[M+Na]+	22.98922068	1	pos
+[M+Mg]+	23.9844931	1	pos
+[M+K]+	38.96315789	1	pos
+[M+Fe]+	55.93438773	1	pos
+[M+Cu]+	62.92904912	1	pos
+[M+2H]+	2.015101464	1	pos
+[M+3H]+	3.022926496	1	pos
+[M+NaFormate]	67.9874	1	pos
+[M+NaFormate+NaFormate]	135.9748	1	pos
+[M+NaCl]	57.9586	1	pos
+[M+Formic acid]	46.0005	1	pos
+[M+Acetonitrile]	41.0265	1	pos
+[M+CaFormate]	84.9603	1	pos
+[M-H]-	-1.007276432	1	neg
+[M+35Cl]-	34.96940128	1	neg
+[M+Formate]-	44.99820287	1	neg
+[M+Acetate]-	59.01385294	1	neg
+[M+NaFormate]	66.9796	1	neg
+[M+NaFormate+NaFormate]	134.967	1	neg
+[M+NaCl]	56.9508	1	neg
+[M+Formic acid]	44.9927	1	neg
+[M+Acetonitrile]	40.0187	1	neg
+[M+CaFormate]	83.9525	1	neg
