@@ -3,61 +3,59 @@
 ## Introduction
 
 The annotation or identification of metabolites detected in untargeted
-metabolomics studies applying liquid chromatography-mass spectrometry
-can apply full-scan (MS1), retention time (RT) and gas-phase
-fragmentation (MS/MS) data. Full-scan MS1 data can be applied as a first
-pass to decrease the number of possible annotations. However,
-electrospray ionisation is a complex process which generates multiple
-features (m/z-RT pairs) for each metabolite. The grouping of features
-and subsequent linkage to a single or multiple molecular formula is
-required to maximise true positive annotations and minimise false
-positive annotations.
+metabolomics studies applying liquid chromatography-mass spectrometry can
+apply full-scan (MS1), retention time (RT) and gas-phase fragmentation
+(MS/MS) data. Full-scan MS1 data can be applied as a first pass to decrease
+the number of possible annotations. However, electrospray ionisation is a
+complex process which generates multiple features (m/z-RT pairs) for each
+metabolite. The grouping of features and subsequent linkage to a single or
+multiple molecular formula is required to maximise true positive annotations
+and minimise false positive annotations.
 
-LAMP is a Python package as an easy-to-use software for feature grouping
-and metabolite annotation using MS1 data only. LAMPS groups features
-based on RT similarity and positive correlations across multiple
-biological samples. Genome-scale metabolic models are the source of
-metabolites applied in reference files though any source of metabolites
-can be used (e.g. HMDB or LIPID MAPS). The m/z differences related to
-in-source fragments, adducts, isotopes, oligomers and charge states can
-be user-defined in the reference file.
+LAMP is a Python package as an easy-to-use software for feature grouping and
+metabolite annotation using MS1 data only. LAMPS groups features based on RT
+similarity and positive correlations across multiple biological samples.
+Genome-scale metabolic models are the source of metabolites applied in
+reference files though any source of metabolites can be used (e.g. HMDB or
+LIPID MAPS). The m/z differences related to in-source fragments, adducts,
+isotopes, oligomers and charge states can be user-defined in the reference
+file.
 
 ## Installation
 
 ### Source
 
-You can install `lamp` from source. Download zip file and unzip
-somewhere in your PC (Windows, Linux and MacOS) or git-clone this site.
-Go to `lamp` directory and do :
+You can install `lamp` from source. Download zip file and unzip somewhere in
+your PC (Windows, Linux and MacOS) or git-clone this site. Go to `lamp`
+directory and do :
 
-    $ cd lamp                               # go to 'lamp' folder
-    $ python setup sdist                    # create 'lamp' package
-    $ cd dist                               # go to 'lamp' package folder
-    $ sudo pip install lamp-x.x.x.tar.gz    # install 'lamp'. Need to change
-                                            # 'x.x.x' to right version such as
-                                            # '1.0.0'.
+    $ cd lamp                                      # go to 'lamp' folder
+    $ python -m build                              # create 'lamp' package
+    $ cd dist                                      # go to 'lamp' package folder
+    $ sudo pip install lamp-x.x.x.tar.gz --upgrade
+    # install 'lamp'. Need to change 'x.x.x' to right version such as '1.0.0'.
 
 ### Conda
 
-(come soon)
+(coming soon)
 
 ### PyPI
 
-(come soon)
+(coming soon)
 
-## Usage
+## Usages
 
-For end users, `lamp` provides command line and graphical interfaces.
+For end users, `lamp` provides command line and graphical user interfaces.
 
     $ lamp --help
     Executing lamp version 1.0.0.
-    usage: lamp [-h] {cmd,gui} ...
+    usage: lamp [-h] {cli,gui} ...
 
     Compounds Annotation of LC-MS data
 
     positional arguments:
-      {cmd,gui}
-        cmd       Annotate metabolites in CMD.
+      {cli,gui}
+        cli       Annotate metabolites in CLI.
         gui       Annotate metabolites in GUI.
 
     options:
@@ -67,7 +65,7 @@ For end users, `lamp` provides command line and graphical interfaces.
 
 Use the follow command line to launch CLI mode: :
 
-    $ lamp cmd <arg_lists>
+    $ lamp cli <arg_lists>
 
 Here is an example: :
 

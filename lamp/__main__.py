@@ -25,8 +25,8 @@ def main():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     subparsers = parser.add_subparsers(dest='step')
-    parser_am = subparsers.add_parser('cmd',
-                                      help='Annotate metabolites in CMD.')
+    parser_am = subparsers.add_parser('cli',
+                                      help='Annotate metabolites in CLI.')
     parser_gui = subparsers.add_parser('gui',
                                        help='Annotate metabolites in GUI.')
 
@@ -88,7 +88,7 @@ def main():
     args = parser.parse_args()
     print(args)
 
-    if args.step == "cmd":
+    if args.step == "cli":
 
         # -----------------------------------------------------------------
         # load libraries for annotation

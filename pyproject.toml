@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lamp"
+version = "1.0.0"
+description = "Liverpool Annotation of metabolites using Mass Spectrometry"
+authors = [
+  {name="Wanchang Lin", email="wanchang.lin@liverpool.ac.uk"},
+  {name="Warwick Dunn", email="warwick.dunn@liverpool.ac.uk"}
+]
+maintainers = [
+  {name="Wanchang Lin", email="wanchang.lin@liverpool.ac.uk"}
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = ["numpy", "scipy", "pandas", "pyside6", "pyteomics"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+license = {file = "LICENSE"}
+keywords = ["Metabolomics", "Metabolite Annotation", "Mass spectrometry",
+            "Liquid-Chromatography Mass Spectrometry"]
+
+[project.scripts]
+lamp = "lamp.__main__:main"
+
+
+[project.urls]
+Homepage = "https://github.com/wanchanglin/lamp"
+Issues = "https://github.com/wanchanglin/lamp/issues"
+Documentation = "https://wanchanglin.github.io/lamp"

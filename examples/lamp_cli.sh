@@ -2,7 +2,7 @@
 # wl-07-10-2024, Mon: command-line test script
 # --add-mass
  
-lamp cmd \
+lamp cli \
   --sep 'tab' \
   --input-data './data/df_pos_3.tsv' \
   --col-idx '1, 2, 3, 4' \
