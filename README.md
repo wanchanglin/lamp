@@ -27,13 +27,24 @@ file.
 
 You can install `lamp` from source. Download zip file and unzip somewhere in
 your PC (Windows, Linux and MacOS) or git-clone this site. Go to `lamp`
-directory and do :
+directory and do:
 
-    $ cd lamp                                      # go to 'lamp' folder
-    $ python -m build                              # create 'lamp' package
-    $ cd dist                                      # go to 'lamp' package folder
-    $ sudo pip install lamp-x.x.x.tar.gz --upgrade
-    # install 'lamp'. Need to change 'x.x.x' to right version such as '1.0.0'.
+```bash
+$ cd lamp                                  # go to 'lamp' folder
+$ sudo pip install -e . --upgrade          # install 'lamp' locally
+```
+
+Or build `lamp` package locally and then install it:
+
+```bash
+$ sudo pip install build                       # install 'build' package
+$ cd lamp                                      # go to 'lamp' folder
+$ python -m build                              # create 'lamp' package
+$ cd dist                                      # go to 'lamp' package folder
+$ sudo pip install lamp-x.x.x.tar.gz --upgrade # install 'lamp'
+```
+
+You need to change 'x.x.x' to right version such as '1.0.0'.
 
 ### Conda
 
