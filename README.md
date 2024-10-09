@@ -30,18 +30,22 @@ your PC (Windows, Linux and MacOS) or git-clone this site. Go to `lamp`
 directory and do:
 
 ```bash
-$ cd lamp                                  # go to 'lamp' folder
-$ sudo pip install -e . --upgrade          # install 'lamp' locally
+cd lamp                              # go to 'lamp' folder
+pip install .                        # install 'lamp' locally
+lamp --help                          # check installation
+
+# OPTION: update 'lamp' if you have already installed 'lamp'
+pip install . --upgrade --no-deps
 ```
 
 Or build `lamp` package locally and then install it:
 
 ```bash
-$ sudo pip install build                       # install 'build' package
-$ cd lamp                                      # go to 'lamp' folder
-$ python -m build                              # create 'lamp' package
-$ cd dist                                      # go to 'lamp' package folder
-$ sudo pip install lamp-x.x.x.tar.gz --upgrade # install 'lamp'
+pip install build                       # install 'build' package
+cd lamp                                 # go to 'lamp' folder
+python -m build                         # create 'lamp' package
+cd dist                                 # go to 'lamp' package folder
+pip install lamp-x.x.x.tar.gz           # install 'lamp'
 ```
 
 You need to change 'x.x.x' to right version such as '1.0.0'.
