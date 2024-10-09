@@ -6,7 +6,6 @@
 from lamp import __version__
 import argparse
 import sys
-import os
 import sqlite3
 from PySide6.QtWidgets import QApplication
 from lamp import gui
@@ -89,18 +88,6 @@ def main():
     print(args)
 
     if args.step == "cli":
-
-        # -----------------------------------------------------------------
-        # load libraries for annotation
-        if not args.add_path:
-            path = 'lib/adducts.txt'
-            p = os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
-            args.add_path = p
-
-        if not args.ref_path:
-            path = 'lib/db_compounds.txt'
-            p = os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
-            args.ref_path = p
 
         # -----------------------------------------------------------------
         # get data with peak list and intensity matrix

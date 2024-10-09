@@ -1,6 +1,4 @@
 # wl-08-10-2024, Tue: lamp example
-import os
-import lamp
 from lamp import anno, stats, utils
 
 # =========================================================================
@@ -18,13 +16,9 @@ ion_mode = "pos"
 add_path = ""
 ref_path = ""
 cal_mass = False
-add_mass = False
+add_mass = True
 
 # load refernce library
-if not ref_path:
-    path = 'lib/db_compounds.txt'
-    ref_path = os.path.join(os.path.dirname(os.path.abspath(lamp.__file__)),
-                            path)
 ref = anno.read_ref(ref_path, calc=cal_mass)
 ref
 

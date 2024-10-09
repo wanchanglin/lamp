@@ -7,7 +7,6 @@ import os
 import sqlite3
 from functools import partial
 from PySide6 import QtCore, QtWidgets
-import lamp
 from lamp.qt import lamp_form
 # from lamp import qt       # wl-07-10-2024, Mon: not work
 from lamp import anno
@@ -143,18 +142,12 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
 
         # --------------------------------------------------------------
         if self.lineEdit_add.text() == "Use default":
-            path = "lib/adducts.txt"
-            p = os.path.join(os.path.dirname(os.path.abspath(lamp.__file__)),
-                             path)
-            add_path = p
+            add_path = ""
         else:
             add_path = self.lineEdit_add.text()
 
         if self.lineEdit_ref.text() == "Use default":
-            path = "lib/db_compounds.txt"
-            p = os.path.join(os.path.dirname(os.path.abspath(lamp.__file__)),
-                             path)
-            ref_path = p
+            ref_path = ""
         else:
             ref_path = self.lineEdit_ref.text()
 

@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 from pyteomics import mass
 from collections import OrderedDict
+import lamp
 from lamp.utils import (df2dict, flatten_cols, flatten_list, _remove_empty)
 
 
@@ -726,14 +727,16 @@ def cal_mass(df, lib_adducts=None):
 # wl-10-09-2024, Tue: remove empy rows and columns
 # wl-11-09-2024, Wed: rename 'name' as 'molycular_name' in case 'name'
 #   conflicts with data set's peak 'name'.
-def read_ref(filename, sep="\t", calc=False, lib_adducts=None):
+# wl-09-10-2024, Wed: set 'filename' default value
+def read_ref(filename="", sep="\t", calc=False, lib_adducts=None):
     """
     Load reference for compound annotation
 
     Parameters
     ----------
     filename : str
-        full path for a text reference file
+        full path for a text reference file. if empty, use default reference
+        file.
     sep : str
         separator for 'filename'
     calc : bool
@@ -751,6 +754,17 @@ def read_ref(filename, sep="\t", calc=False, lib_adducts=None):
     -----
     This function will remove reference empty rows and columns.
     """
+
+    # load default refernce library
+    if not filename:
+        path = 'lib/db_compounds.txt'
+        filename = os.path.join(
+            os.path.dirname(os.path.abspath(lamp.__file__)), path
+        )
+        # filename = os.path.join(
+        #     os.path.dirname(os.path.abspath(__file__)), path
+        # )
+        sep = "\t"
 
     # read file
     df = (
@@ -796,25 +810,37 @@ def cal_mz_tol(mass, ppm):
 
 # -------------------------------------------------------------------------
 # wl-24-12-2023, Sun: get library in data frame format
-def read_lib(filename, ion_mode=None, sep="\t"):
+# wl-09-10-2024, Wed: set 'filename' default value
+def read_lib(filename="", ion_mode=None, sep="\t"):
     """
-    Read library file.
+    Load adduct library file.
 
     Parameters
     ----------
     filename : str
-        library file.
+        Library file.
     ion_mode : str
-        a string for ion mode, "pos" or "neg".
+        A string for ion mode, "pos" or "neg".
     sep : str
-        file seperater, `\t` or `,`.
+        File seperater, `\t` or `,`.
 
 
     Returns
     -------
     DataFrame
-        a library data frame.
+        A library data frame.
     """
+
+    # load default library
+    if not filename:
+        path = 'lib/adducts.txt'
+        filename = os.path.join(
+            os.path.dirname(os.path.abspath(lamp.__file__)), path
+        )
+        # filename = os.path.join(
+        #     os.path.dirname(os.path.abspath(__file__)), path
+        # )
+        sep = "\t"
 
     lib_df = pd.read_csv(filename, sep=sep, float_precision="round_trip")
 
