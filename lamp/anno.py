@@ -856,7 +856,8 @@ def read_lib(filename="", ion_mode=None, sep="\t"):
 # --------------------------------------------------------------------------
 # wl-21-09-2022, Wed: Read file consisting of peak list and data matrix.
 # wl-02-09-2024, Mon: add 'dat' format for Galaxy data extension
-def read_peak(fn, cols=[1, 2, 3, 4], sep="\t", median_intensity=True):
+# wl-10-10-2024, Thu: remove calculation of intensity average
+def read_peak(fn, cols=[1, 2, 3, 4], sep="\t"):
     """
     Read metabolite data.
 
@@ -866,19 +867,17 @@ def read_peak(fn, cols=[1, 2, 3, 4], sep="\t", median_intensity=True):
     Parameters
     ----------
     fn : str
-        file name.
+        File name.
     cols : list
-        a list indicating column index of 'name', 'mz', 'rt' and start of
-        intensity
+        A list indicating column index of 'name', 'mz', 'rt' and start of
+        intensity data matrix.
     sep : str
-        file separator for txt, csv and tsv file. `\t` or `,`.
-    median_intensity : bool
-        use median or mean for average of intensity.
+        File separator for txt, csv and tsv file. `\t` or `,`.
 
     Returns
     -------
     DataFrame
-        a data frame with the first 4 columns as name, mz, rt and intensity
+        A data frame with the first 3 columns as name, mz and rt.
     """
 
     ext = os.path.splitext(fn)[1][1:]
@@ -900,18 +899,13 @@ def read_peak(fn, cols=[1, 2, 3, 4], sep="\t", median_intensity=True):
 
     # get intensity
     mat = data.iloc[:, cols[-1]:]
-    if median_intensity:
-        intensity = mat.median(axis=1, skipna=True)
-    else:
-        intensity = mat.mean(axis=1, skipna=True)
 
     # column bind ('cbind' in R)
-    data = pd.concat([peak, intensity, mat], axis=1, ignore_index=False)
+    data = pd.concat([peak, mat], axis=1, ignore_index=False)
 
     data.rename(columns={data.columns[0]: 'name',
                          data.columns[1]: 'mz',
-                         data.columns[2]: 'rt',
-                         data.columns[3]: 'intensity'},
+                         data.columns[2]: 'rt'},
                 inplace=True)
     data['name'] = data['name'].astype(str)
 
@@ -919,3 +913,5 @@ def read_peak(fn, cols=[1, 2, 3, 4], sep="\t", median_intensity=True):
     data.replace(0, np.nan, inplace=True)
 
     return data
+
+

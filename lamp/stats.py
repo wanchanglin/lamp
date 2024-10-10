@@ -37,7 +37,7 @@ def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
         coeffocients, correlation p-values.
     """
     # get data for correlation analysis
-    mat = df.drop(['name', 'mz', 'rt', 'intensity'], axis=1)
+    mat = df.drop(['name', 'mz', 'rt'], axis=1)
 
     mat = mat.T                      # transpose
     mat.columns = df["name"]         # change columns' names
