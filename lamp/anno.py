@@ -274,7 +274,7 @@ def comp_match_mass(peak, ppm, ref):
     # ---------------------------------------------------------------------
     # wl-29-04-2024, Mon: select compounds based on exact mass
     def comp_sel_mass(tab_name, col_names, cur, peak_id, mz, ppm):
-        min, max = cal_mz_tol(mz, ppm)
+        min, max = _cal_mass_tol(mz, ppm)
         rec = []
         cur.execute(
             """
@@ -438,7 +438,7 @@ def comp_match_mass_add(peak, ppm, ref, lib_adducts):
 def _comp_sel(lib, tab_name, col_names, cur, peak_id, mz, ppm):
     """Internal function for `comp_match_mass_add`."""
 
-    min_mz, max_mz = cal_mz_tol(mz, ppm)
+    min_mz, max_mz = _cal_mass_tol(mz, ppm)
     adducts = lib.keys()
 
     rec = []
@@ -475,6 +475,36 @@ def _comp_sel(lib, tab_name, col_names, cur, peak_id, mz, ppm):
         )
 
     return rec
+
+
+# -------------------------------------------------------------------------
+# wl-22-04-2024, Mon: calculate mass tolerance/range based on ppm
+# wl-11-10-2024, Fri: Review
+def _cal_mass_tol(mass, ppm):
+    """
+    Calculate m/z value tolerance/range.
+
+    Parameters
+    ----------
+    mass : float
+        A mass value.
+    ppm : float
+        ppm value.
+
+    Returns
+    -------
+    min_tol : float
+        Minimal tolerance.
+    max_tol : float
+        Maxmal tolerance.
+    """
+
+    delta = 0.000001
+    min_tol = (1 - delta * ppm) * mass
+    max_tol = (1 + delta * ppm) * mass
+
+    return min_tol, max_tol
+
 
 # -----------------------------------------------------------------------
 # wl-22-04-2024, Mon: calculate molecular formula' exact mass
@@ -725,7 +755,7 @@ def cal_mass(df, lib_adducts=None):
 # wl-22-04-2024, Mon: load reference file for compound annotation
 # wl-08-08-2024, Thu: use 'cal_mass' function
 # wl-10-09-2024, Tue: remove empy rows and columns
-# wl-11-09-2024, Wed: rename 'name' as 'molycular_name' in case 'name'
+# wl-11-09-2024, Wed: rename 'name' as 'molecular_name' in case 'name'
 #   conflicts with data set's peak 'name'.
 # wl-09-10-2024, Wed: set 'filename' default value
 def read_ref(filename="", sep="\t", calc=False, lib_adducts=None):
@@ -735,14 +765,14 @@ def read_ref(filename="", sep="\t", calc=False, lib_adducts=None):
     Parameters
     ----------
     filename : str
-        full path for a text reference file. if empty, use default reference
+        Full path for a text reference file. If empty, use default reference
         file.
     sep : str
-        separator for 'filename'
+        Separator for 'filename'.
     calc : bool
-        calculate exact mass or not
+        Calculate exact mass or not.
     lib_adducts : DataFrame
-        adducts library in data frame format for mass adjustment. Only for
+        Adducts library in data frame format for mass adjustment. Only for
         'filename' has 'adduct' column.
 
     Returns
@@ -781,31 +811,6 @@ def read_ref(filename="", sep="\t", calc=False, lib_adducts=None):
         df = cal_mass(df, lib_adducts)
 
     return df
-
-
-# -------------------------------------------------------------------------
-def cal_mz_tol(mass, ppm):
-    """
-    Calculate mz tolerance.
-
-    Parameters
-    ----------
-    mass : float
-        a mass value.
-    ppm : float
-        ppm value.
-
-    Returns
-    -------
-    min_tol : float
-        Minimal tolerance.
-    max_tol : float
-        Maxmal tolerance.
-    """
-
-    min_tol = mass - (mass * 0.000001 * ppm)
-    max_tol = mass + (mass * 0.000001 * ppm)
-    return min_tol, max_tol
 
 
 # -------------------------------------------------------------------------
@@ -886,7 +891,7 @@ def read_peak(fn, cols=[1, 2, 3, 4], sep="\t"):
     elif ext in ['txt', 'csv', 'tsv', 'dat']:
         data = pd.read_table(fn, header=0, sep=sep)
     else:
-        raise ValueError("Data must be: 'xls', 'xlsx', 'txt', 'csv', 'tsv' or dat.")
+        raise ValueError("Data must be: xls, xlsx, txt, csv, tsv or dat.")
 
     # data = pd.read_table(fn, header=0, sep=sep)
 
@@ -913,5 +918,3 @@ def read_peak(fn, cols=[1, 2, 3, 4], sep="\t"):
     data.replace(0, np.nan, inplace=True)
 
     return data
-
-

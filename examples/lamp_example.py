@@ -14,9 +14,12 @@ df
 ppm = 5.0
 ion_mode = "pos"
 add_path = ""
-ref_path = ""
-cal_mass = False
-add_mass = True
+# ref_path = ""
+ref_path = "./data/hmdb_urine_v4_0_20200910_v1.tsv"
+# ref_path = "./data/kegg_full_20210111_v1.tsv"
+# ref_path = "./data/biocyc_chlamycyc_20180702_v1.tsv"
+cal_mass = True
+add_mass = False
 
 # load refernce library
 ref = anno.read_ref(ref_path, calc=cal_mass)
@@ -30,6 +33,7 @@ else:
     # match compounds without adduct library mass adjustment
     match = anno.comp_match_mass(df, ppm, ref)
 match
+match.columns
 
 # ========================================================================
 # correlation analysis with corr, pval and rt_diff
