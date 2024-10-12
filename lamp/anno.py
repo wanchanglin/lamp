@@ -42,7 +42,7 @@ def comp_summ_corr(sr, corr_df):
     res_1 = res[idx]
     res_2 = res[~idx].sort_values(["ppm_error"])
 
-    res = pd.concat([res_1, res_2], ignore_index=False)
+    res = pd.concat([res_1, res_2], ignore_index=True)
 
     return res
 

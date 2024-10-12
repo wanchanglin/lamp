@@ -85,24 +85,24 @@ Use the follow command line to launch CLI mode: :
 Here is an example: :
 
     lamp cmd \
-      --sep 'tab' \
-      --input-data './data/df_pos_3.tsv' \
-      --col-idx '1, 2, 3, 4' \
-      --add-path '' \
-      --ref-path '' \
-      --ion-mode 'pos' \
+      --sep "tab" \
+      --input-data "./data/df_pos_3.tsv" \
+      --col-idx "1, 2, 3, 4" \
+      --add-path "" \
+      --ref-path "" \
+      --ion-mode "pos" \
       --cal-mass \
-      --thres-rt '1.0' \
-      --thres-corr '0.5' \
-      --thres-pval '0.05' \
+      --thres-rt "1.0" \
+      --thres-corr "0.5" \
+      --thres-pval "0.05" \
       --method "pearson" \
       --positive \
-      --ppm '5.0' \
+      --ppm "5.0" \
       --save-db \
       --save-mr \
-      --db-out './res/test.db' \
-      --sr-out './res/test_s.tsv' \
-      --mr-out './res/test_m.tsv'
+      --db-out "./res/test.db" \
+      --sr-out "./res/test_s.tsv" \
+      --mr-out "./res/test_m.tsv"
 
 ### Graphical user interface (GUI)
 
