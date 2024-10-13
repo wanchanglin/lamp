@@ -9876,8 +9876,10 @@ and retention time difference. That is: keep correlation results in an
 retention time differences/windows(such as 1 seconds) with correlation
 coefficient larger than a threshold(such as 0.5) and their correlation
 p-values less than a threshold (such as 0.05).</p>
-<p><code>lamp</code> uses oen of correlation methods, either <code>pearson</code> or <code>spearman</code>. Also
+<p><code>lamp</code> uses one of correlation methods, either <code>pearson</code> or <code>spearman</code>. Also
 parameter <code>positive</code> allows user to select only positive correlation results.</p>
+<p>Two functions, <code>_tic</code> and <code>_toc</code>, record the correlation computation time in
+seconds.</p>
 </div>
 </div>
 </div>
@@ -9890,7 +9892,7 @@ parameter <code>positive</code> allows user to select only positive correlation 
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">thres_rt</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">thres_corr</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="n">thres_corr</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">thres_pval</span> <span class="o">=</span> <span class="mf">0.05</span>
 <span class="n">method</span> <span class="o">=</span> <span class="s2">"spearman"</span>   <span class="c1"># "pearson"</span>
 <span class="n">positive</span> <span class="o">=</span> <span class="kc">True</span>
@@ -9912,7 +9914,7 @@ parameter <code>positive</code> allows user to select only positive correlation 
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Elapsed time: 0.7847549915313721 seconds.
+<pre>Elapsed time: 4.283773899078369 seconds.
 </pre>
 </div>
 </div>
@@ -9972,18 +9974,18 @@ parameter <code>positive</code> allows user to select only positive correlation 
 <tr>
 <th>3</th>
 <td>M151T34</td>
-<td>M171T34</td>
-<td>0.75</td>
-<td>5.545024e-19</td>
-<td>0.25</td>
+<td>M163T34</td>
+<td>0.69</td>
+<td>3.239594e-15</td>
+<td>0.20</td>
 </tr>
 <tr>
 <th>4</th>
 <td>M151T34</td>
-<td>M181T34</td>
+<td>M167T35</td>
+<td>0.51</td>
+<td>5.776482e-08</td>
 <td>0.73</td>
-<td>3.471998e-18</td>
-<td>0.53</td>
 </tr>
 <tr>
 <th>...</th>
@@ -9994,23 +9996,15 @@ parameter <code>positive</code> allows user to select only positive correlation 
 <td>...</td>
 </tr>
 <tr>
-<th>865</th>
-<td>M281T287</td>
-<td>M282T287</td>
-<td>0.99</td>
-<td>1.570424e-99</td>
-<td>0.04</td>
+<th>1783</th>
+<td>M283T34_1</td>
+<td>M283T34_2</td>
+<td>0.62</td>
+<td>4.214876e-12</td>
+<td>0.29</td>
 </tr>
 <tr>
-<th>866</th>
-<td>M282T61</td>
-<td>M283T61</td>
-<td>0.95</td>
-<td>1.362657e-50</td>
-<td>0.01</td>
-</tr>
-<tr>
-<th>867</th>
+<th>1784</th>
 <td>M283T34_1</td>
 <td>M285T34</td>
 <td>0.82</td>
@@ -10018,7 +10012,15 @@ parameter <code>positive</code> allows user to select only positive correlation 
 <td>0.08</td>
 </tr>
 <tr>
-<th>868</th>
+<th>1785</th>
+<td>M283T34_2</td>
+<td>M285T34</td>
+<td>0.66</td>
+<td>7.898957e-14</td>
+<td>0.37</td>
+</tr>
+<tr>
+<th>1786</th>
 <td>M283T60</td>
 <td>M284T60</td>
 <td>0.86</td>
@@ -10026,7 +10028,7 @@ parameter <code>positive</code> allows user to select only positive correlation 
 <td>0.15</td>
 </tr>
 <tr>
-<th>869</th>
+<th>1787</th>
 <td>M283T339</td>
 <td>M284T339</td>
 <td>0.91</td>
@@ -10035,7 +10037,7 @@ parameter <code>positive</code> allows user to select only positive correlation 
 </tr>
 </tbody>
 </table>
-<p>870 rows × 5 columns</p>
+<p>1788 rows × 5 columns</p>
 </div>
 </div>
 </div>
@@ -10101,33 +10103,33 @@ parameter <code>positive</code> allows user to select only positive correlation 
 <tbody>
 <tr>
 <th>0</th>
-<td>M216T35</td>
-<td>35</td>
-<td>M217T35::M218T35::M219T34::M219T35::M221T34::M...</td>
+<td>M219T35</td>
+<td>52</td>
+<td>M221T34::M223T34::M225T35::M226T35::M229T34::M...</td>
 </tr>
 <tr>
 <th>1</th>
-<td>M217T35</td>
-<td>35</td>
-<td>M218T35::M219T34::M219T35::M221T34::M223T34::M...</td>
+<td>M216T35</td>
+<td>52</td>
+<td>M217T35::M218T35::M219T34::M219T35::M221T34::M...</td>
 </tr>
 <tr>
 <th>2</th>
-<td>M231T34</td>
-<td>35</td>
-<td>M233T34::M239T34::M241T34::M249T33::M256T35::M...</td>
+<td>M217T35</td>
+<td>52</td>
+<td>M218T35::M219T34::M219T35::M221T34::M223T34::M...</td>
 </tr>
 <tr>
 <th>3</th>
 <td>M215T35</td>
-<td>35</td>
+<td>52</td>
 <td>M216T35::M217T35::M218T35::M219T34::M219T35::M...</td>
 </tr>
 <tr>
 <th>4</th>
-<td>M241T34</td>
-<td>34</td>
-<td>M249T33::M259T35::M261T35::M267T34::M269T34::M...</td>
+<td>M218T35</td>
+<td>51</td>
+<td>M219T34::M219T35::M221T34::M223T34::M225T35::M...</td>
 </tr>
 <tr>
 <th>...</th>
@@ -10136,38 +10138,38 @@ parameter <code>positive</code> allows user to select only positive correlation 
 <td>...</td>
 </tr>
 <tr>
-<th>264</th>
-<td>M263T43</td>
-<td>1</td>
-<td>M261T43</td>
-</tr>
-<tr>
-<th>265</th>
+<th>335</th>
 <td>M173T119</td>
 <td>1</td>
 <td>M171T119</td>
 </tr>
 <tr>
-<th>266</th>
-<td>M217T44</td>
+<th>336</th>
+<td>M277T71</td>
 <td>1</td>
-<td>M261T44</td>
+<td>M278T71</td>
 </tr>
 <tr>
-<th>267</th>
-<td>M231T38</td>
+<th>337</th>
+<td>M259T233</td>
 <td>1</td>
-<td>M229T37</td>
+<td>M191T233</td>
 </tr>
 <tr>
-<th>268</th>
-<td>M216T41</td>
+<th>338</th>
+<td>M284T60</td>
 <td>1</td>
-<td>M215T41</td>
+<td>M283T60</td>
+</tr>
+<tr>
+<th>339</th>
+<td>M266T66</td>
+<td>1</td>
+<td>M265T66</td>
 </tr>
 </tbody>
 </table>
-<p>269 rows × 3 columns</p>
+<p>340 rows × 3 columns</p>
 </div>
 </div>
 </div>
@@ -10675,6 +10677,20 @@ file:</p>
 <tbody>
 <tr>
 <th>0</th>
+<td>M167T35</td>
+<td>167.021095</td>
+<td>34.882147</td>
+<td>167.02</td>
+<td>-4.57</td>
+<td>C7H5NO4</td>
+<td>Quinolinic acid</td>
+<td>InChI=1S/C7H5NO4/c9-6(10)4-2-1-3-8-5(4)7(11)12...</td>
+<td>GJAWHXHKYYXBSV-UHFFFAOYSA-N</td>
+<td>25.0</td>
+<td>M171T34::M197T36::M209T34::M211T34::M213T34::M...</td>
+</tr>
+<tr>
+<th>1</th>
 <td>M276T36</td>
 <td>276.077397</td>
 <td>36.385373</td>
@@ -10684,11 +10700,11 @@ file:</p>
 <td>Biotin sulfone</td>
 <td>InChI=1S/C10H16N2O5S/c13-8(14)4-2-1-3-7-9-6(5-...</td>
 <td>QPFQYMONYBAUCY-ZKWXMUAHSA-N</td>
-<td>12.0</td>
+<td>13.0</td>
 <td>M277T36_2::M278T36::M173T36_2::M186T36::M187T3...</td>
 </tr>
 <tr>
-<th>1</th>
+<th>2</th>
 <td>M154T37</td>
 <td>154.062402</td>
 <td>37.183625</td>
@@ -10698,39 +10714,11 @@ file:</p>
 <td>Hydroxytyrosol</td>
 <td>InChI=1S/C8H10O3/c9-4-3-6-1-2-7(10)8(11)5-6/h1...</td>
 <td>JUUBCHWRXWPFFH-UHFFFAOYSA-N</td>
-<td>6.0</td>
-<td>M155T38::M158T37_2::M164T36::M203T36_3::M212T3...</td>
-</tr>
-<tr>
-<th>2</th>
-<td>M181T36</td>
-<td>181.060407</td>
-<td>35.734801</td>
-<td>181.06</td>
-<td>2.39</td>
-<td>C6H7N5O2</td>
-<td>8-Hydroxy-7-methylguanine</td>
-<td>InChI=1S/C6H7N5O2/c1-11-2-3(9-6(11)13)8-5(7)10...</td>
-<td>VHPXSVXJBWZORQ-UHFFFAOYSA-N</td>
-<td>5.0</td>
-<td>M225T35::M226T35::M161T36::M179T35::M180T36_1</td>
+<td>12.0</td>
+<td>M155T38::M158T37_2::M164T36::M171T37_2::M173T3...</td>
 </tr>
 <tr>
 <th>3</th>
-<td>M212T39</td>
-<td>212.067866</td>
-<td>39.234296</td>
-<td>212.07</td>
-<td>-2.86</td>
-<td>C10H12O5</td>
-<td>Vanillactic acid</td>
-<td>InChI=1S/C10H12O5/c1-15-9-5-6(2-3-7(9)11)4-8(1...</td>
-<td>SVYIZYRTOYHQRE-UHFFFAOYSA-N</td>
-<td>4.0</td>
-<td>M226T39::M185T39_1::M201T39_1::M208T39</td>
-</tr>
-<tr>
-<th>4</th>
 <td>M174T35</td>
 <td>174.088395</td>
 <td>35.001130</td>
@@ -10740,8 +10728,22 @@ file:</p>
 <td>Suberic acid</td>
 <td>InChI=1S/C8H14O4/c9-7(10)5-3-1-2-4-6-8(11)12/h...</td>
 <td>TYFQFVWCELRYAO-UHFFFAOYSA-N</td>
-<td>NaN</td>
-<td>NaN</td>
+<td>9.0</td>
+<td>M211T34::M213T34::M219T34::M221T34::M229T35::M...</td>
+</tr>
+<tr>
+<th>4</th>
+<td>M181T36</td>
+<td>181.060407</td>
+<td>35.734801</td>
+<td>181.06</td>
+<td>2.39</td>
+<td>C6H7N5O2</td>
+<td>8-Hydroxy-7-methylguanine</td>
+<td>InChI=1S/C6H7N5O2/c1-11-2-3(9-6(11)13)8-5(7)10...</td>
+<td>VHPXSVXJBWZORQ-UHFFFAOYSA-N</td>
+<td>9.0</td>
+<td>M224T36::M225T35::M226T35::M227T36::M269T37_2:...</td>
 </tr>
 <tr>
 <th>...</th>
@@ -10759,9 +10761,9 @@ file:</p>
 </tr>
 <tr>
 <th>395</th>
-<td>M280T67</td>
-<td>280.192145</td>
-<td>67.298802</td>
+<td>M279T50</td>
+<td>279.159930</td>
+<td>50.055451</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -10773,9 +10775,9 @@ file:</p>
 </tr>
 <tr>
 <th>396</th>
-<td>M282T85</td>
-<td>282.207859</td>
-<td>84.719202</td>
+<td>M279T79</td>
+<td>279.163910</td>
+<td>78.758079</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -10787,9 +10789,9 @@ file:</p>
 </tr>
 <tr>
 <th>397</th>
-<td>M283T37</td>
-<td>283.103695</td>
-<td>36.796242</td>
+<td>M282T85</td>
+<td>282.207859</td>
+<td>84.719202</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -10842,7 +10844,27 @@ file:</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>You can save all results in different forms, such as <code>sqlite3</code> database:</p>
+<p>The result data frame <code>res</code> is re-arranged as four parts from top to bottom:</p>
+<ul>
+<li>1st part: identified metabolites, satisfied with correlation analysis</li>
+<li>2nd part: identified metabolites, not satisfied with correlation</li>
+<li>3rd part: no identified metabolites, satisfied with correlation</li>
+<li>4th part: no identified metabolites, not satisfied with correlation</li>
+</ul>
+<p>The users should focus on the first part and perform their further analysis.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>You can save all results in different forms, such as text format TSV or CSV.
+You can also save all results <code>sqlite3</code> database and use
+<a href="https://sqlitebrowser.org/">DB Browser for SQLite</a> to view:</p>
 </div>
 </div>
 </div>

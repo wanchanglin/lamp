@@ -11,6 +11,7 @@ LAMP documentation
    :caption: Contents:
 
    introduction
+   lamp_quick_start
    lamp
 
 .. autosummary::
