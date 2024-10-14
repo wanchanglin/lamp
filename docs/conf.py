@@ -20,9 +20,9 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information ------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'LAMP'
-copyright = '2024, Wanchang Lin'
-author = 'Wanchang Lin'
+project = 'LAMP - Liverpool Annotation of metabolites using Mass sPectrometry'
+copyright = '2024, Wanchang Lin, Warwick Dunn'
+author = 'Wanchang Lin, Warwick Dunn'
 release = '1.0.0'
 
 # -- General configuration ---------------------------------------------
