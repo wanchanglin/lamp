@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 # # Quick Start
 #
 # In this vignette we will demonstrate how to use `lamp` python package. The
@@ -22,11 +19,10 @@ from lamp import anno, stats, utils
 # The Microsoft's XLSX is also supported, provided that data set is in the
 # first sheet.
 #
-# Here we use a small example data set with TSV format. Load it into python
-# and check its format:
+# Here we use a small example data set with `tsv` format. Load it into
+# python and check its format:
 #
 
-# data set
 d_data = "./data/df_pos_2.tsv"
 data = pd.read_table(d_data, header=0, sep="\t")
 data
@@ -36,10 +32,14 @@ data
 # indicate the locations of peak name, m/z value, retention time and
 # starting points of data matrix from data. Here they are 1, 3, 6 and 11,
 # respectively.
+#
+# Load input data with `xlsx` format for `lamp`:
 
 cols = [1, 3, 6, 11]
-# get the input data set for `lamp`
-df = anno.read_peak(d_data, cols, sep='\t')
+# d_data = "./data/df_pos_2.tsv"                      
+# df = anno.read_peak(d_data, cols, sep='\t')
+d_data = "./data/df_pos_2.xlsx"                      # use xlsx file
+df = anno.read_peak(d_data, cols)
 df
 
 # Data frame `df` now includes only `name`, `mz`, `rt` and intensity data
@@ -241,9 +241,14 @@ if f_save:
 #   --mr-out "./res/test_m.tsv"
 # ```
 #
-# For the best practice, you can create a bash script `lamp_cli.sh` (Linux
-# and MacOS) or Windows script `lamp_cli.bat`  to contain these CLI
-# arguments and run:
+# For the best practice, you can create a bash script `.sh` (Linux
+# and MacOS) or Windows script `.bat` to contain these CLI
+# arguments. Change parameters in these files each time when processing new
+# data set.
+# 
+# For example, there are `lamp_cli.sh` and `lamp_cli.bat` in 
+# https://github.com/wanchanglin/lamp/tree/master/examples. You can run them
+# and check the results in directory `examples/res`:
 #
 # - For Linux and MacOS terminal:
 #
@@ -257,5 +262,3 @@ if f_save:
 #   ```bash
 #   $ lamp_cli.bat
 #   ```
-#
-#

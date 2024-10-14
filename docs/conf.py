@@ -37,6 +37,7 @@ extensions = [
     # 'sphinx.ext.todo',
     # 'sphinx.ext.mathjax'
     'sphinx.ext.napoleon',
+    'nbsphinx'
 ]
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
 

@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>tmp</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>lamp_quick_start</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7509,22 +7509,8 @@ a.anchor-link {
 </style>
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a59050d2">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1d2b516e">
+<main>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6dcb61ba">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7537,7 +7523,7 @@ input data and reference files are located in
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4a3fa1f2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fe022e37">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7548,7 +7534,7 @@ input data and reference files are located in
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=afe92bd5">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=97dfd51c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7565,7 +7551,7 @@ input data and reference files are located in
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=606238b6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=877662ba">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7574,12 +7560,12 @@ input data and reference files are located in
 <h2 id="Data-Loading">Data Loading<a class="anchor-link" href="#Data-Loading">¶</a></h2><p><code>lamp</code> supports text files separated by comma (<code>,</code>) or tab (<code>\t</code>).
 The Microsoft's XLSX is also supported, provided that data set is in the
 first sheet.</p>
-<p>Here we use a small example data set with TSV format. Load it into python
-and check its format:</p>
+<p>Here we use a small example data set with <code>tsv</code> format. Load it into
+python and check its format:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d88c5257">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=9643218b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7587,8 +7573,7 @@ and check its format:</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># data set</span>
-<span class="n">d_data</span> <span class="o">=</span> <span class="s2">"./data/df_pos_2.tsv"</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">d_data</span> <span class="o">=</span> <span class="s2">"./data/df_pos_2.tsv"</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="n">d_data</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">)</span>
 <span class="n">data</span>
 </pre></div>
@@ -7918,7 +7903,7 @@ and check its format:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9b80587c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=11c68792">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7929,10 +7914,11 @@ requires peak list's name, m/z value and retention time. User needs to
 indicate the locations of peak name, m/z value, retention time and
 starting points of data matrix from data. Here they are 1, 3, 6 and 11,
 respectively.</p>
+<p>Load input data with <code>xlsx</code> format for 'lamp':</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c0c7fcdd">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=634847f7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7941,8 +7927,10 @@ respectively.</p>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
-<span class="c1"># get the input data set for `lamp`</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">anno</span><span class="o">.</span><span class="n">read_peak</span><span class="p">(</span><span class="n">d_data</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">'</span><span class="se">\t</span><span class="s1">'</span><span class="p">)</span>
+<span class="c1"># d_data = "./data/df_pos_2.tsv"                      </span>
+<span class="c1"># df = anno.read_peak(d_data, cols, sep='\t')</span>
+<span class="n">d_data</span> <span class="o">=</span> <span class="s2">"./data/df_pos_2.xlsx"</span>                      <span class="c1"># use xlsx file</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">anno</span><span class="o">.</span><span class="n">read_peak</span><span class="p">(</span><span class="n">d_data</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span>
 <span class="n">df</span>
 </pre></div>
 </div>
@@ -8271,7 +8259,7 @@ respectively.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=92b50890">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=86b5c5c5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8285,7 +8273,7 @@ annotation.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f58f0abb">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d04fd76c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8421,7 +8409,7 @@ annotation.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=780dcde1">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=aa49788f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8437,7 +8425,7 @@ by <code>ppm</code>,  in data frame <code>df</code>.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7c52e49a">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c4d3fee5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8596,7 +8584,7 @@ by <code>ppm</code>,  in data frame <code>df</code>.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0b282a5b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=018b50ae">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8607,7 +8595,7 @@ by <code>ppm</code>,  in data frame <code>df</code>.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=cae42ae5">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f34a7ad6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8876,7 +8864,7 @@ by <code>ppm</code>,  in data frame <code>df</code>.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=afe149fc">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0b4cb383">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8889,7 +8877,7 @@ otherwise <code>lamp</code> uses its default adducts library.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=37c77c62">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=93b672ea">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9036,7 +9024,7 @@ otherwise <code>lamp</code> uses its default adducts library.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=76dda66b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=75ed6835">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9048,7 +9036,7 @@ otherwise <code>lamp</code> uses its default adducts library.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=05078349">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7c2ff678">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9159,7 +9147,7 @@ otherwise <code>lamp</code> uses its default adducts library.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5e008e19">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=729e9db9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9169,7 +9157,7 @@ otherwise <code>lamp</code> uses its default adducts library.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e9dbb3dc">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4ccf9018">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9877,7 +9865,7 @@ otherwise <code>lamp</code> uses its default adducts library.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9c5be575">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=efa2895e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9897,7 +9885,7 @@ seconds.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=fc85a40d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=af5d5c7b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9915,7 +9903,7 @@ seconds.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=588244f8">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=569f79a7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9940,7 +9928,7 @@ seconds.</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Elapsed time: 3.982825517654419 seconds.
+<pre>Elapsed time: 1.373020887374878 seconds.
 </pre>
 </div>
 </div>
@@ -10070,7 +10058,7 @@ seconds.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8e59c551">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4c4c6381">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10083,7 +10071,7 @@ sizes by:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0d9b5a3b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a9e9ab37">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10132,27 +10120,27 @@ sizes by:</p>
 <tbody>
 <tr>
 <th>0</th>
-<td>M219T35</td>
-<td>52</td>
-<td>M221T34::M223T34::M225T35::M226T35::M229T34::M...</td>
-</tr>
-<tr>
-<th>1</th>
-<td>M217T35</td>
-<td>52</td>
-<td>M218T35::M219T34::M219T35::M221T34::M223T34::M...</td>
-</tr>
-<tr>
-<th>2</th>
 <td>M215T35</td>
 <td>52</td>
 <td>M216T35::M217T35::M218T35::M219T34::M219T35::M...</td>
 </tr>
 <tr>
-<th>3</th>
+<th>1</th>
+<td>M219T35</td>
+<td>52</td>
+<td>M221T34::M223T34::M225T35::M226T35::M229T34::M...</td>
+</tr>
+<tr>
+<th>2</th>
 <td>M216T35</td>
 <td>52</td>
 <td>M217T35::M218T35::M219T34::M219T35::M221T34::M...</td>
+</tr>
+<tr>
+<th>3</th>
+<td>M217T35</td>
+<td>52</td>
+<td>M218T35::M219T34::M219T35::M221T34::M223T34::M...</td>
 </tr>
 <tr>
 <th>4</th>
@@ -10168,33 +10156,33 @@ sizes by:</p>
 </tr>
 <tr>
 <th>335</th>
-<td>M256T275</td>
+<td>M265T415</td>
 <td>1</td>
-<td>M255T275</td>
+<td>M281T415</td>
 </tr>
 <tr>
 <th>336</th>
-<td>M278T71</td>
+<td>M266T66</td>
 <td>1</td>
-<td>M277T71</td>
+<td>M265T66</td>
 </tr>
 <tr>
 <th>337</th>
-<td>M243T287</td>
+<td>M258T51</td>
 <td>1</td>
-<td>M163T287</td>
+<td>M257T51</td>
 </tr>
 <tr>
 <th>338</th>
-<td>M182T42</td>
+<td>M271T197</td>
 <td>1</td>
-<td>M181T43</td>
+<td>M272T197</td>
 </tr>
 <tr>
 <th>339</th>
-<td>M200T593</td>
+<td>M243T287</td>
 <td>1</td>
-<td>M196T593</td>
+<td>M163T287</td>
 </tr>
 </tbody>
 </table>
@@ -10205,7 +10193,7 @@ sizes by:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b3367cd3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=abba967d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10216,7 +10204,7 @@ further analysis.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=26cb025f">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8c36f87e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10232,7 +10220,7 @@ further analysis.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3bcbaef3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ec4088f4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10244,7 +10232,7 @@ each peak id in peak table <code>df</code>:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=67e4ada9">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8ca25d7f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10436,7 +10424,7 @@ each peak id in peak table <code>df</code>:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=33362ac3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d855002d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10447,7 +10435,7 @@ file:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=252e6396">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=60edf11f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10639,7 +10627,7 @@ file:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a3dd379e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cbe7f3bc">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10649,7 +10637,7 @@ file:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=39cd76e9">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e3903168">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10867,7 +10855,7 @@ file:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f25ddbf4">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ca0d6729">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10885,7 +10873,7 @@ file:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=44355304">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dd71c376">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10897,7 +10885,7 @@ You can also save all results into a <code>sqlite3</code> database and use
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1f964c5d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=233fba17">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10913,7 +10901,7 @@ You can also save all results into a <code>sqlite3</code> database and use
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8008c53e">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=37a085ef">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10945,7 +10933,7 @@ You can also save all results into a <code>sqlite3</code> database and use
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4b2d22bc">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=15beeedb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10978,9 +10966,13 @@ something like:</p>
 <span class="w">  </span>--sr-out<span class="w"> </span><span class="s2">"./res/test_s.tsv"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--mr-out<span class="w"> </span><span class="s2">"./res/test_m.tsv"</span>
 </pre></div>
-<p>For the best practice, you can create a bash script <code>lamp_cli.sh</code> (Linux
-and MacOS) or Windows script <code>lamp_cli.bat</code>  to contain these CLI
-arguments and run:</p>
+<p>For the best practice, you can create a bash script <code>.sh</code> (Linux
+and MacOS) or Windows script <code>.bat</code> to contain these CLI
+arguments. Change parameters in these files each time when processing new
+data set.</p>
+<p>For example, there are <code>lamp_cli.sh</code> and <code>lamp_cli.bat</code> in
+<a href="https://github.com/wanchanglin/lamp/tree/master/examples">https://github.com/wanchanglin/lamp/tree/master/examples</a>. You can run them
+and check the results in directory <code>examples/res</code>:</p>
 <ul>
 <li><p>For Linux and MacOS terminal:</p>
 <div class="highlight"><pre><span></span>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>lamp_cli.sh
