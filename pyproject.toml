@@ -15,7 +15,8 @@ maintainers = [
 ]
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = ["numpy", "scipy", "pandas", "pyside6", "pyteomics"]
+dependencies = ["numpy", "scipy", "pandas", "pyside6", "pyteomics",
+                "openpyxl"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",

@@ -26,29 +26,23 @@ file.
 ### Source
 
 You can install `lamp` from source. Download zip file and unzip somewhere in
-your PC (Windows, Linux and MacOS) or git-clone this site. Go to `lamp`
-directory and do:
+your PC (Windows, Linux and MacOS) or git-clone this site. For example,
+clone this site for installation:
 
 ```bash
-cd lamp                              # go to 'lamp' folder
-pip install .                        # install 'lamp' locally
-lamp --help                          # check installation
-
-# OPTION: update 'lamp' if you have already installed 'lamp'
-pip install . --upgrade --no-deps
+git clone https://github.com/wanchanglin/lamp.git  # clone this site
+cd lamp                                            # go to 'lamp' folder
+pip install .                                      # install 'lamp'. If no 'pip', try 'pip3'
+lamp gui                                           # run 'lamp' GUI
 ```
 
-Or build `lamp` package locally and then install it:
+If you have already installed `lamp`, you can use following to update:
 
 ```bash
-pip install build                       # install 'build' package
-cd lamp                                 # go to 'lamp' folder
-python -m build                         # create 'lamp' package
-cd dist                                 # go to 'lamp' package folder
-pip install lamp-x.x.x.tar.gz           # install 'lamp'
+cd lamp                            # go to 'lamp'
+git pull                           # update 'lamp' repository
+pip install . --upgrade --no-deps  # Use 'pip3' if there is no 'pip'
 ```
-
-You need to change 'x.x.x' to right version such as '1.0.0'.
 
 ### Conda
 
@@ -110,5 +104,5 @@ Here is an example: :
 
 ## Authors
 
--   Wanchang Lin (<Wanchang.Lin@liverpool.ac.uk>)
--   Warwick Dunn (<Warwick.Dunn@liverpool.ac.uk>)
+- Wanchang Lin (<Wanchang.Lin@liverpool.ac.uk>), The University of Liverpool
+- Warwick Dunn (<Warwick.Dunn@liverpool.ac.uk>), The University of Liverpool
