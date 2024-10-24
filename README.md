@@ -41,7 +41,7 @@ If you have already installed `lamp`, you can use following to update:
 ```bash
 cd lamp                            # go to 'lamp'
 git pull                           # update 'lamp' repository
-pip install . --upgrade --no-deps  # Use 'pip3' if there is no 'pip'
+pip install . --upgrade            # Use 'pip3' if there is no 'pip'
 ```
 
 ### Conda
