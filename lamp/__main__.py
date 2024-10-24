@@ -35,6 +35,8 @@ def main():
                            help="Data set including peak-list.")
     parser_am.add_argument('--col-idx', default="1,2,3,4", type=str,
                            help='Column index of name, mz, rt and start of data intensity')
+    parser_am.add_argument('--sheet-name', default=0, type=int,
+                           help="Sheet number in Excel file, starting from 0.")
     parser_am.add_argument('--sep', default="tab", type=str,
                            choices=["tab", "comma"],
                            help="Values in input or output file are " \
@@ -43,7 +45,7 @@ def main():
     # ---------------------------------------------------------------------
     # feature grouping with correlation analysis
     parser_am.add_argument('--thres-rt', default=1.0, type=float,
-                           help="Threshold of retension time difference.")
+                           help="Threshold of retention time difference.")
     parser_am.add_argument('--thres-corr', default=0.5, type=float,
                            help="Threshold of correlation coefficient.")
     parser_am.add_argument('--thres-pval', default=0.05, type=float,
@@ -96,8 +98,11 @@ def main():
                             sep=separators[args.sep])
 
         # -----------------------------------------------------------------
-        # calculate exact mass
-        ref = anno.read_ref(args.ref_path, calc=args.cal_mass)
+        # load reference library and calculate exact mass if needed.
+        # Note that the reference file format is fixed as either tsv or xlsx
+        # here.
+        ref = anno.read_ref(args.ref_path, sheet_name=args.sheet_name,
+                            calc=args.cal_mass)
 
         # -----------------------------------------------------------------
         # match compound based on exact mass

@@ -20,7 +20,7 @@ def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
         A pandas data frame of peak table. It must have "name", "mz" and
         "rt" columns.
     thres_rt : float
-        Threshold for retension time.
+        Threshold for retention time.
     thres_corr : float
         Threshold for correlation coefficients
     thres_pval : float
@@ -33,8 +33,8 @@ def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
     Returns
     -------
     DataFrame
-        A table with differences of retension time, correlation
-        coeffocients, correlation p-values.
+        A table with differences of retention time, correlation
+        coefficients, correlation p-values.
     """
     # get data for correlation analysis
     mat = df.drop(['name', 'mz', 'rt'], axis=1)
@@ -101,7 +101,7 @@ def corr_grp_size(corr):
     Returns
     -------
     DataFrame
-        a data frame with three columns, "name", "cor_grp_size" and
+        A data frame with three columns, "name", "cor_grp_size" and
         "cor_grp".
     """
     # get correlated groups/clusters
@@ -126,7 +126,7 @@ def corr_grp(x, corr):
     """
     Get correlated group.
 
-    'x' will mtched in the first two columns of 'corr'.
+    'x' will match in the first two columns of 'corr'.
 
     Parameters
     ----------
@@ -140,7 +140,7 @@ def corr_grp(x, corr):
     Returns
     -------
     list
-        a list consisting matched strings
+        A list consisting matched strings.
     """
 
     ida = corr['name_a'] == x
@@ -170,8 +170,8 @@ def df_corr_pval(df, method="pearson", min_periods=4):
 
     Parameters
     ----------
-    df : DataFRame
-        a symmetric data frame.
+    df : DataFrame
+        A symmetric data frame.
     method : {'pearson', 'spearman'}
         Method of correlation:
         * pearson : standard correlation coefficient
@@ -183,7 +183,7 @@ def df_corr_pval(df, method="pearson", min_periods=4):
     Returns
     -------
     corr : DataFrame
-        correlation matrix
+        Correlation matrix
     pval : DataFrame
         p-value matrix
 
@@ -252,12 +252,12 @@ def df_short2long(df):
     Parameters
     ----------
     df : DataFRame
-        a symmetric data frame.
+        A symmetric data frame.
 
     Returns
     -------
     DataFrame
-        a data frame.
+        A data frame.
     """
 
     # reset columns and index names
@@ -297,12 +297,12 @@ def df_diff(df):
     Parameters
     ----------
     df : DataFrame
-        a data frame.
+        A data frame.
 
     Returns
     -------
     DataFrame
-        a data frome with pair-wise differences.
+        A data frome with pair-wise differences.
 
     Examples
     --------

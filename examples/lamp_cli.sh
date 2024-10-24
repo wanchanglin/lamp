@@ -7,7 +7,8 @@ lamp cli \
   --input-data "./data/df_pos_3.tsv" \
   --col-idx "1, 2, 3, 4" \
   --add-path "" \
-  --ref-path "" \
+  --ref-path "./data/lipidmaps_full_20201001_v1.xlsx" \
+  --sheet-name "0" \
   --ion-mode "pos" \
   --cal-mass \
   --thres-rt "1.0" \

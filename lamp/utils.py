@@ -9,7 +9,7 @@ def df2dict(df):
 
     Parameters
     ----------
-    df : DataFrme
+    df : DataFrame
         a two columns data frame.
 
     Returns
@@ -43,7 +43,7 @@ def flatten_cols(df):
     Returns
     -------
     DataFrame
-        a data frame with falltern column names.
+        a data frame with flattened column names.
     """
 
     df.columns = ["_".join(x) for x in df.columns.to_flat_index()]
@@ -64,7 +64,7 @@ def flatten_list(list):
     Returns
     -------
     list
-        a flattern list.
+        a flattened list.
     """
 
     # remove empty item
@@ -91,33 +91,3 @@ def _toc():
         print("Elapsed time: " + str(elap_time) + " seconds.")
     else:
         print("Toc: start time not set")
-
-
-# -----------------------------------------------------------------------
-# wl-10-09-2024, Tue: remove empyty rows and columns
-def _remove_empty(df, reset_index=True):
-    """
-    Drop all rows and columns that are completely null
-
-    Parameters
-    ----------
-    df : DataFrame
-        The pandas DataFrame object.
-    reset_index : bool
-        Determines if the index is reset.
-
-    Returns
-    -------
-    DataFrame
-        A pandas DataFrame.
-
-    Notes
-    -----
-    This function is taken from package `janitor`'s `remove_empty`.
-    """
-
-    outcome = df.isna()
-    outcome = df.loc[~outcome.all(axis=1), ~outcome.all(axis=0)]
-    if reset_index:
-        return outcome.reset_index(drop=True)
-    return outcome

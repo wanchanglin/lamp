@@ -4,10 +4,11 @@ import re
 import sqlite3
 import pandas as pd
 import numpy as np
+import janitor
 from pyteomics import mass
 from collections import OrderedDict
 import lamp
-from lamp.utils import (df2dict, flatten_cols, flatten_list, _remove_empty)
+from lamp.utils import (df2dict, flatten_cols, flatten_list)
 
 
 # ------------------------------------------------------------------------
@@ -20,14 +21,14 @@ def comp_summ_corr(sr, corr_df):
     ----------
     sr : DataFrame
         A pandas data frame of annotation summary with single row and
-        mutiple column format.
+        multiple column format.
     corr_df : DataFrame
         A pandas data frame of correlation group and its count.
 
     Returns
     -------
     DataFrame
-        A data frame of conbined annotation summary table.
+        A data frame of combined annotation summary table.
     """
 
     # merge summery table with correlation analysis
@@ -61,7 +62,7 @@ def comp_summ(pk, comp, unique=False):
     comp : DataFrame
         A pandas data frame of metabolite annotation.
     unique : bool
-        a flag for using unique match or not
+        A flag for using unique match or not
 
     Returns
     -------
@@ -107,7 +108,7 @@ def comp_merge(comp, unique=False):
     comp : DataFrame
         A pandas data frame of metabolite match.
     unique : bool
-        a flag for using unique match or not
+        A flag for using unique match or not
 
     Returns
     -------
@@ -496,7 +497,7 @@ def _cal_mass_tol(mass, ppm):
     min_tol : float
         Minimal tolerance.
     max_tol : float
-        Maxmal tolerance.
+        Maximal tolerance.
     """
 
     delta = 0.000001
@@ -557,7 +558,7 @@ def _adj_mass(mass, adduct, add_dict):
     Returns
     -------
     float
-        adjusted mass
+        Adjusted mass
     """
 
     try:
@@ -754,21 +755,36 @@ def cal_mass(df, lib_adducts=None):
 # -----------------------------------------------------------------------
 # wl-22-04-2024, Mon: load reference file for compound annotation
 # wl-08-08-2024, Thu: use 'cal_mass' function
-# wl-10-09-2024, Tue: remove empy rows and columns
+# wl-10-09-2024, Tue: remove empty rows and columns
 # wl-11-09-2024, Wed: rename 'name' as 'molecular_name' in case 'name'
 #   conflicts with data set's peak 'name'.
 # wl-09-10-2024, Wed: set 'filename' default value
-def read_ref(filename="", sep="\t", calc=False, lib_adducts=None):
+# wl-23-10-2024, Wed: support Excel
+def read_ref(fn="", sheet_name=0, sep="\t", calc=False, lib_adducts=None):
     """
     Load reference for compound annotation
 
     Parameters
     ----------
-    filename : str
-        Full path for a text reference file. If empty, use default reference
-        file.
+    fn : str
+        Full path for an reference file. If empty, use default reference
+        file. This file must have `formula` or `molecular_formula` column.
+        The current supported file formats are text formats (csv, tsv, txt
+        and dat) and Excel formats (xls, xlsx).
+    sheet_name: str or int
+        This argument is used for Excel file format. Strings are used for
+        sheet names. Integers are used in zero-indexed sheet positions
+        (chart sheets do not count as a sheet position).
+
+        Available cases:
+
+        * Defaults to ``0``: 1st sheet as a `DataFrame`
+        * ``1``: 2nd sheet as a `DataFrame`
+        * ``"Sheet1"``: Load sheet with name "Sheet1"
+
     sep : str
-        Separator for 'filename'.
+        Character to treat as the delimiter. It is used for text file
+        format.
     calc : bool
         Calculate exact mass or not.
     lib_adducts : DataFrame
@@ -785,26 +801,42 @@ def read_ref(filename="", sep="\t", calc=False, lib_adducts=None):
     This function will remove reference empty rows and columns.
     """
 
-    # load default refernce library
-    if not filename:
+    # load default reference library
+    if not fn:
         path = 'lib/db_compounds.txt'
-        filename = os.path.join(
-            os.path.dirname(os.path.abspath(lamp.__file__)), path
-        )
-        # filename = os.path.join(
-        #     os.path.dirname(os.path.abspath(__file__)), path
+        # fn = os.path.join(
+        #     os.path.dirname(os.path.abspath(lamp.__file__)), path
         # )
+        fn = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), path
+        )
         sep = "\t"
 
-    # read file
+    ext = os.path.splitext(fn)[1][1:]
+    if ext in ['xls', 'xlsx']:
+        df = pd.read_excel(fn, sheet_name=sheet_name, header=0)
+    elif ext in ['txt', 'csv', 'tsv', 'dat']:
+        df = pd.read_table(fn, header=0, sep=sep)
+    else:
+        raise ValueError("Data must be: xls, xlsx, txt, csv, tsv or dat.")
+
+    # tidy up
     df = (
-        pd.read_csv(filename, sep=sep, float_precision="round_trip")
-        .pipe(_remove_empty)
+        df
+        .remove_empty()
+        .clean_names()
+        .rename(columns={"m_z": "exact_mass"})
+        .rename(columns={"name": "molecular_name"})
+        .rename(columns={"formula": "molecular_formula"})
     )
 
-    # wl-11-09-2024, Wed: change name
-    df.columns = df.columns.str.replace("^name$", "molecular_name",
-                                        regex=True)
+    if "molecular_formula" not in df.columns:
+        raise ValueError("Input data must have 'molecular_formula' column")
+
+    # df = df.reorder_columns(['molecular_formula', 'molecular_name'])
+
+    if ('exact_mass' in df.columns) and (df.exact_mass.dtype != "float64"):
+        df = df.assign(exact_mass=lambda x: x["exact_mass"].astype(float))
 
     # calculate exact mass
     if calc or ('exact_mass' not in df.columns):
@@ -827,8 +859,7 @@ def read_lib(filename="", ion_mode=None, sep="\t"):
     ion_mode : str
         A string for ion mode, "pos" or "neg".
     sep : str
-        File seperater, `\t` or `,`.
-
+        File delimiter, `\t` or `,`.
 
     Returns
     -------

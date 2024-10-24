@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lamp"
-version = "1.0.0"
+version = "1.0.1"
 description = "Liverpool Annotation of metabolites using Mass Spectrometry"
 authors = [
   {name="Wanchang Lin", email="wanchang.lin@liverpool.ac.uk"},
@@ -16,7 +16,7 @@ maintainers = [
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = ["numpy", "scipy", "pandas", "pyside6", "pyteomics",
-                "openpyxl"]
+                "openpyxl", "pyjanitor"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
