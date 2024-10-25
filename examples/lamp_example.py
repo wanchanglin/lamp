@@ -1,4 +1,4 @@
-# wl-08-10-2024, Tue: lamp example
+# wl-08-10-2024, Tue: LAMP example
 from lamp import anno, stats, utils
 
 # =========================================================================

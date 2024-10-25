@@ -1,13 +1,13 @@
 # # Quick Start
 #
-# In this vignette we will demonstrate how to use `lamp` python package. The
+# In this vignette we will demonstrate how to use `LAMP` python package. The
 # input data and reference files are located in
 # https://github.com/wanchanglin/lamp/tree/master/examples/data.
 
 # ## Setup
 #
-# To use `lamp`, the first step is to import some python libraries including
-# `lamp`.
+# To use `LAMP`, the first step is to import some python libraries including
+# `LAMP`.
 
 import sqlite3
 import pandas as pd
@@ -15,7 +15,7 @@ from lamp import anno, stats, utils
 
 # ## Data Loading
 #
-# `lamp` supports text files separated by comma (`,`) or tab (`\t`).
+# `LAMP` supports text files separated by comma (`,`) or tab (`\t`).
 # The Microsoft's XLSX is also supported, provided that data set is in the
 # first sheet.
 #
@@ -27,16 +27,16 @@ d_data = "./data/df_pos_2.tsv"
 data = pd.read_table(d_data, header=0, sep="\t")
 data
 
-# This data set includes peak list and intensity data matrix. `lamp`
+# This data set includes peak list and intensity data matrix. `LAMP`
 # requires peak list's name, m/z value and retention time. User needs to
-# indicate the locations of peak name, m/z value, retention time and
+# indicate the locations of feature name, m/z value, retention time and
 # starting points of data matrix from data. Here they are 1, 3, 6 and 11,
 # respectively.
 #
-# Load input data with `xlsx` format for `lamp`:
+# Load input data with `xlsx` format for `LAMP`:
 
 cols = [1, 3, 6, 11]
-# d_data = "./data/df_pos_2.tsv"                      
+# d_data = "./data/df_pos_2.tsv"
 # df = anno.read_peak(d_data, cols, sep='\t')
 d_data = "./data/df_pos_2.xlsx"                      # use xlsx file
 df = anno.read_peak(d_data, cols)
@@ -47,8 +47,8 @@ df
 #
 # ## Metabolite Annotation
 #
-# To performance metabolite annotation, users should provide their own
-# reference file. Otherwise, `lamp` will use its default reference file for
+# To perform metabolite annotation, users should provide their own
+# reference file. Otherwise, `LAMP` will use its default reference file for
 # annotation.
 
 ref_path = ""  # if empty, use default reference file for matching
@@ -58,11 +58,12 @@ ref = anno.read_ref(ref_path, calc=cal_mass)
 ref
 
 # The reference file must have two columns: `molecular_formula` and
-# `compound_name` (or `name`). The `exact_mass` is optional. if absent, `lamp`
-# will calculates it based on NIST database. If your reference file has
-# `exact_mass` and want to calculate it using NIST database, set `calc` as
-# True.  The `exact_mass` is used to match against a range of `mz`, controlled
-# by `ppm`,  in data frame `df`.
+# `compound_name` (or `name`). The `exact_mass` is optional. if absent,
+# `LAMP` will calculate 'exact_mass' based on the NIST Atomic Weights and
+# Isotopic Compositions for All Elements. If your reference file has
+# `exact_mass` and you want to calculate it using NIST database, set `calc`
+# as True.  The `exact_mass` is used to match against a range of `mz`,
+# controlled by `ppm`, in data frame `df`.
 #
 # Another reference file is HMDB database for urine:
 
@@ -78,9 +79,9 @@ ppm = 5.0
 match = anno.comp_match_mass(df, ppm, ref)
 match
 
-# `match` gives the compound matching results. `lamp` also provides a mass
+# `match` gives the compound matching results. `LAMP` also provides a mass
 # adjust option by adduct library. You can provide your own adducts library
-# otherwise `lamp` uses its default adducts library.
+# otherwise `LAMP` uses its default adducts library.
 #
 # The adducts library's format looks like:
 
@@ -88,8 +89,8 @@ add_path = './data/adducts_short.tsv'
 lib_df = pd.read_csv(add_path, sep="\t")
 lib_df
 
-# The adducts library must have columns of `label`, `exact_mass`,	`charge` and 
-# `ion_mode`.
+# The adducts library must have columns of `label`, `exact_mass`, `charge`
+# and `ion_mode`.
 #
 # We use this adducts file to adjust mass:
 
@@ -109,13 +110,13 @@ match_1
 # Next step is correlation analysis, based on intensity data matrix along all
 # peaks. All results are filtered by the correlation coefficient, p-values
 # and retention time difference. That is: keep correlation results in an
-# retention time differences/windows(such as 1 seconds) with correlation
-# coefficient larger than a threshold(such as 0.5) and their correlation
+# retention time differences/window (such as 1 second) with correlation
+# coefficient larger than a threshold (such as 0.5) and their correlation
 # p-values less than a threshold (such as 0.05).
 #
-# `lamp` supports two correlation methods, `pearson` and `spearman`. Also
+# `LAMP` supports two correlation methods, `pearson` and `spearman`. Also
 # parameter `positive` allows user to select only positive correlation
-# results.
+# results, otherwise positive and negative correlations will be used.
 #
 # Two functions, `_tic` and `_toc`, record the correlation computation time in
 # seconds.
@@ -207,7 +208,7 @@ if f_save:
 
 # ## End User Usages
 #
-# For end users, `lamp` provides two computation options: command line
+# For end users, `LAMP` provides two computation options: command line
 # interface(CLI) and graphical user interface (GUI).
 #
 # To use GUI,  you need to open a terminal and type in:
