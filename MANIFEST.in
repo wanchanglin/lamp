@@ -1,5 +1,5 @@
 include README.md
 include LICENSE
-include lamp/lib/*.txt
+include lamp/lib/*
 include examples/*.py
 include examples/*.sh
