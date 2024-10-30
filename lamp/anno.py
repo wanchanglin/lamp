@@ -752,7 +752,7 @@ def cal_mass(df, lib_adducts=None):
     return df
 
 
-# -----------------------------------------------------------------------
+# ------------------------------------------------------------------------
 # wl-22-04-2024, Mon: load reference file for compound annotation
 # wl-08-08-2024, Thu: use 'cal_mass' function
 # wl-10-09-2024, Tue: remove empty rows and columns
@@ -760,7 +760,9 @@ def cal_mass(df, lib_adducts=None):
 #   conflicts with data set's peak 'name'.
 # wl-09-10-2024, Wed: set 'filename' default value
 # wl-23-10-2024, Wed: support Excel
-def read_ref(fn="", sheet_name=0, sep="\t", calc=False, lib_adducts=None):
+# wl-30-10-2024, Wed: add ion_mode
+def read_ref(fn="", ion_mode="pos", sheet_name=0, sep="\t", calc=False,
+             lib_adducts=None):
     """
     Load reference for compound annotation
 
@@ -771,6 +773,8 @@ def read_ref(fn="", sheet_name=0, sep="\t", calc=False, lib_adducts=None):
         file. This file must have `formula` or `molecular_formula` column.
         The current supported file formats are text formats (csv, tsv, txt
         and dat) and Excel formats (xls, xlsx).
+    ion_mode : str
+        A string for ion mode, "pos" or "neg".
     sheet_name: str or int
         This argument is used for Excel file format. Strings are used for
         sheet names. Integers are used in zero-indexed sheet positions
@@ -803,14 +807,13 @@ def read_ref(fn="", sheet_name=0, sep="\t", calc=False, lib_adducts=None):
 
     # load default reference library
     if not fn:
-        path = 'lib/db_compounds.txt'
-        # fn = os.path.join(
-        #     os.path.dirname(os.path.abspath(lamp.__file__)), path
-        # )
+        path = 'lib/GSMM_LAMP_ReferenceFile_v1_281024.xlsx'
         fn = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), path
+            os.path.dirname(os.path.abspath(lamp.__file__)), path
         )
-        sep = "\t"
+        # fn = os.path.join(
+        #     os.path.dirname(os.path.abspath(__file__)), path
+        # )
 
     ext = os.path.splitext(fn)[1][1:]
     if ext in ['xls', 'xlsx']:
@@ -821,22 +824,37 @@ def read_ref(fn="", sheet_name=0, sep="\t", calc=False, lib_adducts=None):
         raise ValueError("Data must be: xls, xlsx, txt, csv, tsv or dat.")
 
     # tidy up
-    df = (
-        df
-        .remove_empty()
-        .clean_names()
-        .rename(columns={"m_z": "exact_mass"})
-        .rename(columns={"name": "molecular_name"})
-        .rename(columns={"formula": "molecular_formula"})
-    )
+    df = df.remove_empty().clean_names()
 
+    # rename if possible
     if "molecular_formula" not in df.columns:
-        raise ValueError("Input data must have 'molecular_formula' column")
+        df = df.rename(columns={"formula": "molecular_formula"})
+    if "compound_name" not in df.columns:
+        df = df.rename(columns={"name": "compound_name"})
+    if "exact_mass" not in df.columns and "m_z" in df.columns:
+        df = df.rename(columns={"m_z": "exact_mass"})
+    else:
+        df = df.rename(columns={"ion_m_z": "exact_mass"})
+
+    # reference file must have either "molecular_formula" or "exact_mass",
+    # or both
+    if ("molecular_formula" not in df.columns) and (
+            "exact_mass" not in df.columns):
+        raise ValueError("Input data must have 'molecular_formula' or"
+                         " 'exact_mass' columns")
 
     # df = df.reorder_columns(['molecular_formula', 'molecular_name'])
 
     if ('exact_mass' in df.columns) and (df.exact_mass.dtype != "float64"):
         df = df.assign(exact_mass=lambda x: x["exact_mass"].astype(float))
+
+    if "ion_mode" in df and ion_mode:
+        # 30-10-2024, Wed: use regex for case-insensitive and partial match
+        idx = df['ion_mode'].str.contains(ion_mode, case=False)
+        if idx.sum() > 0:
+            df = df[idx]
+        else:
+            raise ValueError("Ion mode must be pos/positive or neg/negative.")
 
     # calculate exact mass
     if calc or ('exact_mass' not in df.columns):
@@ -848,16 +866,28 @@ def read_ref(fn="", sheet_name=0, sep="\t", calc=False, lib_adducts=None):
 # -------------------------------------------------------------------------
 # wl-24-12-2023, Sun: get library in data frame format
 # wl-09-10-2024, Wed: set 'filename' default value
-def read_lib(filename="", ion_mode=None, sep="\t"):
+# wl-30-10-2024, Wed: minor changes
+def read_lib(fn="", ion_mode="pos", sheet_name=0, sep="\t"):
     """
-    Load adduct library file.
+    Load adducts library file.
 
     Parameters
     ----------
-    filename : str
-        Library file.
+    fn : str
+        Full path for an library file. if empty, use default library file.
     ion_mode : str
         A string for ion mode, "pos" or "neg".
+    sheet_name: str or int
+        This argument is used for Excel file format. Strings are used for
+        sheet names. Integers are used in zero-indexed sheet positions
+        (chart sheets do not count as a sheet position).
+
+        Available cases:
+
+        * Defaults to ``0``: 1st sheet as a `DataFrame`
+        * ``1``: 2nd sheet as a `DataFrame`
+        * ``"Sheet1"``: Load sheet with name "Sheet1"
+
     sep : str
         File delimiter, `\t` or `,`.
 
@@ -868,32 +898,41 @@ def read_lib(filename="", ion_mode=None, sep="\t"):
     """
 
     # load default library
-    if not filename:
+    if not fn:
         path = 'lib/adducts.txt'
-        filename = os.path.join(
+        fn = os.path.join(
             os.path.dirname(os.path.abspath(lamp.__file__)), path
         )
-        # filename = os.path.join(
+        # fn = os.path.join(
         #     os.path.dirname(os.path.abspath(__file__)), path
         # )
         sep = "\t"
 
-    lib_df = pd.read_csv(filename, sep=sep, float_precision="round_trip")
+    ext = os.path.splitext(fn)[1][1:]
+    if ext in ['xls', 'xlsx']:
+        df = pd.read_excel(fn, sheet_name=sheet_name, header=0)
+    elif ext in ['txt', 'csv', 'tsv', 'dat']:
+        df = pd.read_table(fn, header=0, sep=sep)
+    else:
+        raise ValueError("Data must be: xls, xlsx, txt, csv, tsv or dat.")
 
-    if "ion_mode" in lib_df:
-        idx = (lib_df["ion_mode"] == ion_mode)
+    if "ion_mode" in df.columns and ion_mode:
+        # 30-10-2024, Wed: use regex for case-insensitive and partial match
+        idx = df['ion_mode'].str.contains(ion_mode, case=False)
+        # idx = (df["ion_mode"] == ion_mode)
         if idx.sum() > 0:
-            lib_df = lib_df[idx]
-        lib_df = lib_df.drop("ion_mode", axis=1)
+            df = df[idx]
 
-    return lib_df
+    df = df.drop("ion_mode", axis=1)
+
+    return df
 
 
 # --------------------------------------------------------------------------
 # wl-21-09-2022, Wed: Read file consisting of peak list and data matrix.
 # wl-02-09-2024, Mon: add 'dat' format for Galaxy data extension
 # wl-10-10-2024, Thu: remove calculation of intensity average
-def read_peak(fn, cols=[1, 2, 3, 4], sep="\t"):
+def read_peak(fn, cols=[1, 2, 3, 4], sheet_name=0, sep="\t"):
     """
     Read metabolite data.
 
@@ -907,6 +946,17 @@ def read_peak(fn, cols=[1, 2, 3, 4], sep="\t"):
     cols : list
         A list indicating column index of 'name', 'mz', 'rt' and start of
         intensity data matrix.
+    sheet_name: str or int
+        This argument is used for Excel file format. Strings are used for
+        sheet names. Integers are used in zero-indexed sheet positions
+        (chart sheets do not count as a sheet position).
+
+        Available cases:
+
+        * Defaults to ``0``: 1st sheet as a `DataFrame`
+        * ``1``: 2nd sheet as a `DataFrame`
+        * ``"Sheet1"``: Load sheet with name "Sheet1"
+
     sep : str
         File separator for txt, csv and tsv file. `\t` or `,`.
 
@@ -918,7 +968,7 @@ def read_peak(fn, cols=[1, 2, 3, 4], sep="\t"):
 
     ext = os.path.splitext(fn)[1][1:]
     if ext in ['xls', 'xlsx']:
-        data = pd.read_excel(fn, header=0)
+        data = pd.read_excel(fn, sheet_name=sheet_name, header=0)
     elif ext in ['txt', 'csv', 'tsv', 'dat']:
         data = pd.read_table(fn, header=0, sep=sep)
     else:

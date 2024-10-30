@@ -165,14 +165,22 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
 
         # -----------------------------------------------------------------
         # calculate exact mass
-        ref = anno.read_ref(ref_path, calc=self.checkBox_mass_cal.isChecked())
+        ref = anno.read_ref(
+            fn=ref_path,
+            ion_mode=mode[self.comboBox_ion_mode.currentText()],
+            sep=sepa[self.comboBox_data_sep.currentText()],
+            calc=self.checkBox_mass_cal.isChecked()
+        )
 
         # -----------------------------------------------------------------
         # match compound based on exact mass
         if self.checkBox_mass_adj.isChecked():
             # match compounds with adduct library mass adjustment
-            lib_add = anno.read_lib(add_path,
-                                    mode[self.comboBox_ion_mode.currentText()])
+            lib_add = anno.read_lib(
+                fn=add_path,
+                ion_mode=mode[self.comboBox_ion_mode.currentText()],
+                sep=sepa[self.comboBox_data_sep.currentText()]
+            )
 
             match = anno.comp_match_mass_add(df,
                                              self.doubleSpinBox_ppm.value(),

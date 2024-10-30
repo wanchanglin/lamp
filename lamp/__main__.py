@@ -34,13 +34,12 @@ def main():
     parser_am.add_argument('--input-data', type=str, required=True,
                            help="Data set including peak-list.")
     parser_am.add_argument('--col-idx', default="1,2,3,4", type=str,
-                           help='Column index of name, mz, rt and start of data intensity')
-    parser_am.add_argument('--sheet-name', default=0, type=int,
-                           help="Sheet number in Excel file, starting from 0.")
+                           help="Column index of name, mz, rt and start of"
+                                " data intensity")
     parser_am.add_argument('--sep', default="tab", type=str,
                            choices=["tab", "comma"],
-                           help="Values in input or output file are " \
-                                   "separated by this character.")
+                           help="Values in input or output file are "
+                                "separated by this character.")
 
     # ---------------------------------------------------------------------
     # feature grouping with correlation analysis
@@ -61,15 +60,19 @@ def main():
     parser_am.add_argument('--ppm', default=5.0, type=float,
                            help="Mass tolerance in parts per million.")
     parser_am.add_argument('--ion-mode', default='pos', type=str,
-                           choices=["pos", "neg"], help="Ion mode of data set.")
-    parser_am.add_argument('--ref-path', type=str, default=None, required=False,
+                           choices=["pos", "neg"],
+                           help="Ion mode of data set.")
+    parser_am.add_argument('--ref-path', type=str, default=None,
+                           required=False,
                            help="Reference file for compound matching.")
     parser_am.add_argument('--cal-mass', action="store_true",
                            help="Calculate mass based on NIST database.")
     parser_am.add_argument('--add-mass', action="store_true",
                            help="Match compound with adduct mass adjustment.")
-    parser_am.add_argument('--add-path', type=str, default=None, required=False,
-                           help="Adducts library for compound match mass adjustment.")
+    parser_am.add_argument('--add-path', type=str, default=None,
+                           required=False,
+                           help="Adducts library for compound match mass"
+                                " adjustment.")
 
     # ---------------------------------------------------------------------
     # results outcome
@@ -83,7 +86,8 @@ def main():
     parser_am.add_argument('--sr-out', type=str, required=True,
                            help="Compound annotation reseults")
     parser_am.add_argument('--mr-out', type=str, required=True,
-                           help="Compound annotation results in mutiple row format")
+                           help="Compound annotation results in mutiple"
+                                " row format")
 
     # ---------------------------------------------------------------------
     args = parser.parse_args()
@@ -101,14 +105,18 @@ def main():
         # load reference library and calculate exact mass if needed.
         # Note that the reference file format is fixed as either tsv or xlsx
         # here.
-        ref = anno.read_ref(args.ref_path, sheet_name=args.sheet_name,
+        ref = anno.read_ref(fn=args.ref_path,
+                            ion_mode=args.ion_mode,
+                            sep=separators[args.sep],
                             calc=args.cal_mass)
 
         # -----------------------------------------------------------------
         # match compound based on exact mass
         if args.add_mass:
             # match compounds with adduct library mass adjustment
-            lib_add = anno.read_lib(args.add_path, args.ion_mode)
+            lib_add = anno.read_lib(fn=args.add_path,
+                                    ion_mode=args.ion_mode,
+                                    sep=separators[args.sep])
             match = anno.comp_match_mass_add(df, args.ppm, ref, lib_add)
         else:
             # match compounds without adduct library mass adjustment

@@ -1,14 +1,6 @@
 lamp Package
 ============
 
-lamp.anno module
-----------------
-
-.. automodule:: lamp.anno
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 lamp.stats module
 -----------------
 
@@ -24,3 +16,12 @@ lamp.utils module
    :members:
    :undoc-members:
    :show-inheritance:
+
+lamp.anno module
+----------------
+
+.. automodule:: lamp.anno
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
