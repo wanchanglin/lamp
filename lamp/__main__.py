@@ -36,7 +36,7 @@ def main():
     parser_am.add_argument('--col-idx', default="1,2,3,4", type=str,
                            help="Column index of name, mz, rt and start of"
                                 " data intensity")
-    parser_am.add_argument('--sep', default="tab", type=str,
+    parser_am.add_argument('--input-sep', default="tab", type=str,
                            choices=["tab", "comma"],
                            help="Values in input or output file are "
                                 "separated by this character.")
@@ -65,6 +65,10 @@ def main():
     parser_am.add_argument('--ref-path', type=str, default=None,
                            required=False,
                            help="Reference file for compound matching.")
+    parser_am.add_argument('--ref-sep', default="tab", type=str,
+                           choices=["tab", "comma"],
+                           help="Values in input or output file are "
+                                "separated by this character.")
     parser_am.add_argument('--cal-mass', action="store_true",
                            help="Calculate mass based on NIST database.")
     parser_am.add_argument('--add-mass', action="store_true",
@@ -73,6 +77,11 @@ def main():
                            required=False,
                            help="Adducts library for compound match mass"
                                 " adjustment.")
+    parser_am.add_argument('--add-sep', default="tab", type=str,
+                           choices=["tab", "comma"],
+                           help="Values in input or output file are "
+                                "separated by this character.")
+
 
     # ---------------------------------------------------------------------
     # results outcome
@@ -85,9 +94,17 @@ def main():
                            help="All results saved in a sqlite database.")
     parser_am.add_argument('--sr-out', type=str, required=True,
                            help="Compound annotation reseults")
+    parser_am.add_argument('--sr-sep', default="tab", type=str,
+                           choices=["tab", "comma"],
+                           help="Values in input or output file are "
+                                "separated by this character.")
     parser_am.add_argument('--mr-out', type=str, required=True,
                            help="Compound annotation results in mutiple"
                                 " row format")
+    parser_am.add_argument('--mr-sep', default="tab", type=str,
+                           choices=["tab", "comma"],
+                           help="Values in input or output file are "
+                                "separated by this character.")
 
     # ---------------------------------------------------------------------
     args = parser.parse_args()
@@ -99,7 +116,7 @@ def main():
         # get data with peak list and intensity matrix
         idx_list = [int(item.strip()) for item in args.col_idx.split(',')]
         df = anno.read_peak(fn=args.input_data, cols=idx_list,
-                            sep=separators[args.sep])
+                            sep=separators[args.input_sep])
 
         # -----------------------------------------------------------------
         # load reference library and calculate exact mass if needed.
@@ -107,7 +124,7 @@ def main():
         # here.
         ref = anno.read_ref(fn=args.ref_path,
                             ion_mode=args.ion_mode,
-                            sep=separators[args.sep],
+                            sep=separators[args.ref_sep],
                             calc=args.cal_mass)
 
         # -----------------------------------------------------------------
@@ -116,7 +133,7 @@ def main():
             # match compounds with adduct library mass adjustment
             lib_add = anno.read_lib(fn=args.add_path,
                                     ion_mode=args.ion_mode,
-                                    sep=separators[args.sep])
+                                    sep=separators[args.add_sep])
             match = anno.comp_match_mass_add(df, args.ppm, ref, lib_add)
         else:
             # match compounds without adduct library mass adjustment
@@ -157,10 +174,10 @@ def main():
 
         # save multiple row results or not
         if args.save_mr:
-            mr.to_csv(args.mr_out, sep=separators[args.sep], index=False)
+            mr.to_csv(args.mr_out, sep=separators[args.mr_sep], index=False)
 
         # save results
-        res.to_csv(args.sr_out, sep=separators[args.sep], index=False)
+        res.to_csv(args.sr_out, sep=separators[args.sr_sep], index=False)
 
     if args.step == "gui":
         # Exception Handling

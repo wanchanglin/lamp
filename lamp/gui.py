@@ -4,6 +4,7 @@
 # wl-19-09-2024, Thu: commence
 
 import os
+import sys
 import sqlite3
 from functools import partial
 from PySide6 import QtCore, QtWidgets
@@ -67,10 +68,14 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
             self.label_add.setEnabled(True)
             self.pushButton_add.setEnabled(True)
             self.lineEdit_add.setEnabled(True)
+            self.label_lib_sep.setEnabled(True)
+            self.comboBox_lib_sep.setEnabled(True)
         else:
             self.label_add.setEnabled(False)
             self.pushButton_add.setEnabled(False)
             self.lineEdit_add.setEnabled(False)
+            self.label_lib_sep.setEnabled(False)
+            self.comboBox_lib_sep.setEnabled(False)
 
     # ---------------------------------------------------------------------
     def open_directory(self, field):
@@ -168,7 +173,7 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
         ref = anno.read_ref(
             fn=ref_path,
             ion_mode=mode[self.comboBox_ion_mode.currentText()],
-            sep=sepa[self.comboBox_data_sep.currentText()],
+            sep=sepa[self.comboBox_ref_sep.currentText()],
             calc=self.checkBox_mass_cal.isChecked()
         )
 
@@ -179,7 +184,7 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
             lib_add = anno.read_lib(
                 fn=add_path,
                 ion_mode=mode[self.comboBox_ion_mode.currentText()],
-                sep=sepa[self.comboBox_data_sep.currentText()]
+                sep=sepa[self.comboBox_lib_sep.currentText()]
             )
 
             match = anno.comp_match_mass_add(df,
@@ -253,3 +258,26 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
 
         self.pushButton_start.setEnabled(True)
         # self.close()
+
+
+# -------------------------------------------------------------------------
+# wl-31-10-2024, Thu: test and debug GUI
+def main():
+    # Exception Handling
+    try:
+        app = QtWidgets.QApplication(sys.argv)
+        form = lamp_app()
+        form.show()
+        sys.exit(app.exec())
+    except NameError:
+        print("Name Error:", sys.exc_info()[1])
+    except SystemExit:
+        print("Closing Window...")
+    except Exception:
+        print(sys.exc_info()[1])
+
+
+# -------------------------------------------------------------------------
+# wl-31-10-2024, Thu: command line: 'python gui.py' to test
+if __name__ == '__main__':
+    main()

@@ -3,11 +3,12 @@
 # --add-mass
  
 lamp cli \
-  --sep "tab" \
-  --input-data "./data/df_pos_3.tsv" \
+  --input-data "./data/df_pos_3.csv" \
+  --input-sep "comma" \
   --col-idx "1, 2, 3, 4" \
   --add-path "" \
-  --ref-path "./data/lipidmaps_full_20201001_v1.xlsx" \
+  --ref-path "./data/kegg_full_20210111_v1.tsv" \
+  --ref-sep "tab" \
   --ion-mode "pos" \
   --cal-mass \
   --thres-rt "1.0" \
@@ -19,5 +20,7 @@ lamp cli \
   --save-db \
   --save-mr \
   --db-out "./res/test.db" \
-  --sr-out "./res/test_s.tsv" \
-  --mr-out "./res/test_m.tsv"
+  --sr-out "./res/test_s.csv" \
+  --sr-sep "comma" \
+  --mr-out "./res/test_m.tsv" \
+  --mr-sep "tab"

@@ -35,6 +35,7 @@ data
 #
 # Load input data with `xlsx` format for `LAMP`:
 
+ion_mode = "pos"
 cols = [1, 3, 6, 11]
 # d_data = "./data/df_pos_2.tsv"
 # df = anno.read_peak(d_data, cols, sep='\t')
@@ -54,7 +55,7 @@ df
 ref_path = ""  # if empty, use default reference file for matching
 # load reference library
 cal_mass = False
-ref = anno.read_ref(ref_path, calc=cal_mass)
+ref = anno.read_ref(ref_path, ion_mode=ion_mode, calc=cal_mass)
 ref
 
 # The reference file must have two columns: `molecular_formula` and
@@ -94,7 +95,6 @@ lib_df
 #
 # We use this adducts file to adjust mass:
 
-ion_mode = "pos"
 # if empty, use default adducts library
 add_path = "./data/adducts_short.tsv"
 lib_add = anno.read_lib(add_path, ion_mode)
@@ -222,8 +222,8 @@ if f_save:
 #
 # ```bash
 # $ lamp cli \
-#   --sep "tab" \
 #   --input-data "./data/df_pos_3.tsv" \
+#   --sep "tab" \
 #   --col-idx "1, 2, 3, 4" \
 #   --add-path "" \
 #   --ref-path "" \
