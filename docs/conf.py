@@ -23,20 +23,20 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'LAMP - Liverpool Annotation of metabolites using Mass sPectrometry'
 copyright = '2024, Wanchang Lin, Warwick Dunn'
 author = 'Wanchang Lin, Warwick Dunn'
-release = '1.0.0'
+release = '1.0.1'
 
 # -- General configuration ---------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
     'sphinx.ext.autosummary',
     # 'sphinx.ext.coverage',
     # 'sphinx.ext.doctest',
-    'sphinx.ext.viewcode',
     # 'sphinx.ext.todo',
     # 'sphinx.ext.mathjax'
-    'sphinx.ext.napoleon',
     'nbsphinx'
 ]
 autosummary_generate = True  # Turn on sphinx.ext.autosummary

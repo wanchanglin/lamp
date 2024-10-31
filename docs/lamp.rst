@@ -6,22 +6,18 @@ lamp.stats module
 
 .. automodule:: lamp.stats
    :members:
-   :undoc-members:
-   :show-inheritance:
+   :imported-members:
 
 lamp.utils module
 -----------------
 
 .. automodule:: lamp.utils
    :members:
-   :undoc-members:
-   :show-inheritance:
+   :imported-members:
 
 lamp.anno module
 ----------------
 
 .. automodule:: lamp.anno
    :members:
-   :undoc-members:
-   :show-inheritance:
-
+   :imported-members:
