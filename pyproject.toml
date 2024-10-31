@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lamp"
-version = "1.0.1"
+version = "1.0.2"
 description = "Liverpool Annotation of metabolites using Mass Spectrometry"
 authors = [
   {name="Wanchang Lin", email="wanchang.lin@liverpool.ac.uk"},
@@ -33,4 +33,4 @@ lamp = "lamp.__main__:main"
 [project.urls]
 Homepage = "https://github.com/wanchanglin/lamp"
 Issues = "https://github.com/wanchanglin/lamp/issues"
-Documentation = "https://wanchanglin.github.io/lamp"
+Documentation = "https://lamp-liverpool-annotation-of-metabolite-using-mass-spectrometry.readthedocs.io/en/latest/"

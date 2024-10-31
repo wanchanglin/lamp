@@ -7510,7 +7510,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=17321465">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=378c8de2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7523,7 +7523,7 @@ input data and reference files are located in
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=537a8e16">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=26f52293">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7534,7 +7534,7 @@ input data and reference files are located in
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=de7c3b23">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=beafbfd4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7551,21 +7551,22 @@ input data and reference files are located in
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=03d26a28">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=272a630f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Data-Loading">Data Loading<a class="anchor-link" href="#Data-Loading">¶</a></h2><p><code>LAMP</code> supports text files separated by comma (<code>,</code>) or tab (<code>\t</code>).
-The Microsoft's XLSX is also supported, provided that data set is in the
+<h2 id="Data-Loading">Data Loading<a class="anchor-link" href="#Data-Loading">¶</a></h2><p><code>LAMP</code> supports text files separated by comma (<code>,</code>) or tab (<code>\t</code>).  The
+Microsoft's XLSX is also supported, using argument <code>sheet_name</code> to
+indicate which sheet is used for input data. The default is 0 for the
 first sheet.</p>
 <p>Here we use a small example data set with <code>tsv</code> format. Load it into
 python and check its format:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=01788c74">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d56a9e64">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7903,7 +7904,7 @@ python and check its format:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2a50d785">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8ca67ebb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7918,7 +7919,7 @@ respectively.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fc725fd4">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=218468bd">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7926,12 +7927,11 @@ respectively.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">ion_mode</span> <span class="o">=</span> <span class="s2">"pos"</span>
-<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
 <span class="c1"># d_data = "./data/df_pos_2.tsv"</span>
 <span class="c1"># df = anno.read_peak(d_data, cols, sep='\t')</span>
 <span class="n">d_data</span> <span class="o">=</span> <span class="s2">"./data/df_pos_2.xlsx"</span>                      <span class="c1"># use xlsx file</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">anno</span><span class="o">.</span><span class="n">read_peak</span><span class="p">(</span><span class="n">d_data</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">anno</span><span class="o">.</span><span class="n">read_peak</span><span class="p">(</span><span class="n">d_data</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">df</span>
 </pre></div>
 </div>
@@ -8260,21 +8260,25 @@ respectively.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1ff4ddf7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1e6cc91f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Data frame <code>df</code> now includes only <code>name</code>, <code>mz</code>, <code>rt</code> and intensity data
+<p>The argument <code>sep</code> will be ignored if the input data is an <code>xlsx</code> file.
+Data frame <code>df</code> now includes only <code>name</code>, <code>mz</code>, <code>rt</code> and intensity data
 matrix.</p>
 <h2 id="Metabolite-Annotation">Metabolite Annotation<a class="anchor-link" href="#Metabolite-Annotation">¶</a></h2><p>To perform metabolite annotation, users should provide their own
 reference file. Otherwise, <code>LAMP</code> will use its default reference file for
-annotation.</p>
+annotation. Here we load the default reference file for compound
+annotation. Since the input data is positive mode here, we only
+use positive part of reference file. If <code>ion_mode</code> is empty, all reference
+items will be used for matching.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=10b10721">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=eb4248d5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8282,7 +8286,8 @@ annotation.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">ref_path</span> <span class="o">=</span> <span class="s2">""</span>  <span class="c1"># if empty, use default reference file for matching</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">ion_mode</span> <span class="o">=</span> <span class="s2">"pos"</span>
+<span class="n">ref_path</span> <span class="o">=</span> <span class="s2">""</span>  <span class="c1"># if empty, use default reference file for matching</span>
 <span class="c1"># load reference library</span>
 <span class="n">cal_mass</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">ref</span> <span class="o">=</span> <span class="n">anno</span><span class="o">.</span><span class="n">read_ref</span><span class="p">(</span><span class="n">ref_path</span><span class="p">,</span> <span class="n">ion_mode</span><span class="o">=</span><span class="n">ion_mode</span><span class="p">,</span> <span class="n">calc</span><span class="o">=</span><span class="n">cal_mass</span><span class="p">)</span>
@@ -8530,24 +8535,26 @@ annotation.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=31887550">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8a5e2100">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The reference file must have two columns: <code>molecular_formula</code> and
-<code>compound_name</code> (or <code>name</code>). The <code>exact_mass</code> is optional. if absent,
-<code>LAMP</code> will calculate 'exact_mass' based on the NIST Atomic Weights and
-Isotopic Compositions for All Elements. If your reference file has
-<code>exact_mass</code> and you want to calculate it using NIST database, set <code>calc</code>
-as True.  The <code>exact_mass</code> is used to match against a range of <code>mz</code>,
-controlled by <code>ppm</code>, in data frame <code>df</code>.</p>
-<p>Another reference file is HMDB database for urine:</p>
+<p>The reference file must have one column: <code>molecular_formula</code> (or
+<code>formula</code>) if there is no column called <code>ion m/z</code> (or, <code>m/z</code>,
+<code>exact_mass</code>). The <code>exact_mass</code> is optional. if absent, <code>LAMP</code> will use
+<code>molecular_formula</code> to calculate 'exact_mass' based on the NIST Atomic
+Weights and Isotopic Compositions for All Elements. If your reference file
+has <code>exact_mass</code> and you still want to calculate it using NIST database,
+set <code>calc</code> as True.  The <code>exact_mass</code> is used to match against a range of
+<code>mz</code>, controlled by <code>ppm</code>, in data frame <code>df</code>.</p>
+<p>As the same as input data, the reference file can be <code>xlsx</code> file. Another
+reference file is HMDB database for urine:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=919c8099">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3f2b9994">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8556,8 +8563,7 @@ controlled by <code>ppm</code>, in data frame <code>df</code>.</p>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">ref_path</span> <span class="o">=</span> <span class="s2">"./data/hmdb_urine_v4_0_20200910_v1.tsv"</span>
-<span class="n">cal_mass</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># there is no exact mass in reference file, so calculate them</span>
-<span class="n">ref</span> <span class="o">=</span> <span class="n">anno</span><span class="o">.</span><span class="n">read_ref</span><span class="p">(</span><span class="n">ref_path</span><span class="p">,</span> <span class="n">calc</span><span class="o">=</span><span class="n">cal_mass</span><span class="p">)</span>
+<span class="n">ref</span> <span class="o">=</span> <span class="n">anno</span><span class="o">.</span><span class="n">read_ref</span><span class="p">(</span><span class="n">ref_path</span><span class="p">,</span> <span class="n">calc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ref</span>
 </pre></div>
 </div>
@@ -8706,7 +8712,7 @@ controlled by <code>ppm</code>, in data frame <code>df</code>.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=807cc660">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=310c37c4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8717,7 +8723,7 @@ controlled by <code>ppm</code>, in data frame <code>df</code>.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=82c350fb">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d7fa6dde">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8986,7 +8992,7 @@ controlled by <code>ppm</code>, in data frame <code>df</code>.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4c2028d4">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f88af4e3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8999,7 +9005,7 @@ otherwise <code>LAMP</code> uses its default adducts library.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ee75c4d3">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=61a053ea">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9146,7 +9152,7 @@ otherwise <code>LAMP</code> uses its default adducts library.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=65f3dec7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=439a76c3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9158,7 +9164,7 @@ and <code>ion_mode</code>.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=04b72aea">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=147b39ac">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9268,7 +9274,7 @@ and <code>ion_mode</code>.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7b721dbf">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fd1f89fd">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9278,7 +9284,7 @@ and <code>ion_mode</code>.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=974c39b1">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=45898c83">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9986,7 +9992,7 @@ and <code>ion_mode</code>.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1fc97442">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c8fc21fd">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10006,7 +10012,7 @@ seconds.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d841849d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3835876e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10024,7 +10030,7 @@ seconds.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0660c71d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=61d587c4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10049,7 +10055,7 @@ seconds.</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Elapsed time: 0.7674360275268555 seconds.
+<pre>Elapsed time: 1.9924170970916748 seconds.
 </pre>
 </div>
 </div>
@@ -10179,7 +10185,7 @@ seconds.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e06b0c67">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=adf41e7d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10192,7 +10198,7 @@ sizes by:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e296409e">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a4079411">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10241,27 +10247,27 @@ sizes by:</p>
 <tbody>
 <tr>
 <th>0</th>
-<td>M219T35</td>
-<td>52</td>
-<td>M221T34::M223T34::M225T35::M226T35::M229T34::M...</td>
-</tr>
-<tr>
-<th>1</th>
-<td>M215T35</td>
-<td>52</td>
-<td>M216T35::M217T35::M218T35::M219T34::M219T35::M...</td>
-</tr>
-<tr>
-<th>2</th>
 <td>M216T35</td>
 <td>52</td>
 <td>M217T35::M218T35::M219T34::M219T35::M221T34::M...</td>
 </tr>
 <tr>
-<th>3</th>
+<th>1</th>
 <td>M217T35</td>
 <td>52</td>
 <td>M218T35::M219T34::M219T35::M221T34::M223T34::M...</td>
+</tr>
+<tr>
+<th>2</th>
+<td>M219T35</td>
+<td>52</td>
+<td>M221T34::M223T34::M225T35::M226T35::M229T34::M...</td>
+</tr>
+<tr>
+<th>3</th>
+<td>M215T35</td>
+<td>52</td>
+<td>M216T35::M217T35::M218T35::M219T34::M219T35::M...</td>
 </tr>
 <tr>
 <th>4</th>
@@ -10277,33 +10283,33 @@ sizes by:</p>
 </tr>
 <tr>
 <th>335</th>
-<td>M196T593</td>
+<td>M245T39</td>
 <td>1</td>
-<td>M200T593</td>
+<td>M279T38</td>
 </tr>
 <tr>
 <th>336</th>
-<td>M272T59</td>
+<td>M182T42</td>
 <td>1</td>
-<td>M271T59</td>
+<td>M181T43</td>
 </tr>
 <tr>
 <th>337</th>
-<td>M257T51</td>
+<td>M265T66</td>
 <td>1</td>
-<td>M258T51</td>
+<td>M266T66</td>
 </tr>
 <tr>
 <th>338</th>
-<td>M223T54</td>
+<td>M271T197</td>
 <td>1</td>
-<td>M269T53</td>
+<td>M272T197</td>
 </tr>
 <tr>
 <th>339</th>
-<td>M271T59</td>
+<td>M171T119</td>
 <td>1</td>
-<td>M272T59</td>
+<td>M173T119</td>
 </tr>
 </tbody>
 </table>
@@ -10314,7 +10320,7 @@ sizes by:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5e5b71d5">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=27dbb6d3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10325,7 +10331,7 @@ further analysis.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=cadd71fb">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=20ab137e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10341,7 +10347,7 @@ further analysis.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b49dadf8">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6e2414bb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10353,7 +10359,7 @@ each peak id in peak table <code>df</code>:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=509514ef">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f9d1c8d8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10545,7 +10551,7 @@ each peak id in peak table <code>df</code>:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1024b36e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b6216cca">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10556,7 +10562,7 @@ file:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f797dafb">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=188a8cf8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10748,7 +10754,7 @@ file:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3aff91e1">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fb4097f7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10758,7 +10764,7 @@ file:</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c1d1c79c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b317cb9a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10976,7 +10982,7 @@ file:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3d3529b2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bc8a1c0d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -10994,7 +11000,7 @@ file:</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d26a5647">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6b2ec73d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -11006,7 +11012,7 @@ You can also save all results into a <code>sqlite3</code> database and use
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2030f2a7">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d4c927fd">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -11022,7 +11028,7 @@ You can also save all results into a <code>sqlite3</code> database and use
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=e0d364eb">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=0f35423d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -11054,7 +11060,7 @@ You can also save all results into a <code>sqlite3</code> database and use
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b2b30fa6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3b76b8ad">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -11105,6 +11111,9 @@ $<span class="w"> </span>./lamp_cli.sh
 </pre></div>
 </li>
 </ul>
+<p>Note that if users use <code>xlsx</code> files for input data and reference file
+when using GUI or CLI, all data must be in the first sheet. If you use
+<code>LAMP</code> functions in your python scripts, there are no such requirementss.</p>
 </div>
 </div>
 </div>

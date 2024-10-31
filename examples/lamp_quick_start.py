@@ -15,8 +15,9 @@ from lamp import anno, stats, utils
 
 # ## Data Loading
 #
-# `LAMP` supports text files separated by comma (`,`) or tab (`\t`).
-# The Microsoft's XLSX is also supported, provided that data set is in the
+# `LAMP` supports text files separated by comma (`,`) or tab (`\t`).  The
+# Microsoft's XLSX is also supported, using argument `sheet_name` to
+# indicate which sheet is used for input data. The default is 0 for the
 # first sheet.
 #
 # Here we use a small example data set with `tsv` format. Load it into
@@ -35,14 +36,14 @@ data
 #
 # Load input data with `xlsx` format for `LAMP`:
 
-ion_mode = "pos"
 cols = [1, 3, 6, 11]
 # d_data = "./data/df_pos_2.tsv"
 # df = anno.read_peak(d_data, cols, sep='\t')
 d_data = "./data/df_pos_2.xlsx"                      # use xlsx file
-df = anno.read_peak(d_data, cols)
+df = anno.read_peak(d_data, cols, sheet_name=0)
 df
 
+# The argument `sep` will be ignored if the input data is an `xlsx` file.
 # Data frame `df` now includes only `name`, `mz`, `rt` and intensity data
 # matrix.
 #
@@ -50,27 +51,32 @@ df
 #
 # To perform metabolite annotation, users should provide their own
 # reference file. Otherwise, `LAMP` will use its default reference file for
-# annotation.
+# annotation. Here we load the default reference file for compound
+# annotation. Since the input data is positive mode here, we only
+# use positive part of reference file. If `ion_mode` is empty, all reference
+# items will be used for matching.
 
+ion_mode = "pos"
 ref_path = ""  # if empty, use default reference file for matching
 # load reference library
 cal_mass = False
 ref = anno.read_ref(ref_path, ion_mode=ion_mode, calc=cal_mass)
 ref
 
-# The reference file must have two columns: `molecular_formula` and
-# `compound_name` (or `name`). The `exact_mass` is optional. if absent,
-# `LAMP` will calculate 'exact_mass' based on the NIST Atomic Weights and
-# Isotopic Compositions for All Elements. If your reference file has
-# `exact_mass` and you want to calculate it using NIST database, set `calc`
-# as True.  The `exact_mass` is used to match against a range of `mz`,
-# controlled by `ppm`, in data frame `df`.
+# The reference file must have one column: `molecular_formula` (or
+# `formula`) if there is no column called `ion m/z` (or, `m/z`,
+# `exact_mass`). The `exact_mass` is optional. if absent, `LAMP` will use
+# `molecular_formula` to calculate 'exact_mass' based on the NIST Atomic
+# Weights and Isotopic Compositions for All Elements. If your reference file
+# has `exact_mass` and you still want to calculate it using NIST database,
+# set `calc` as True.  The `exact_mass` is used to match against a range of
+# `mz`, controlled by `ppm`, in data frame `df`.
 #
-# Another reference file is HMDB database for urine:
+# As the same as input data, the reference file can be `xlsx` file. Another
+# reference file is HMDB database for urine:
 
 ref_path = "./data/hmdb_urine_v4_0_20200910_v1.tsv"
-cal_mass = True  # there is no exact mass in reference file, so calculate them
-ref = anno.read_ref(ref_path, calc=cal_mass)
+ref = anno.read_ref(ref_path, calc=True)
 ref
 
 # Next we use HMDB reference file for compounds match. Here function argument
@@ -246,8 +252,8 @@ if f_save:
 # and MacOS) or Windows script `.bat` to contain these CLI
 # arguments. Change parameters in these files each time when processing new
 # data set.
-# 
-# For example, there are `lamp_cli.sh` and `lamp_cli.bat` in 
+#
+# For example, there are `lamp_cli.sh` and `lamp_cli.bat` in
 # https://github.com/wanchanglin/lamp/tree/master/examples. You can run them
 # and check the results in directory `examples/res`:
 #
@@ -263,3 +269,7 @@ if f_save:
 #   ```bash
 #   $ lamp_cli.bat
 #   ```
+#
+# Note that if users use `xlsx` files for input data and reference file
+# when using GUI or CLI, all data must be in the first sheet. If you use
+# `LAMP` functions in your python scripts, there are no such requirementss.
