@@ -6,8 +6,7 @@ import pandas as pd
 # -------------------------------------------------------------------------
 # wl-04-12-2023, Mon: get correlation coefficients, p-values and rt
 # differences for compound annotation.
-# Note:
-#  - not feasible to return un-filtered results for large data set (>2000)
+# Note: not feasible to return un-filtered results for large data set (>2000)
 def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
                  method="pearson", positive=True):
     """

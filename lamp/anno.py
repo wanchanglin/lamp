@@ -1,4 +1,3 @@
-# wl-17-04-2024, Wed: commence.
 import os
 import re
 import sqlite3

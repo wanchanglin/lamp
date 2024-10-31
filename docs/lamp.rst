@@ -1,12 +1,17 @@
 lamp Package
 ============
 
-lamp.stats module
------------------
-
 lamp.anno module
 ----------------
-
 .. automodule:: lamp.anno
    :members:
-   :imported-members:
+
+lamp.stats module
+-----------------
+.. automodule:: lamp.stats
+   :members:
+
+lamp.utils module
+-----------------
+.. automodule:: lamp.utils
+   :members:
