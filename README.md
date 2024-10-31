@@ -46,10 +46,21 @@ lamp gui                                           # run 'LAMP' GUI
 If you have already installed `LAMP`, you can use following to update:
 
 ```bash
-cd lamp                            # go to 'LAMP'
-git pull                           # update 'LAMP' repository
-pip install . --upgrade            # Use 'pip3' if there is no 'pip'
+cd lamp                              # go to 'LAMP'
+git pull                             # update 'LAMP' repository
+pip install . --upgrade --no-deps    # Use 'pip3' if there is no 'pip'
 ```
+
+Or install directly from GitHub: 
+
+```bash
+# install
+pip install git+https://github.com/wanchanglin/lamp.git
+
+# update
+pip install git+https://github.com/wanchanglin/lamp.git --upgrade --no-deps --force-reinstall
+```
+
 
 ### Conda
 
