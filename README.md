@@ -30,6 +30,21 @@ file.
 
 ## Installation
 
+### PyPI
+
+To install from [PyPI](https://pypi.org/) via `pip`, use the distribution
+name `lamps`:
+
+```bash
+pip install lamps
+```
+
+This is the preferred installation method.
+
+### Conda
+
+(coming soon)
+
 ### Source
 
 You can install `LAMP` from source. Download zip file and unzip somewhere in
@@ -61,14 +76,6 @@ pip install git+https://github.com/wanchanglin/lamp.git
 pip install git+https://github.com/wanchanglin/lamp.git --upgrade --no-deps --force-reinstall
 ```
 
-
-### Conda
-
-(coming soon)
-
-### PyPI
-
-(coming soon)
 
 ## Usages
 

@@ -531,7 +531,7 @@ def _cal_mass(formula, mass_data):
     formula = str(formula)
     try:
         res = mass.calculate_mass(formula=formula, mass_data=mass_data)
-        res = round(res, 6)
+        # res = round(res, 6)
     # except (KeyError, PyteomicsError, NameError):
     except Exception:
         res = np.nan
@@ -541,6 +541,7 @@ def _cal_mass(formula, mass_data):
 
 # -----------------------------------------------------------------------
 # wl-08-08-2024, Thu: adjust molecular formula' exact mass
+# wl-06-11-2024, Wed: Re-write
 def _adj_mass(mass, adduct, add_dict):
     """
     Adjust mass based on adduct library
@@ -560,10 +561,9 @@ def _adj_mass(mass, adduct, add_dict):
         Adjusted mass
     """
 
-    try:
+    if adduct in add_dict:
         adj = mass + add_dict[adduct]
-    # except Exception:
-    except KeyError:
+    else:
         adj = mass
 
     return adj
@@ -588,7 +588,7 @@ def cal_mass(df, lib_adducts=None):
         'molecular_formula'.
     lib_adducts : DataFrame
         Adducts library in data frame format for mass adjustment. Only for
-        'filename' has 'adduct' column.
+        'df' has 'ion_type' column.
 
     Returns
     -------
@@ -736,8 +736,7 @@ def cal_mass(df, lib_adducts=None):
     )
 
     # adjust exact mass or not
-    adj_f = False     # wl-30-08-2024, Fri: do not adjust mass
-    if ("adduct" in df.columns) and (lib_adducts is not None) and adj_f:
+    if ("adduct" in df.columns) and (lib_adducts is not None):
         # convert 2-column df into dictionary for speedy query
         add = df2dict(lib_adducts.iloc[:, 0:2])
         df = (
@@ -792,7 +791,7 @@ def read_ref(fn="", ion_mode="pos", sheet_name=0, sep="\t", calc=False,
         Calculate exact mass or not.
     lib_adducts : DataFrame
         Adducts library in data frame format for mass adjustment. Only for
-        'filename' has 'adduct' column.
+        'fn' has 'ion_type' column.
 
     Returns
     -------
