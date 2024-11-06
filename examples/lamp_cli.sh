@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
 # wl-07-10-2024, Mon: command-line test script
-# --add-mass
  
 lamp cli \
   --input-data "./data/df_pos_3.csv" \
   --input-sep "comma" \
   --col-idx "1, 2, 3, 4" \
-  --add-path "" \
   --ref-path "./data/kegg_full_20210111_v1.tsv" \
   --ref-sep "tab" \
   --ion-mode "pos" \
   --cal-mass \
+  --add-path "" \
   --thres-rt "1.0" \
   --thres-corr "0.5" \
   --thres-pval "0.05" \

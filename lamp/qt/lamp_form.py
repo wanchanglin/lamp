@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'lamp_form.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.8.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -40,7 +40,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 842, 644))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 839, 659))
         self.verticalLayout_2 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.groupBox_input = QGroupBox(self.scrollAreaWidgetContents)
@@ -268,84 +268,12 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setVerticalSpacing(5)
         self.gridLayout.setContentsMargins(10, 5, 10, 5)
-        self.label_add = QLabel(self.groupBox_annotate)
-        self.label_add.setObjectName(u"label_add")
-        self.label_add.setEnabled(False)
-
-        self.gridLayout.addWidget(self.label_add, 9, 0, 1, 1)
-
-        self.checkBox_mass_adj = QCheckBox(self.groupBox_annotate)
-        self.checkBox_mass_adj.setObjectName(u"checkBox_mass_adj")
-        self.checkBox_mass_adj.setEnabled(True)
-        self.checkBox_mass_adj.setChecked(False)
-
-        self.gridLayout.addWidget(self.checkBox_mass_adj, 8, 0, 1, 1)
-
-        self.label_ion_mode = QLabel(self.groupBox_annotate)
-        self.label_ion_mode.setObjectName(u"label_ion_mode")
-        self.label_ion_mode.setMaximumSize(QSize(75, 16777215))
-
-        self.gridLayout.addWidget(self.label_ion_mode, 13, 0, 1, 1)
-
         self.checkBox_mass_cal = QCheckBox(self.groupBox_annotate)
         self.checkBox_mass_cal.setObjectName(u"checkBox_mass_cal")
         self.checkBox_mass_cal.setEnabled(True)
         self.checkBox_mass_cal.setChecked(False)
 
-        self.gridLayout.addWidget(self.checkBox_mass_cal, 7, 0, 1, 1)
-
-        self.lineEdit_ref = QLineEdit(self.groupBox_annotate)
-        self.lineEdit_ref.setObjectName(u"lineEdit_ref")
-        self.lineEdit_ref.setEnabled(True)
-        sizePolicy1.setHeightForWidth(self.lineEdit_ref.sizePolicy().hasHeightForWidth())
-        self.lineEdit_ref.setSizePolicy(sizePolicy1)
-        self.lineEdit_ref.setMinimumSize(QSize(120, 0))
-        self.lineEdit_ref.setMaximumSize(QSize(120, 16777215))
-        self.lineEdit_ref.setReadOnly(True)
-
-        self.gridLayout.addWidget(self.lineEdit_ref, 5, 1, 1, 1)
-
-        self.pushButton_add = QPushButton(self.groupBox_annotate)
-        self.pushButton_add.setObjectName(u"pushButton_add")
-        self.pushButton_add.setEnabled(False)
-        self.pushButton_add.setMinimumSize(QSize(95, 23))
-        self.pushButton_add.setMaximumSize(QSize(95, 16777215))
-
-        self.gridLayout.addWidget(self.pushButton_add, 9, 2, 1, 1)
-
-        self.label_ppm = QLabel(self.groupBox_annotate)
-        self.label_ppm.setObjectName(u"label_ppm")
-        self.label_ppm.setEnabled(True)
-
-        self.gridLayout.addWidget(self.label_ppm, 13, 2, 1, 1)
-
-        self.label_annotate = QLabel(self.groupBox_annotate)
-        self.label_annotate.setObjectName(u"label_annotate")
-        self.label_annotate.setFont(font)
-
-        self.gridLayout.addWidget(self.label_annotate, 0, 0, 1, 1)
-
-        self.comboBox_ion_mode = QComboBox(self.groupBox_annotate)
-        self.comboBox_ion_mode.addItem("")
-        self.comboBox_ion_mode.addItem("")
-        self.comboBox_ion_mode.setObjectName(u"comboBox_ion_mode")
-        self.comboBox_ion_mode.setMinimumSize(QSize(100, 0))
-        self.comboBox_ion_mode.setMaximumSize(QSize(100, 16777215))
-
-        self.gridLayout.addWidget(self.comboBox_ion_mode, 13, 1, 1, 1)
-
-        self.pushButton_ref = QPushButton(self.groupBox_annotate)
-        self.pushButton_ref.setObjectName(u"pushButton_ref")
-        self.pushButton_ref.setEnabled(True)
-        self.pushButton_ref.setMinimumSize(QSize(95, 23))
-        self.pushButton_ref.setMaximumSize(QSize(95, 16777215))
-
-        self.gridLayout.addWidget(self.pushButton_ref, 5, 2, 1, 1)
-
-        self.label_ref = QLabel(self.groupBox_annotate)
-        self.label_ref.setObjectName(u"label_ref")
-
-        self.gridLayout.addWidget(self.label_ref, 5, 0, 1, 1)
+        self.gridLayout.addWidget(self.checkBox_mass_cal, 11, 0, 1, 1)
 
         self.doubleSpinBox_ppm = QDoubleSpinBox(self.groupBox_annotate)
         self.doubleSpinBox_ppm.setObjectName(u"doubleSpinBox_ppm")
@@ -357,27 +285,7 @@ class Ui_MainWindow(object):
         self.doubleSpinBox_ppm.setMaximum(100000.000000000000000)
         self.doubleSpinBox_ppm.setValue(5.000000000000000)
 
-        self.gridLayout.addWidget(self.doubleSpinBox_ppm, 13, 4, 1, 1)
-
-        self.lineEdit_add = QLineEdit(self.groupBox_annotate)
-        self.lineEdit_add.setObjectName(u"lineEdit_add")
-        self.lineEdit_add.setEnabled(False)
-        self.lineEdit_add.setMinimumSize(QSize(150, 0))
-        self.lineEdit_add.setMaximumSize(QSize(150, 16777215))
-        self.lineEdit_add.setReadOnly(True)
-
-        self.gridLayout.addWidget(self.lineEdit_add, 9, 1, 1, 1)
-
-        self.label_ref_sep = QLabel(self.groupBox_annotate)
-        self.label_ref_sep.setObjectName(u"label_ref_sep")
-
-        self.gridLayout.addWidget(self.label_ref_sep, 5, 3, 1, 1)
-
-        self.label_lib_sep = QLabel(self.groupBox_annotate)
-        self.label_lib_sep.setObjectName(u"label_lib_sep")
-        self.label_lib_sep.setEnabled(False)
-
-        self.gridLayout.addWidget(self.label_lib_sep, 9, 3, 1, 1)
+        self.gridLayout.addWidget(self.doubleSpinBox_ppm, 6, 3, 1, 1)
 
         self.comboBox_ref_sep = QComboBox(self.groupBox_annotate)
         self.comboBox_ref_sep.addItem("")
@@ -389,7 +297,18 @@ class Ui_MainWindow(object):
         sizePolicy3.setHeightForWidth(self.comboBox_ref_sep.sizePolicy().hasHeightForWidth())
         self.comboBox_ref_sep.setSizePolicy(sizePolicy3)
 
-        self.gridLayout.addWidget(self.comboBox_ref_sep, 5, 4, 1, 1)
+        self.gridLayout.addWidget(self.comboBox_ref_sep, 9, 4, 1, 1)
+
+        self.label_annotate = QLabel(self.groupBox_annotate)
+        self.label_annotate.setObjectName(u"label_annotate")
+        self.label_annotate.setFont(font)
+
+        self.gridLayout.addWidget(self.label_annotate, 0, 0, 1, 1)
+
+        self.label_ref_sep = QLabel(self.groupBox_annotate)
+        self.label_ref_sep.setObjectName(u"label_ref_sep")
+
+        self.gridLayout.addWidget(self.label_ref_sep, 9, 3, 1, 1)
 
         self.comboBox_lib_sep = QComboBox(self.groupBox_annotate)
         self.comboBox_lib_sep.addItem("")
@@ -399,7 +318,81 @@ class Ui_MainWindow(object):
         sizePolicy3.setHeightForWidth(self.comboBox_lib_sep.sizePolicy().hasHeightForWidth())
         self.comboBox_lib_sep.setSizePolicy(sizePolicy3)
 
-        self.gridLayout.addWidget(self.comboBox_lib_sep, 9, 4, 1, 1)
+        self.gridLayout.addWidget(self.comboBox_lib_sep, 12, 4, 1, 1)
+
+        self.label_ppm = QLabel(self.groupBox_annotate)
+        self.label_ppm.setObjectName(u"label_ppm")
+        self.label_ppm.setEnabled(True)
+
+        self.gridLayout.addWidget(self.label_ppm, 6, 2, 1, 1)
+
+        self.label_ion_mode = QLabel(self.groupBox_annotate)
+        self.label_ion_mode.setObjectName(u"label_ion_mode")
+        self.label_ion_mode.setMaximumSize(QSize(75, 16777215))
+
+        self.gridLayout.addWidget(self.label_ion_mode, 6, 0, 1, 1)
+
+        self.lineEdit_add = QLineEdit(self.groupBox_annotate)
+        self.lineEdit_add.setObjectName(u"lineEdit_add")
+        self.lineEdit_add.setEnabled(False)
+        self.lineEdit_add.setMinimumSize(QSize(150, 0))
+        self.lineEdit_add.setMaximumSize(QSize(150, 16777215))
+        self.lineEdit_add.setReadOnly(True)
+
+        self.gridLayout.addWidget(self.lineEdit_add, 12, 1, 1, 1)
+
+        self.label_ref = QLabel(self.groupBox_annotate)
+        self.label_ref.setObjectName(u"label_ref")
+
+        self.gridLayout.addWidget(self.label_ref, 9, 0, 1, 1)
+
+        self.comboBox_ion_mode = QComboBox(self.groupBox_annotate)
+        self.comboBox_ion_mode.addItem("")
+        self.comboBox_ion_mode.addItem("")
+        self.comboBox_ion_mode.setObjectName(u"comboBox_ion_mode")
+        self.comboBox_ion_mode.setMinimumSize(QSize(100, 0))
+        self.comboBox_ion_mode.setMaximumSize(QSize(100, 16777215))
+
+        self.gridLayout.addWidget(self.comboBox_ion_mode, 6, 1, 1, 1)
+
+        self.pushButton_ref = QPushButton(self.groupBox_annotate)
+        self.pushButton_ref.setObjectName(u"pushButton_ref")
+        self.pushButton_ref.setEnabled(True)
+        self.pushButton_ref.setMinimumSize(QSize(95, 23))
+        self.pushButton_ref.setMaximumSize(QSize(95, 16777215))
+
+        self.gridLayout.addWidget(self.pushButton_ref, 9, 2, 1, 1)
+
+        self.label_lib_sep = QLabel(self.groupBox_annotate)
+        self.label_lib_sep.setObjectName(u"label_lib_sep")
+        self.label_lib_sep.setEnabled(False)
+
+        self.gridLayout.addWidget(self.label_lib_sep, 12, 3, 1, 1)
+
+        self.label_add = QLabel(self.groupBox_annotate)
+        self.label_add.setObjectName(u"label_add")
+        self.label_add.setEnabled(False)
+
+        self.gridLayout.addWidget(self.label_add, 12, 0, 1, 1)
+
+        self.pushButton_add = QPushButton(self.groupBox_annotate)
+        self.pushButton_add.setObjectName(u"pushButton_add")
+        self.pushButton_add.setEnabled(False)
+        self.pushButton_add.setMinimumSize(QSize(95, 23))
+        self.pushButton_add.setMaximumSize(QSize(95, 16777215))
+
+        self.gridLayout.addWidget(self.pushButton_add, 12, 2, 1, 1)
+
+        self.lineEdit_ref = QLineEdit(self.groupBox_annotate)
+        self.lineEdit_ref.setObjectName(u"lineEdit_ref")
+        self.lineEdit_ref.setEnabled(True)
+        sizePolicy1.setHeightForWidth(self.lineEdit_ref.sizePolicy().hasHeightForWidth())
+        self.lineEdit_ref.setSizePolicy(sizePolicy1)
+        self.lineEdit_ref.setMinimumSize(QSize(120, 0))
+        self.lineEdit_ref.setMaximumSize(QSize(120, 16777215))
+        self.lineEdit_ref.setReadOnly(True)
+
+        self.gridLayout.addWidget(self.lineEdit_ref, 9, 1, 1, 1)
 
 
         self.verticalLayout_2.addWidget(self.groupBox_annotate)
@@ -561,28 +554,27 @@ class Ui_MainWindow(object):
 
         self.label_method.setText(QCoreApplication.translate("MainWindow", u"Grouping method:", None))
         self.groupBox_annotate.setTitle("")
-        self.label_add.setText(QCoreApplication.translate("MainWindow", u"Adduct library:", None))
-        self.checkBox_mass_adj.setText(QCoreApplication.translate("MainWindow", u"Annotation with adducts library mass adjustment", None))
-        self.label_ion_mode.setText(QCoreApplication.translate("MainWindow", u"Ion mode:", None))
         self.checkBox_mass_cal.setText(QCoreApplication.translate("MainWindow", u"Calculate mass for reference", None))
-        self.lineEdit_ref.setText(QCoreApplication.translate("MainWindow", u"Use default", None))
-        self.pushButton_add.setText(QCoreApplication.translate("MainWindow", u"Browse...", None))
-        self.label_ppm.setText(QCoreApplication.translate("MainWindow", u"Mass tolerance (ppm):", None))
+        self.comboBox_ref_sep.setItemText(0, QCoreApplication.translate("MainWindow", u"tab", None))
+        self.comboBox_ref_sep.setItemText(1, QCoreApplication.translate("MainWindow", u"comma", None))
+
         self.label_annotate.setText(QCoreApplication.translate("MainWindow", u"Annotate Coumpounds / Motabolites", None))
+        self.label_ref_sep.setText(QCoreApplication.translate("MainWindow", u"Separator:", None))
+        self.comboBox_lib_sep.setItemText(0, QCoreApplication.translate("MainWindow", u"tab", None))
+        self.comboBox_lib_sep.setItemText(1, QCoreApplication.translate("MainWindow", u"comma", None))
+
+        self.label_ppm.setText(QCoreApplication.translate("MainWindow", u"Mass tolerance (ppm):", None))
+        self.label_ion_mode.setText(QCoreApplication.translate("MainWindow", u"Ion mode:", None))
+        self.lineEdit_add.setText(QCoreApplication.translate("MainWindow", u"Use default", None))
+        self.label_ref.setText(QCoreApplication.translate("MainWindow", u"Reference File:", None))
         self.comboBox_ion_mode.setItemText(0, QCoreApplication.translate("MainWindow", u"Positive", None))
         self.comboBox_ion_mode.setItemText(1, QCoreApplication.translate("MainWindow", u"Negative", None))
 
         self.pushButton_ref.setText(QCoreApplication.translate("MainWindow", u"Browse...", None))
-        self.label_ref.setText(QCoreApplication.translate("MainWindow", u"Reference File:", None))
-        self.lineEdit_add.setText(QCoreApplication.translate("MainWindow", u"Use default", None))
-        self.label_ref_sep.setText(QCoreApplication.translate("MainWindow", u"Separator:", None))
         self.label_lib_sep.setText(QCoreApplication.translate("MainWindow", u"Separator:", None))
-        self.comboBox_ref_sep.setItemText(0, QCoreApplication.translate("MainWindow", u"tab", None))
-        self.comboBox_ref_sep.setItemText(1, QCoreApplication.translate("MainWindow", u"comma", None))
-
-        self.comboBox_lib_sep.setItemText(0, QCoreApplication.translate("MainWindow", u"tab", None))
-        self.comboBox_lib_sep.setItemText(1, QCoreApplication.translate("MainWindow", u"comma", None))
-
+        self.label_add.setText(QCoreApplication.translate("MainWindow", u"Adduct library for mass adjustment:", None))
+        self.pushButton_add.setText(QCoreApplication.translate("MainWindow", u"Browse...", None))
+        self.lineEdit_ref.setText(QCoreApplication.translate("MainWindow", u"Use default", None))
         self.groupBox_save.setTitle("")
         self.label_summ.setText(QCoreApplication.translate("MainWindow", u"Summary:", None))
         self.pushButton_summ_m.setText(QCoreApplication.translate("MainWindow", u"Save as...", None))

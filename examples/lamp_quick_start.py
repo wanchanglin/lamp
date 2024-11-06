@@ -111,6 +111,9 @@ lib_add
 match_1 = anno.comp_match_mass_add(df, ppm, ref, lib_add)
 match_1
 
+# Note that this adducts library is also used to adjust mass calculation in
+# loading reference file if there is a column called `ion_type`.
+#
 # ## Correlation Analysis
 #
 # Next step is correlation analysis, based on intensity data matrix along all

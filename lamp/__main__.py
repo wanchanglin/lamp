@@ -71,8 +71,6 @@ def main():
                                 "separated by this character.")
     parser_am.add_argument('--cal-mass', action="store_true",
                            help="Calculate mass based on NIST database.")
-    parser_am.add_argument('--add-mass', action="store_true",
-                           help="Match compound with adduct mass adjustment.")
     parser_am.add_argument('--add-path', type=str, default=None,
                            required=False,
                            help="Adducts library for compound match mass"
@@ -81,7 +79,6 @@ def main():
                            choices=["tab", "comma"],
                            help="Values in input or output file are "
                                 "separated by this character.")
-
 
     # ---------------------------------------------------------------------
     # results outcome
@@ -119,25 +116,22 @@ def main():
                             sep=separators[args.input_sep])
 
         # -----------------------------------------------------------------
+        # load adducts library for mass adjust if mass calculation is needed
+        lib_add = anno.read_lib(fn=args.add_path,
+                                ion_mode=args.ion_mode,
+                                sep=separators[args.add_sep])
+
+        # -----------------------------------------------------------------
         # load reference library and calculate exact mass if needed.
-        # Note that the reference file format is fixed as either tsv or xlsx
-        # here.
         ref = anno.read_ref(fn=args.ref_path,
                             ion_mode=args.ion_mode,
                             sep=separators[args.ref_sep],
-                            calc=args.cal_mass)
+                            calc=args.cal_mass,
+                            lib_adducts=lib_add)
 
         # -----------------------------------------------------------------
         # match compound based on exact mass
-        if args.add_mass:
-            # match compounds with adduct library mass adjustment
-            lib_add = anno.read_lib(fn=args.add_path,
-                                    ion_mode=args.ion_mode,
-                                    sep=separators[args.add_sep])
-            match = anno.comp_match_mass_add(df, args.ppm, ref, lib_add)
-        else:
-            # match compounds without adduct library mass adjustment
-            match = anno.comp_match_mass(df, args.ppm, ref)
+        match = anno.comp_match_mass(df, args.ppm, ref)
 
         # -----------------------------------------------------------------
         # correlation analysis with corr, pval and rt_diff

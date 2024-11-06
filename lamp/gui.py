@@ -39,7 +39,7 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
         self.pushButton_add.clicked.connect(
             partial(self.open_file, self.lineEdit_add)
         )
-        self.checkBox_mass_adj.clicked.connect(self.annotate_compounds)
+        self.checkBox_mass_cal.clicked.connect(self.annotate_compounds)
 
         # ---- Save results ----
         self.pushButton_summ.clicked.connect(
@@ -64,7 +64,7 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
 
     # ---------------------------------------------------------------------
     def annotate_compounds(self):
-        if self.checkBox_mass_adj.isChecked():
+        if self.checkBox_mass_cal.isChecked():
             self.label_add.setEnabled(True)
             self.pushButton_add.setEnabled(True)
             self.lineEdit_add.setEnabled(True)
@@ -165,37 +165,22 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
             self.spinBox_data_col.value(),
         ]
 
+        # -----------------------------------------------------------------
         df = anno.read_peak(self.lineEdit_data.text(), cols=cols,
                             sep=sepa[self.comboBox_data_sep.currentText()])
-
-        # -----------------------------------------------------------------
-        # calculate exact mass
+        lib_add = anno.read_lib(
+            fn=add_path,
+            ion_mode=mode[self.comboBox_ion_mode.currentText()],
+            sep=sepa[self.comboBox_lib_sep.currentText()]
+        )
         ref = anno.read_ref(
             fn=ref_path,
             ion_mode=mode[self.comboBox_ion_mode.currentText()],
             sep=sepa[self.comboBox_ref_sep.currentText()],
-            calc=self.checkBox_mass_cal.isChecked()
+            calc=self.checkBox_mass_cal.isChecked(),
+            lib_adducts=lib_add
         )
-
-        # -----------------------------------------------------------------
-        # match compound based on exact mass
-        if self.checkBox_mass_adj.isChecked():
-            # match compounds with adduct library mass adjustment
-            lib_add = anno.read_lib(
-                fn=add_path,
-                ion_mode=mode[self.comboBox_ion_mode.currentText()],
-                sep=sepa[self.comboBox_lib_sep.currentText()]
-            )
-
-            match = anno.comp_match_mass_add(df,
-                                             self.doubleSpinBox_ppm.value(),
-                                             ref, lib_add)
-        else:
-            # match compounds without adduct library mass adjustment
-            match = anno.comp_match_mass(df,
-                                         self.doubleSpinBox_ppm.value(),
-                                         ref)
-
+        match = anno.comp_match_mass(df, self.doubleSpinBox_ppm.value(), ref)
         print("\n***Metabolites match done***")
 
         # -----------------------------------------------------------------

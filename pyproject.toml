@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lamps"
-version = "1.0.2"
+version = "1.0.3"
 description = "Liverpool Annotation of metabolites using Mass Spectrometry"
 authors = [
   {name="Wanchang Lin", email="wanchang.lin@liverpool.ac.uk"},
