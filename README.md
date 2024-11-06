@@ -43,39 +43,17 @@ This is the preferred installation method.
 
 ### Conda
 
-(coming soon)
+```bash
+conda install lamps
+```
 
 ### Source
 
-You can install `LAMP` from source. Download zip file and unzip somewhere in
-your PC (Windows, Linux and MacOS) or git-clone this site. For example,
-clone this site for installation:
+Install directly from GitHub: 
 
 ```bash
-git clone https://github.com/wanchanglin/lamp.git  # clone this site
-cd lamp                                            # go to 'LAMP' folder
-pip install .                                      # install 'LAMP'. If no 'pip', try 'pip3'
-lamp gui                                           # run 'LAMP' GUI
-```
-
-If you have already installed `LAMP`, you can use following to update:
-
-```bash
-cd lamp                              # go to 'LAMP'
-git pull                             # update 'LAMP' repository
-pip install . --upgrade --no-deps    # Use 'pip3' if there is no 'pip'
-```
-
-Or install directly from GitHub: 
-
-```bash
-# install
 pip install git+https://github.com/wanchanglin/lamp.git
-
-# update
-pip install git+https://github.com/wanchanglin/lamp.git --upgrade --no-deps --force-reinstall
 ```
-
 
 ## Usages
 
