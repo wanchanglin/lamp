@@ -43,8 +43,10 @@ This is the preferred installation method.
 
 ### Conda
 
+`LAMP` is in `Bioconda` channel and use the following to install for conda:
+
 ```bash
-conda install lamps
+conda install -c bioconda lamps
 ```
 
 ### Source
@@ -60,7 +62,7 @@ pip install git+https://github.com/wanchanglin/lamp.git
 For end users, `LAMP` provides command line and graphical user interfaces.
 
     $ lamp --help
-    Executing lamp version 1.0.0.
+    Executing lamp version 1.0.3.
     usage: lamp [-h] {cli,gui} ...
 
     Compounds Annotation of LC-MS data
