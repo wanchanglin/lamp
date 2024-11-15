@@ -6,7 +6,7 @@ import pandas as pd
 # -------------------------------------------------------------------------
 # wl-04-12-2023, Mon: get correlation coefficients, p-values and rt
 # differences for compound annotation.
-# Note: not feasible to return un-filtered results for large data set (>2000)
+# wl-15-11-2024, Fri: minor changes
 def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
                  method="pearson", positive=True):
     """
@@ -37,7 +37,6 @@ def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
     """
     # get data for correlation analysis
     mat = df.drop(['name', 'mz', 'rt'], axis=1)
-
     mat = mat.T                      # transpose
     mat.columns = df["name"]         # change columns' names
 
@@ -51,34 +50,34 @@ def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
         corr[corr <= thres_corr] = np.nan
     else:
         corr[abs(corr) <= thres_corr] = np.nan
-
     pval[pval >= thres_pval] = np.nan
 
-    # convert short format to long format and remove NaNs
-    corr = df_short2long(corr)
-    corr.rename(columns={'var': 'r_value'}, inplace=True)
-    pval = df_short2long(pval)
-    pval.rename(columns={'var': 'p_value'}, inplace=True)
+    # get rt difference and filter it
+    tmp = df[['name', 'rt']]
+    diff = abs(df_diff(tmp))
+    diff[diff > thres_rt] = np.nan
 
-    # merge (corr and pval's row number may be different so cannot use
-    # pd.concat)
-    tab = corr.merge(pval, on=['com1', 'com2'], how='inner')
-    del corr, pval     # release memory
+    # combine three conditions
+    ind = corr.notnull() & pval.notnull() & diff.notnull()
 
-    if thres_rt is not None:               # get rt diff
-        tmp = df[['name', 'rt']]
-        diff = abs(df_diff(tmp))
-        diff[diff > thres_rt] = np.nan     # filter rt
-        diff = df_short2long(diff)
-        diff = diff.rename(columns={'var': 'rt_diff'}).round({'rt_diff': 2})
-        # merge corr and pval
-        tab = tab.merge(diff, on=['com1', 'com2'], how='inner')
-        del tmp, diff     # release memory
+    # update
+    corr = corr[ind]
+    pval = pval[ind]
+    diff = diff[ind]
 
+    # convert to long format
+    corr = df_short2long(corr).rename(columns={'var': 'r_value'})
+    pval = df_short2long(pval).rename(columns={'var': 'p_value'})
+    diff = df_short2long(diff).rename(columns={'var': 'rt_diff'})
+
+    # merge
     tab = (
-        tab
+        corr
+        .merge(pval, on=['com1', 'com2'], how='inner')
+        .merge(diff, on=['com1', 'com2'], how='inner')
         .rename(columns={"com1": "name_a", "com2": "name_b"})
         .round({'r_value': 2})
+        .round({'rt_diff': 2})
     )
 
     return tab
