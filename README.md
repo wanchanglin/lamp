@@ -107,9 +107,12 @@ Here is an example: :
 
     $ lamp gui
 
-## Documentation
+## Links
 
-Documentation is hosted on [Read the Docs](https://lamp-liverpool-annotation-of-metabolite-using-mass-spectrometry.readthedocs.io/en/latest/).
+- Documentation: [Read the Docs](https://lamp-liverpool-annotation-of-metabolite-using-mass-spectrometry.readthedocs.io/en/latest/)
+- PyPI: https://pypi.org/project/lamps/
+- Bioconda: https://anaconda.org/bioconda/lamps
+- DOI: [10.5281/zenodo.14711459](https://doi.org/10.5281/zenodo.14711458)
 
 ## Authors
 
