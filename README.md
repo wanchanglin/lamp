@@ -57,6 +57,12 @@ Install directly from GitHub:
 pip install git+https://github.com/wanchanglin/lamp.git
 ```
 
+Update directly from GitHub branch `dev`:
+
+```bash
+pip install git+https://github.com/wanchanglin/lamp.git@dev --upgrade --no-deps --force-reinstall
+```
+
 ## Usages
 
 For end users, `LAMP` provides command line and graphical user interfaces.
