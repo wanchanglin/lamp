@@ -7,6 +7,7 @@ import pandas as pd
 # wl-04-12-2023, Mon: get correlation coefficients, p-values and rt
 # differences for compound annotation.
 # wl-15-11-2024, Fri: minor changes
+# wl-29-07-2025, Sun: call updated 'df_corr_pval'
 def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
                  method="pearson", positive=True):
     """
@@ -35,22 +36,18 @@ def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
         A table with differences of retention time, correlation
         coefficients, correlation p-values.
     """
+
     # get data for correlation analysis
     mat = df.drop(['name', 'mz', 'rt'], axis=1)
     mat = mat.T                      # transpose
     mat.columns = df["name"]         # change columns' names
 
     # calculate correlation coefficient and p-values
-    corr, pval = df_corr_pval(mat, method=method)
+    corr, pval = df_corr_pval(mat, thres_corr=thres_corr,
+                              thres_pval=thres_pval, method=method,
+                              positive=positive)
     # corr.isnull().sum()    # check nan
     # pval.isnull().sum()    # check nan
-
-    # filter corr and pval
-    if positive:
-        corr[corr <= thres_corr] = np.nan
-    else:
-        corr[abs(corr) <= thres_corr] = np.nan
-    pval[pval >= thres_pval] = np.nan
 
     # get rt difference and filter it
     tmp = df[['name', 'rt']]
@@ -81,6 +78,105 @@ def comp_corr_rt(df, thres_rt=5.0, thres_corr=0.7, thres_pval=0.05,
     )
 
     return tab
+
+
+# -------------------------------------------------------------------------
+# wl-28-07-2022, Thu: calculate matrix's correlation and p-values
+#   This method calls pandas.DataFrame.corr() twice.
+# wl-27-09-2022, Tue: get p-values from https://bit.ly/3frFFUV
+# wl-05-12-2023, Tue: fix a mis-understanding of sample size (nData)
+# wl-06-12-2023, Wed: 'spearman' is extremely slow. Use rank's 'pearson' as
+#  the alternative (ultimately doing the same calculation). For details, see
+#  https://bit.ly/4a9y1X2
+# wl-18-11-2024, Mon: convert float64 to float32
+# wl-29-07-2025, Sun: filter corr and pval to reduce memory consumption.
+#   (I doubt. Maybe sparse df can be. 02-07-2025, Wed)
+def df_corr_pval(df, thres_corr=0.7, thres_pval=0.05, method="pearson",
+                 positive=True, min_periods=4):
+    """
+    Calculate matrix's correlation and p-values.
+
+    This function calls pandas.DataFrame.corr().
+
+    Parameters
+    ----------
+    df : DataFrame
+        A symmetric data frame.
+    thres_corr : float
+        Threshold for correlation coefficients
+    thres_pval : float
+        Threshold for correlation p-values.
+    method : {'pearson', 'spearman'}
+        Method of correlation:
+        * pearson : standard correlation coefficient
+        * spearman : Spearman rank correlation
+    positive : bool
+        Use positive correlation or not.
+    min_periods : int
+        Minimum number of observations required per pair of columns
+        to have a valid result.
+
+    Returns
+    -------
+    corr : DataFrame
+        Correlation matrix
+    pval : DataFrame
+        p-value matrix
+
+    Examples
+    --------
+    >>> n = 10        # sample size
+    >>> m = 20        # feature size
+    >>> df = pd.DataFrame(np.random.random((n, m)))
+    >>> df.columns = ['col{}'.format(x) for x in range(m)]
+    >>> co, pv = df_corr_pval(df)
+    """
+    def corr_pval_two_side(cc, sample_size):
+        # We will divide by 0 if correlation is exactly 1, but that is no
+        # problem. We would simply set the test statistic to be infinity if
+        # it evaluates to NAN
+        with np.errstate(divide='ignore'):
+            t = -np.abs(cc) * np.sqrt((sample_size - 2) / (1 - cc**2))
+            t[t == np.nan] = np.inf
+            t = t.astype('float32')
+            # multiply by two to get two-sided p-value
+            res = scipy.stats.t.cdf(t, sample_size - 2) * 2
+            return res
+
+    df = df_64_32(df)
+
+    # get correlation. Very fast for 'pearson'.
+    if False:
+        corr = df.corr(method=method, min_periods=min_periods)
+    else:
+        if method == "pearson":
+            corr = df.corr(method="pearson", min_periods=min_periods)
+        elif method == "spearman":  # 06-12-2023, Wed: fast than 'spearman'
+            corr = df.rank().corr(method="pearson", min_periods=min_periods)
+        else:
+            raise ValueError("Method must be either 'pearson' or 'spearman'.")
+
+    corr = corr.astype('float32')
+
+    # filter corr
+    if positive:
+        corr[corr <= thres_corr] = np.nan
+    else:
+        corr[abs(corr) <= thres_corr] = np.nan
+
+    # get p-value by local function
+    # sample size is row of df, not col of df
+    pval = corr_pval_two_side(corr, df.shape[0])
+    pval = pd.DataFrame(pval)
+    # set dimension names as 'corr'
+    pval.index = corr.index
+    pval.columns = corr.columns
+
+    # filter pval
+    pval[pval >= thres_pval] = np.nan
+    pval = pval.astype('float32')
+
+    return corr, pval
 
 
 # -------------------------------------------------------------------------
@@ -153,91 +249,6 @@ def corr_grp(x, corr):
 
 
 # -------------------------------------------------------------------------
-# wl-28-07-2022, Thu: calculate matrix's correlation and p-values
-#   This method calls pandas.DataFrame.corr() twice.
-# wl-27-09-2022, Tue: get p-values from https://bit.ly/3frFFUV
-# wl-05-12-2023, Tue: fix a mis-understanding of sample size (nData)
-# wl-06-12-2023, Wed: 'spearman' is extremely slow. Use rank's 'pearson' as
-#  the alternative (ultimately doing the same calculation). For details, see
-#  https://bit.ly/4a9y1X2
-def df_corr_pval(df, method="pearson", min_periods=4):
-    """
-    Calculate matrix's correlation and p-values.
-
-    This function calls pandas.DataFrame.corr().
-
-    Parameters
-    ----------
-    df : DataFrame
-        A symmetric data frame.
-    method : {'pearson', 'spearman'}
-        Method of correlation:
-        * pearson : standard correlation coefficient
-        * spearman : Spearman rank correlation
-    min_periods : int
-        Minimum number of observations required per pair of columns
-        to have a valid result.
-
-    Returns
-    -------
-    corr : DataFrame
-        Correlation matrix
-    pval : DataFrame
-        p-value matrix
-
-    Examples
-    --------
-    >>> n = 10        # sample size
-    >>> m = 20        # feature size
-    >>> df = pd.DataFrame(np.random.random((n, m)))
-    >>> df.columns = ['col{}'.format(x) for x in range(m)]
-    >>> co, pv = df_corr_pval(df)
-    """
-    def corr_pval_two_side(cc, nData):
-        # We will divide by 0 if correlation is exactly 1, but that is no
-        # problem. We would simply set the test statistic to be infinity if
-        # it evaluates to NAN
-        with np.errstate(divide='ignore'):
-            t = -np.abs(cc) * np.sqrt((nData - 2) / (1 - cc**2))
-            t[t == np.nan] = np.inf
-            # multiply by two to get two-sided p-value
-            return scipy.stats.t.cdf(t, nData - 2) * 2
-
-    # get correlation. Very fast for 'pearson'.
-    if False:
-        corr = df.corr(method=method, min_periods=min_periods)
-    else:
-        if method == "pearson":
-            corr = df.corr(method="pearson", min_periods=min_periods)
-        elif method == "spearman":  # 06-12-2023, Wed: fast than 'spearman'
-            corr = df.rank().corr(method="pearson", min_periods=min_periods)
-        else:
-            raise ValueError("Method must be either 'pearson' or 'spearman'.")
-
-    flag = False
-    if flag:    # call df.corr again
-        if method == "pearson":
-            meth_corr = scipy.stats.pearsonr
-        elif method == "spearman":
-            meth_corr = scipy.stats.spearmanr
-        else:
-            raise ValueError("Method must be either 'pearson' or 'spearman'.")
-        # get p-values
-        pval = df.corr(method=lambda x, y: meth_corr(x, y)[1],
-                       min_periods=min_periods) - np.eye(len(df.columns))
-    else:       # use local function
-        # sample size is row of df, not col of df
-        pval = corr_pval_two_side(corr, df.shape[0])
-        # pval = corr_to_pval(corr, df.shape[0])
-        pval = pd.DataFrame(pval)
-        # set dimension names as 'corr'
-        pval.index = corr.index
-        pval.columns = corr.columns
-
-    return corr, pval
-
-
-# -------------------------------------------------------------------------
 # wl-04-12-2023, Mon: Convert short to long format and remove NAs
 # Note that this function will remove NAs.
 def df_short2long(df):
@@ -288,6 +299,7 @@ def df_short2long(df):
 # -------------------------------------------------------------------------
 # wl-25-07-2022, Mon: calculate pairwise difference
 # See https://bit.ly/3outZSs for details.
+# wl-18-11-2024, Mon: convert float64 to float32
 def df_diff(df):
     """
     Calculate pairwise difference of a data frame.
@@ -309,12 +321,41 @@ def df_diff(df):
     >>> df_diff(tmp)
     """
 
+    df = df_64_32(df)
+
     # use apply to get symmetric difference matrix
-    arr = df.iloc[:, 1].apply(lambda x: df.iloc[:, 1] - x)
-    # arr = abs(arr)
+    dif = df.iloc[:, 1].apply(lambda x: df.iloc[:, 1] - x)
+    # dif = abs(dif)
 
     # change row ad column names
-    arr.index = list(df.iloc[:, 0])
-    arr.columns = list(df.iloc[:, 0])
+    dif.index = list(df.iloc[:, 0])
+    dif.columns = list(df.iloc[:, 0])
 
-    return arr
+    return dif
+
+
+# -------------------------------------------------------------------------
+# wl-18-11-2024, Mon: convert float64 to float32
+def df_64_32(df):
+    """
+    Convert Pandas dataframe's float64 columns to float32.
+
+    Parameters
+    ----------
+    df : DataFrame
+        A data frame with float64 columns.
+
+    Returns
+    -------
+    DataFrame
+        A converted data frame.
+
+    Notes
+    -----
+    This function is used to large dataset's correlation analysis.
+    """
+    # 25-06-2025, Wed: add this line otherwise will change in-place
+    df = df.copy()
+    df[df.select_dtypes(np.float64).columns] = df.select_dtypes(
+        np.float64).astype(np.float32)
+    return df
