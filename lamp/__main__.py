@@ -53,7 +53,7 @@ def main():
                            choices=["pearson", "spearman"],
                            help="Correlation method.")
     parser_am.add_argument('--positive', action='store_true',
-                           help="Positive corelation coefficients or not.")
+                           help="Positive correlation coefficients or not.")
 
     # ---------------------------------------------------------------------
     # compounds annotation with reference and adduct files
@@ -96,7 +96,7 @@ def main():
                            help="Values in input or output file are "
                                 "separated by this character.")
     parser_am.add_argument('--mr-out', type=str, required=True,
-                           help="Compound annotation results in mutiple"
+                           help="Compound annotation results in multiple"
                                 " row format")
     parser_am.add_argument('--mr-sep', default="tab", type=str,
                            choices=["tab", "comma"],

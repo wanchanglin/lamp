@@ -1,0 +1,3 @@
+[codespell]
+skip = .git, docs, build, *.tsv, *.csv, *.html, *.XML, *.js, *.txt
+ignore-words-list = lamp 

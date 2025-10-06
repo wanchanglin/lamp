@@ -545,7 +545,7 @@ class Ui_MainWindow(object):
 
         self.groupBox_group.setTitle("")
         self.checkBox_pos.setText(QCoreApplication.translate("MainWindow", u"Positive correlation", None))
-        self.label_thres_corr.setText(QCoreApplication.translate("MainWindow", u"Coefficent threshold:", None))
+        self.label_thres_corr.setText(QCoreApplication.translate("MainWindow", u"Coefficient threshold:", None))
         self.label_thres_pval.setText(QCoreApplication.translate("MainWindow", u"P-value threshold:", None))
         self.label_group.setText(QCoreApplication.translate("MainWindow", u"Group Features", None))
         self.label_thres_rt.setText(QCoreApplication.translate("MainWindow", u"RT difference threshold:", None))
@@ -558,7 +558,7 @@ class Ui_MainWindow(object):
         self.comboBox_ref_sep.setItemText(0, QCoreApplication.translate("MainWindow", u"tab", None))
         self.comboBox_ref_sep.setItemText(1, QCoreApplication.translate("MainWindow", u"comma", None))
 
-        self.label_annotate.setText(QCoreApplication.translate("MainWindow", u"Annotate Coumpounds / Motabolites", None))
+        self.label_annotate.setText(QCoreApplication.translate("MainWindow", u"Annotate Compounds / Motabolites", None))
         self.label_ref_sep.setText(QCoreApplication.translate("MainWindow", u"Separator:", None))
         self.comboBox_lib_sep.setItemText(0, QCoreApplication.translate("MainWindow", u"tab", None))
         self.comboBox_lib_sep.setItemText(1, QCoreApplication.translate("MainWindow", u"comma", None))

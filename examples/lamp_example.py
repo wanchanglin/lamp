@@ -21,7 +21,7 @@ ref_path = ""
 cal_mass = True
 add_mass = False
 
-# load refernce library
+# load reference library
 ref = anno.read_ref(ref_path, ion_mode, calc=cal_mass)
 ref
 

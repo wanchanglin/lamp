@@ -365,7 +365,7 @@
             <bool>true</bool>
            </property>
            <property name="text">
-            <string>Coefficent threshold:</string>
+            <string>Coefficient threshold:</string>
            </property>
           </widget>
          </item>
@@ -540,7 +540,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Annotate Coumpounds / Motabolites</string>
+            <string>Annotate Compounds / Motabolites</string>
            </property>
           </widget>
          </item>
