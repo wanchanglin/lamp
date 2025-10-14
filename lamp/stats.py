@@ -312,7 +312,7 @@ def df_diff(df):
     Returns
     -------
     DataFrame
-        A data frome with pair-wise differences.
+        A data from with pair-wise differences.
 
     Examples
     --------
