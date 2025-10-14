@@ -3,7 +3,7 @@ import re
 import sqlite3
 import pandas as pd
 import numpy as np
-import janitor
+import janitor      # remove_empty()
 from pyteomics import mass
 from collections import OrderedDict
 import lamp
@@ -95,6 +95,7 @@ def comp_summ(pk, comp, unique=False):
 # wl-20-05-2024, Mon: merge compound annotation
 # wl-14-08-2024, Wed: give explanation of this function.
 # wl-22-08-2024, Thu: add a flag for unique result or not
+# wl-17-09-2025, Wed: add 'total_matching' for non-unique result
 def comp_merge(comp, unique=False):
     """
     Merge compound annotation.
@@ -118,21 +119,21 @@ def comp_merge(comp, unique=False):
     # Join string from a list
     # join_str(['ab', 'ab', 'efg', 'cd', 'efg', 'cd', 'efg', 'cd', 'efg'])
     def join_str(s):
-        s = [x for x in s if x]
+        # s = [x for x in s if x]
         return '::'.join(s)
 
     # --------------------------------------------------------------------
     # Join unique string from a list
     # uni_str(['ab', 'ab', 'efg', 'cd', 'efg', 'cd', 'efg', 'cd', 'efg'])
     def uni_str(s):
-        s = [x for x in s if x]
+        # s = [x for x in s if x]
         return '::'.join(list(set(s)))
 
     # -------------------------------------------------------------------
     # Count unique string from a list
     # uni_count(['ab', 'ab', 'efg', 'cd', 'efg', 'cd', 'efg', 'cd', 'efg'])
     def uni_count(s):
-        s = [x for x in s if x]
+        # s = [x for x in s if x]
         return len(list(set(s)))
 
     # Get unique string and count or not
@@ -148,15 +149,26 @@ def comp_merge(comp, unique=False):
             .rename_axis("name").reset_index()    # add rowname as a column
         )
     else:
-        tmp = (
+        tmp_1 = (
             comp
             .select_dtypes(include='object')      # only select string
             # .drop("mz", axis=1)
             .groupby("id")
             # .groupby("id", as_index=False)
             .agg(join_str)
-            .rename_axis("name").reset_index()    # add rowname as a column
+            .rename_axis("name").reset_index()    # add row-name as a column
         )
+        # wl-17-09-2025, Wed: add matching count using apply on groupby
+        tmp_2 = (
+            comp
+            .select_dtypes(include='object')      # only select string
+            .groupby("id", group_keys=False)
+            .apply(lambda x: x.shape[0], include_groups=False)
+            .rename_axis("name").reset_index()    # add row-name as a column
+            .rename(columns={0: "total_match"})
+        )
+        # merge two parts
+        tmp = tmp_1.merge(tmp_2, on="name", how="left")
 
     # Get non-string columns
     # wl-15-08-2024, Thu: fix a bug
@@ -331,6 +343,10 @@ def comp_match_mass(peak, ppm, ref):
     cols_to_move = ['id', 'mz']
     res = res[cols_to_move +
               [x for x in res.columns if x not in cols_to_move]]
+
+    # wl-17-09-2025, Wed: convert all ref as string
+    cols = ref.columns.to_list()
+    res = res.assign(**{c: lambda x, y=c: x[y].astype(str) for c in cols})
 
     con.close()
 
@@ -808,10 +824,8 @@ def read_ref(fn="", ion_mode="pos", sheet_name=0, sep="\t", calc=False,
         path = 'lib/GSMM_LAMP_ReferenceFile_v1_281024.xlsx'
         fn = os.path.join(
             os.path.dirname(os.path.abspath(lamp.__file__)), path
-        )
-        # fn = os.path.join(
         #     os.path.dirname(os.path.abspath(__file__)), path
-        # )
+        )
 
     ext = os.path.splitext(fn)[1][1:]
     if ext in ['xls', 'xlsx']:
@@ -900,10 +914,8 @@ def read_lib(fn="", ion_mode="pos", sheet_name=0, sep="\t"):
         path = 'lib/adducts.txt'
         fn = os.path.join(
             os.path.dirname(os.path.abspath(lamp.__file__)), path
-        )
-        # fn = os.path.join(
         #     os.path.dirname(os.path.abspath(__file__)), path
-        # )
+        )
         sep = "\t"
 
     ext = os.path.splitext(fn)[1][1:]
