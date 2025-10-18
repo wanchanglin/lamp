@@ -68,7 +68,7 @@ pip install git+https://github.com/wanchanglin/lamp.git@dev --upgrade --no-deps 
 For end users, `LAMP` provides command line and graphical user interfaces.
 
     $ lamp --help
-    Executing lamp version 1.0.3.
+    Executing lamp version 1.0.4.
     usage: lamp [-h] {cli,gui} ...
 
     Compounds Annotation of LC-MS data

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'lamp_form.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.0
+## Created by: Qt User Interface Compiler version 6.9.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -36,11 +36,11 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.scrollArea = QScrollArea(self.centralwidget)
         self.scrollArea.setObjectName(u"scrollArea")
-        self.scrollArea.setGeometry(QRect(0, 0, 841, 661))
+        self.scrollArea.setGeometry(QRect(0, 0, 841, 651))
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 839, 659))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 839, 649))
         self.verticalLayout_2 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.groupBox_input = QGroupBox(self.scrollAreaWidgetContents)
@@ -403,25 +403,52 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setVerticalSpacing(5)
         self.gridLayout_2.setContentsMargins(10, 5, 10, 5)
-        self.label_summ = QLabel(self.groupBox_save)
-        self.label_summ.setObjectName(u"label_summ")
-        self.label_summ.setEnabled(True)
+        self.label_ext = QLabel(self.groupBox_save)
+        self.label_ext.setObjectName(u"label_ext")
+        self.label_ext.setEnabled(True)
 
-        self.gridLayout_2.addWidget(self.label_summ, 2, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_ext, 3, 6, 1, 1)
 
-        self.pushButton_summ_m = QPushButton(self.groupBox_save)
-        self.pushButton_summ_m.setObjectName(u"pushButton_summ_m")
-        self.pushButton_summ_m.setEnabled(True)
-        self.pushButton_summ_m.setMinimumSize(QSize(95, 23))
-        self.pushButton_summ_m.setMaximumSize(QSize(95, 16777215))
+        self.lineEdit_sql = QLineEdit(self.groupBox_save)
+        self.lineEdit_sql.setObjectName(u"lineEdit_sql")
+        self.lineEdit_sql.setEnabled(True)
+        self.lineEdit_sql.setMinimumSize(QSize(150, 0))
+        self.lineEdit_sql.setMaximumSize(QSize(150, 16777215))
+        self.lineEdit_sql.setReadOnly(True)
 
-        self.gridLayout_2.addWidget(self.pushButton_summ_m, 4, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.lineEdit_sql, 9, 1, 1, 1)
+
+        self.pushButton_summ = QPushButton(self.groupBox_save)
+        self.pushButton_summ.setObjectName(u"pushButton_summ")
+        self.pushButton_summ.setMinimumSize(QSize(63, 23))
+
+        self.gridLayout_2.addWidget(self.pushButton_summ, 3, 3, 1, 1)
 
         self.label_save = QLabel(self.groupBox_save)
         self.label_save.setObjectName(u"label_save")
         self.label_save.setFont(font)
 
         self.gridLayout_2.addWidget(self.label_save, 1, 0, 1, 1)
+
+        self.label_sql = QLabel(self.groupBox_save)
+        self.label_sql.setObjectName(u"label_sql")
+        self.label_sql.setEnabled(True)
+
+        self.gridLayout_2.addWidget(self.label_sql, 9, 0, 1, 1)
+
+        self.label_summ = QLabel(self.groupBox_save)
+        self.label_summ.setObjectName(u"label_summ")
+        self.label_summ.setEnabled(True)
+
+        self.gridLayout_2.addWidget(self.label_summ, 3, 0, 1, 1)
+
+        self.pushButton_sql = QPushButton(self.groupBox_save)
+        self.pushButton_sql.setObjectName(u"pushButton_sql")
+        self.pushButton_sql.setEnabled(True)
+        self.pushButton_sql.setMinimumSize(QSize(95, 23))
+        self.pushButton_sql.setMaximumSize(QSize(95, 16777215))
+
+        self.gridLayout_2.addWidget(self.pushButton_sql, 9, 3, 1, 1)
 
         self.lineEdit_summ = QLineEdit(self.groupBox_save)
         self.lineEdit_summ.setObjectName(u"lineEdit_summ")
@@ -432,78 +459,16 @@ class Ui_MainWindow(object):
         self.lineEdit_summ.setSizePolicy(sizePolicy4)
         self.lineEdit_summ.setReadOnly(True)
 
-        self.gridLayout_2.addWidget(self.lineEdit_summ, 2, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.lineEdit_summ, 3, 1, 1, 1)
 
-        self.label_sep = QLabel(self.groupBox_save)
-        self.label_sep.setObjectName(u"label_sep")
-        self.label_sep.setEnabled(True)
+        self.comboBox_ext = QComboBox(self.groupBox_save)
+        self.comboBox_ext.addItem("")
+        self.comboBox_ext.addItem("")
+        self.comboBox_ext.addItem("")
+        self.comboBox_ext.setObjectName(u"comboBox_ext")
+        self.comboBox_ext.setEditable(False)
 
-        self.gridLayout_2.addWidget(self.label_sep, 2, 6, 1, 1)
-
-        self.lineEdit_summ_m = QLineEdit(self.groupBox_save)
-        self.lineEdit_summ_m.setObjectName(u"lineEdit_summ_m")
-        self.lineEdit_summ_m.setEnabled(True)
-        self.lineEdit_summ_m.setMinimumSize(QSize(150, 0))
-        self.lineEdit_summ_m.setMaximumSize(QSize(150, 16777215))
-        self.lineEdit_summ_m.setReadOnly(True)
-
-        self.gridLayout_2.addWidget(self.lineEdit_summ_m, 4, 1, 1, 1)
-
-        self.pushButton_sql = QPushButton(self.groupBox_save)
-        self.pushButton_sql.setObjectName(u"pushButton_sql")
-        self.pushButton_sql.setEnabled(True)
-        self.pushButton_sql.setMinimumSize(QSize(95, 23))
-        self.pushButton_sql.setMaximumSize(QSize(95, 16777215))
-
-        self.gridLayout_2.addWidget(self.pushButton_sql, 7, 3, 1, 1)
-
-        self.pushButton_summ = QPushButton(self.groupBox_save)
-        self.pushButton_summ.setObjectName(u"pushButton_summ")
-        self.pushButton_summ.setMinimumSize(QSize(63, 23))
-
-        self.gridLayout_2.addWidget(self.pushButton_summ, 2, 3, 1, 1)
-
-        self.lineEdit_sql = QLineEdit(self.groupBox_save)
-        self.lineEdit_sql.setObjectName(u"lineEdit_sql")
-        self.lineEdit_sql.setEnabled(True)
-        self.lineEdit_sql.setMinimumSize(QSize(150, 0))
-        self.lineEdit_sql.setMaximumSize(QSize(150, 16777215))
-        self.lineEdit_sql.setReadOnly(True)
-
-        self.gridLayout_2.addWidget(self.lineEdit_sql, 7, 1, 1, 1)
-
-        self.label_sql = QLabel(self.groupBox_save)
-        self.label_sql.setObjectName(u"label_sql")
-        self.label_sql.setEnabled(True)
-
-        self.gridLayout_2.addWidget(self.label_sql, 7, 0, 1, 1)
-
-        self.label_summ_m = QLabel(self.groupBox_save)
-        self.label_summ_m.setObjectName(u"label_summ_m")
-        self.label_summ_m.setEnabled(True)
-
-        self.gridLayout_2.addWidget(self.label_summ_m, 4, 0, 1, 1)
-
-        self.comboBox_sep = QComboBox(self.groupBox_save)
-        self.comboBox_sep.addItem("")
-        self.comboBox_sep.addItem("")
-        self.comboBox_sep.setObjectName(u"comboBox_sep")
-        sizePolicy3.setHeightForWidth(self.comboBox_sep.sizePolicy().hasHeightForWidth())
-        self.comboBox_sep.setSizePolicy(sizePolicy3)
-
-        self.gridLayout_2.addWidget(self.comboBox_sep, 2, 7, 1, 1)
-
-        self.label_sep_m = QLabel(self.groupBox_save)
-        self.label_sep_m.setObjectName(u"label_sep_m")
-
-        self.gridLayout_2.addWidget(self.label_sep_m, 4, 6, 1, 1)
-
-        self.comboBox_sep_m = QComboBox(self.groupBox_save)
-        self.comboBox_sep_m.addItem("")
-        self.comboBox_sep_m.addItem("")
-        self.comboBox_sep_m.setObjectName(u"comboBox_sep_m")
-
-        self.gridLayout_2.addWidget(self.comboBox_sep_m, 4, 7, 1, 1)
+        self.gridLayout_2.addWidget(self.comboBox_ext, 3, 7, 1, 1)
 
 
         self.verticalLayout_2.addWidget(self.groupBox_save)
@@ -511,14 +476,18 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.pushButton_cancel = QPushButton(self.centralwidget)
         self.pushButton_cancel.setObjectName(u"pushButton_cancel")
-        self.pushButton_cancel.setGeometry(QRect(710, 670, 61, 21))
+        self.pushButton_cancel.setGeometry(QRect(670, 660, 71, 31))
         self.pushButton_cancel.setMaximumSize(QSize(16777204, 16777215))
         self.pushButton_start = QPushButton(self.centralwidget)
         self.pushButton_start.setObjectName(u"pushButton_start")
-        self.pushButton_start.setGeometry(QRect(780, 670, 61, 23))
+        self.pushButton_start.setGeometry(QRect(760, 660, 61, 31))
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+
+        self.comboBox_ref_sep.setCurrentIndex(1)
+        self.comboBox_ext.setCurrentIndex(0)
+
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -545,7 +514,7 @@ class Ui_MainWindow(object):
 
         self.groupBox_group.setTitle("")
         self.checkBox_pos.setText(QCoreApplication.translate("MainWindow", u"Positive correlation", None))
-        self.label_thres_corr.setText(QCoreApplication.translate("MainWindow", u"Coefficient threshold:", None))
+        self.label_thres_corr.setText(QCoreApplication.translate("MainWindow", u"Coefficent threshold:", None))
         self.label_thres_pval.setText(QCoreApplication.translate("MainWindow", u"P-value threshold:", None))
         self.label_group.setText(QCoreApplication.translate("MainWindow", u"Group Features", None))
         self.label_thres_rt.setText(QCoreApplication.translate("MainWindow", u"RT difference threshold:", None))
@@ -558,7 +527,7 @@ class Ui_MainWindow(object):
         self.comboBox_ref_sep.setItemText(0, QCoreApplication.translate("MainWindow", u"tab", None))
         self.comboBox_ref_sep.setItemText(1, QCoreApplication.translate("MainWindow", u"comma", None))
 
-        self.label_annotate.setText(QCoreApplication.translate("MainWindow", u"Annotate Compounds / Motabolites", None))
+        self.label_annotate.setText(QCoreApplication.translate("MainWindow", u"Annotate Coumpounds / Motabolites", None))
         self.label_ref_sep.setText(QCoreApplication.translate("MainWindow", u"Separator:", None))
         self.comboBox_lib_sep.setItemText(0, QCoreApplication.translate("MainWindow", u"tab", None))
         self.comboBox_lib_sep.setItemText(1, QCoreApplication.translate("MainWindow", u"comma", None))
@@ -576,24 +545,19 @@ class Ui_MainWindow(object):
         self.pushButton_add.setText(QCoreApplication.translate("MainWindow", u"Browse...", None))
         self.lineEdit_ref.setText(QCoreApplication.translate("MainWindow", u"Use default", None))
         self.groupBox_save.setTitle("")
-        self.label_summ.setText(QCoreApplication.translate("MainWindow", u"Summary:", None))
-        self.pushButton_summ_m.setText(QCoreApplication.translate("MainWindow", u"Save as...", None))
-        self.label_save.setText(QCoreApplication.translate("MainWindow", u"Save Results", None))
-        self.lineEdit_summ.setText("")
-        self.label_sep.setText(QCoreApplication.translate("MainWindow", u"Separator:", None))
-        self.lineEdit_summ_m.setText("")
-        self.pushButton_sql.setText(QCoreApplication.translate("MainWindow", u"Save as...", None))
-        self.pushButton_summ.setText(QCoreApplication.translate("MainWindow", u"Save as...", None))
+        self.label_ext.setText(QCoreApplication.translate("MainWindow", u"File Format:", None))
         self.lineEdit_sql.setText("")
+        self.pushButton_summ.setText(QCoreApplication.translate("MainWindow", u"Save as...", None))
+        self.label_save.setText(QCoreApplication.translate("MainWindow", u"Save Results", None))
         self.label_sql.setText(QCoreApplication.translate("MainWindow", u"SQLite database:", None))
-        self.label_summ_m.setText(QCoreApplication.translate("MainWindow", u"Summary in multiple rows:", None))
-        self.comboBox_sep.setItemText(0, QCoreApplication.translate("MainWindow", u"tab", None))
-        self.comboBox_sep.setItemText(1, QCoreApplication.translate("MainWindow", u"comma", None))
+        self.label_summ.setText(QCoreApplication.translate("MainWindow", u"Summary:", None))
+        self.pushButton_sql.setText(QCoreApplication.translate("MainWindow", u"Save as...", None))
+        self.lineEdit_summ.setText("")
+        self.comboBox_ext.setItemText(0, QCoreApplication.translate("MainWindow", u"xlsx", None))
+        self.comboBox_ext.setItemText(1, QCoreApplication.translate("MainWindow", u"tsv", None))
+        self.comboBox_ext.setItemText(2, QCoreApplication.translate("MainWindow", u"csv", None))
 
-        self.label_sep_m.setText(QCoreApplication.translate("MainWindow", u"Separator:", None))
-        self.comboBox_sep_m.setItemText(0, QCoreApplication.translate("MainWindow", u"tab", None))
-        self.comboBox_sep_m.setItemText(1, QCoreApplication.translate("MainWindow", u"comma", None))
-
+        self.comboBox_ext.setCurrentText(QCoreApplication.translate("MainWindow", u"xlsx", None))
         self.pushButton_cancel.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
         self.pushButton_start.setText(QCoreApplication.translate("MainWindow", u"Start", None))
     # retranslateUi

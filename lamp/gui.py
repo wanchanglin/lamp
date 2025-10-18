@@ -6,10 +6,10 @@
 import os
 import sys
 import sqlite3
+import pandas as pd
 from functools import partial
 from PySide6 import QtCore, QtWidgets
 from lamp.qt import lamp_form
-# from lamp import qt       # wl-07-10-2024, Mon: not work
 from lamp import anno
 from lamp import stats
 from lamp import utils
@@ -43,10 +43,7 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
 
         # ---- Save results ----
         self.pushButton_summ.clicked.connect(
-            partial(self.save_file, self.lineEdit_summ, "anno_summ.tsv")
-        )
-        self.pushButton_summ_m.clicked.connect(
-            partial(self.save_file, self.lineEdit_summ_m, "anno_summ_m.tsv")
+            partial(self.save_file, self.lineEdit_summ, "anno_summ")
         )
         self.pushButton_sql.clicked.connect(
             partial(self.save_file,
@@ -229,15 +226,21 @@ class lamp_app(QtWidgets.QMainWindow, lamp_form.Ui_MainWindow):
         conn.commit()
         conn.close()
 
-        # save multiple row results or not
-        mr.to_csv(self.lineEdit_summ_m.text(),
-                  sep=sepa[self.comboBox_sep_m.currentText()],
-                  index=False)
-
-        # save results
-        res.to_csv(self.lineEdit_summ.text(),
-                   sep=sepa[self.comboBox_sep.currentText()],
-                   index=False)
+        if self.comboBox_ext.currentText() == "xlsx":
+            xlsx_out = self.lineEdit_summ.text() + ".xlsx"
+            with pd.ExcelWriter(xlsx_out, mode="w", engine="openpyxl") as writer:
+                res.to_excel(writer, sheet_name="single-row", index=False)
+                mr.to_excel(writer, sheet_name="multiple-row", index=False)
+        elif self.comboBox_ext.currentText() == "tsv":
+            tsv_out_s = self.lineEdit_summ.text() + "_s.tsv"
+            tsv_out_m = self.lineEdit_summ.text() + "_m.tsv"
+            res.to_csv(tsv_out_s, sep="\t", index=False)
+            mr.to_csv(tsv_out_m, sep="\t", index=False)
+        else:
+            csv_out_s = self.lineEdit_summ.text() + "_s.csv"
+            csv_out_m = self.lineEdit_summ.text() + "_m.csv"
+            res.to_csv(csv_out_s, sep=",", index=False)
+            mr.to_csv(csv_out_m, sep=",", index=False)
 
         print("\n***Save results done. You may close this app.***\n")
 

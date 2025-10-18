@@ -90,7 +90,7 @@ def main():
     parser_am.add_argument('--db-out', type=str, required=True,
                            help="All results saved in a sqlite database.")
     parser_am.add_argument('--sr-out', type=str, required=True,
-                           help="Compound annotation reseults")
+                           help="Compound annotation results")
     parser_am.add_argument('--sr-sep', default="tab", type=str,
                            choices=["tab", "comma"],
                            help="Values in input or output file are "
