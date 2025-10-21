@@ -41,12 +41,25 @@ pip install lamps
 
 This is the preferred installation method.
 
+Use the following to update if `lamps` has been installed before:
+
+```bash
+pip install lamps --upgrade    # upgrade to the newest version
+```
+
 ### Conda
 
-`LAMP` is in `Bioconda` channel and use the following to install for conda:
+`LAMP` is in `Bioconda` channel and use the following to install or update
+for conda:
 
 ```bash
 conda install -c bioconda lamps
+```
+
+Use the following to update if `lamps` has been installed before:
+
+```bash
+conda update -c bioconda lamps       # upgrade to the newest version
 ```
 
 ### Source
