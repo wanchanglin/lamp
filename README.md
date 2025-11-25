@@ -102,7 +102,7 @@ Use the follow command line to launch CLI mode: :
 
 Here is an example: :
 
-    lamp cmd \
+    lamp cli \
       --sep "tab" \
       --input-data "./data/df_pos_3.tsv" \
       --col-idx "1, 2, 3, 4" \
