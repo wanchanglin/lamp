@@ -845,7 +845,7 @@ def read_ref(fn="", ion_mode="pos", sheet_name=0, sep="\t", calc=False,
         df = df.rename(columns={"name": "compound_name"})
     if "exact_mass" not in df.columns and "m_z" in df.columns:
         df = df.rename(columns={"m_z": "exact_mass"})
-    else:
+    if "exact_mass" not in df.columns and "ion_m_z" in df.columns:
         df = df.rename(columns={"ion_m_z": "exact_mass"})
 
     # reference file must have either "molecular_formula" or "exact_mass",
