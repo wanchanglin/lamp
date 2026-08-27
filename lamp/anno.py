@@ -96,6 +96,7 @@ def comp_summ(pk, comp, unique=False):
 # wl-14-08-2024, Wed: give explanation of this function.
 # wl-22-08-2024, Thu: add a flag for unique result or not
 # wl-17-09-2025, Wed: add 'total_matching' for non-unique result
+# wl-27-08-2026, Thu: replace 'object' with 'str' for new 'pandas'
 def comp_merge(comp, unique=False):
     """
     Merge compound annotation.
@@ -140,7 +141,7 @@ def comp_merge(comp, unique=False):
     if unique:
         tmp = (
             comp
-            .select_dtypes(include='object')      # only select string
+            .select_dtypes(include='str')      # only select string
             .groupby("id")
             .agg([uni_str, uni_count])
             .pipe(flatten_cols)
@@ -151,7 +152,7 @@ def comp_merge(comp, unique=False):
     else:
         tmp_1 = (
             comp
-            .select_dtypes(include='object')      # only select string
+            .select_dtypes(include='str')      # only select string
             # .drop("mz", axis=1)
             .groupby("id")
             # .groupby("id", as_index=False)
@@ -161,7 +162,7 @@ def comp_merge(comp, unique=False):
         # wl-17-09-2025, Wed: add matching count using apply on groupby
         tmp_2 = (
             comp
-            .select_dtypes(include='object')      # only select string
+            .select_dtypes(include='str')      # only select string
             .groupby("id", group_keys=False)
             .apply(lambda x: x.shape[0], include_groups=False)
             .rename_axis("name").reset_index()    # add row-name as a column
@@ -172,7 +173,7 @@ def comp_merge(comp, unique=False):
 
     # Get non-string columns
     # wl-15-08-2024, Thu: fix a bug
-    num = list(comp.select_dtypes(exclude=['object']).columns)
+    num = list(comp.select_dtypes(exclude=['str']).columns)
     num.insert(0, "id")
     tmp1 = (
         comp
