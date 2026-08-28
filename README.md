@@ -64,7 +64,7 @@ conda update -c bioconda lamps       # upgrade to the newest version
 
 ### Source
 
-Install directly from GitHub: 
+Install directly from GitHub:
 
 ```bash
 pip install git+https://github.com/wanchanglin/lamp.git
@@ -73,7 +73,7 @@ pip install git+https://github.com/wanchanglin/lamp.git
 Update directly from GitHub branch `dev`:
 
 ```bash
-pip install git+https://github.com/wanchanglin/lamp.git@dev --upgrade --no-deps --force-reinstall
+pip install git+https://github.com/wanchanglin/lamp.git@dev --upgrade --force-reinstall
 ```
 
 ## Usages
