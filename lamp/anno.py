@@ -97,6 +97,7 @@ def comp_summ(pk, comp, unique=False):
 # wl-22-08-2024, Thu: add a flag for unique result or not
 # wl-17-09-2025, Wed: add 'total_matching' for non-unique result
 # wl-27-08-2026, Thu: replace 'object' with 'str' for new 'pandas'
+# wl-28-08-2026, Fri: replace missing values with empty ('')
 def comp_merge(comp, unique=False):
     """
     Merge compound annotation.
@@ -118,7 +119,12 @@ def comp_merge(comp, unique=False):
     """
     # --------------------------------------------------------------------
     # Join string from a list
+    # usages:
     # join_str(['ab', 'ab', 'efg', 'cd', 'efg', 'cd', 'efg', 'cd', 'efg'])
+    # For missing values: (wl-28-08-2026, Fri)
+    # s = ['DB04474', np.nan, np.nan]
+    # s = ['' if str(x)=='nan' else x for x in l]
+    # join_str(s)
     def join_str(s):
         # s = [x for x in s if x]
         return '::'.join(s)
@@ -142,6 +148,7 @@ def comp_merge(comp, unique=False):
         tmp = (
             comp
             .select_dtypes(include='str')      # only select string
+            .fillna('')
             .groupby("id")
             .agg([uni_str, uni_count])
             .pipe(flatten_cols)
@@ -153,6 +160,7 @@ def comp_merge(comp, unique=False):
         tmp_1 = (
             comp
             .select_dtypes(include='str')      # only select string
+            .fillna('')
             # .drop("mz", axis=1)
             .groupby("id")
             # .groupby("id", as_index=False)
@@ -163,6 +171,7 @@ def comp_merge(comp, unique=False):
         tmp_2 = (
             comp
             .select_dtypes(include='str')      # only select string
+            .fillna('')
             .groupby("id", group_keys=False)
             .apply(lambda x: x.shape[0], include_groups=False)
             .rename_axis("name").reset_index()    # add row-name as a column
